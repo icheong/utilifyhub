@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>Free Online Aspect Ratio Calculator | Screen & Image Scaler | UtilifyHub</title>
+  <meta name="description" content="Calculate aspect ratios and scale resolutions instantly. Free client-side tool with common presets (16:9, 4:3, 1:1, 9:16) for designers, developers, and video editors.">
+  <meta name="keywords" content="aspect ratio calculator, resolution scaler, calculate aspect ratio, 16:9 ratio, image ratio scaler, screen size calculator, developer tools">
+  
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    .ratio-preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .preset-btn {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-align: center;
+      transition: var(--transition-fast);
+    }
+    .preset-btn:hover, .preset-btn.active {
+      color: #fff;
+      background-color: var(--accent-primary-glow);
+      border-color: var(--accent-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <a href="../../index.html" class="brand" id="brand-link">
+          <div class="brand-logo">U</div>
+          <span class="brand-name">UtilifyHub</span>
+        </a>
+      </div>
+      
+      <nav class="header-actions">
+        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+      
+      <!-- Left sidebar navigation -->
+      <aside class="app-sidebar">
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Popular Tools</h2>
+          <ul class="sidebar-menu">
+            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
+            <li><a href="../word-counter/index.html" class="sidebar-link" id="pop-words">📝 Word Counter</a></li>
+            <li><a href="#" class="sidebar-link active" id="pop-ratio">📐 Aspect Ratio</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Sponsor</h2>
+          <div class="ad-card" style="min-height: 180px;">
+            <span class="ad-label">Sponsor</span>
+            <p class="ad-placeholder-text">AdSense Banner</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Tool Space -->
+      <main class="workspace-content">
+        
+        <div class="tool-workspace">
+          
+          <div class="tool-header">
+            <div class="tool-title-area">
+              <div class="tool-icon">📐</div>
+              <div>
+                <h2>Aspect Ratio Calculator</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Determine screen ratios, divide resolutions, and scale image dimensions proportionally.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div>
+            <span class="panel-title" style="display: block; margin-bottom: 0.5rem;">Standard Presets</span>
+            <div class="ratio-preset-grid">
+              <button class="preset-btn" onclick="applyPreset(16, 9)" id="p-16-9">16:9 (HD Video)</button>
+              <button class="preset-btn" onclick="applyPreset(4, 3)" id="p-4-3">4:3 (Legacy)</button>
+              <button class="preset-btn" onclick="applyPreset(1, 1)" id="p-1-1">1:1 (Square)</button>
+              <button class="preset-btn" onclick="applyPreset(9, 16)" id="p-9-16">9:16 (Vertical)</button>
+              <button class="preset-btn" onclick="applyPreset(21, 9)" id="p-21-9">21:9 (Ultrawide)</button>
+            </div>
+          </div>
+
+          <!-- Alert Display -->
+          <div id="ratio-alert-box"></div>
+
+          <!-- Input/Output Workspace -->
+          <div class="workspace-grid">
+            
+            <!-- Block 1: Original Resolution & Ratio -->
+            <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem;">
+              <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff;">1. Original Dimensions</h3>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label for="ratio-w1" class="form-label">Width (px)</label>
+                  <input type="number" id="ratio-w1" class="form-input" value="1920" oninput="calculateRatio()">
+                </div>
+                <div class="form-group">
+                  <label for="ratio-h1" class="form-label">Height (px)</label>
+                  <input type="number" id="ratio-h1" class="form-input" value="1080" oninput="calculateRatio()">
+                </div>
+              </div>
+
+              <!-- Output aspect ratio -->
+              <div style="margin-top: 0.5rem; border-top: 1px dashed var(--border-color); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.9rem; color: var(--text-secondary);">Calculated Ratio:</span>
+                <strong id="ratio-output" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-secondary);">16:9</strong>
+              </div>
+            </div>
+
+            <!-- Block 2: Target Scaler -->
+            <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem;">
+              <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff;">2. Proportional Scaling</h3>
+              
+              <div class="form-group">
+                <label for="ratio-w2" class="form-label">New Target Width (px)</label>
+                <input type="number" id="ratio-w2" class="form-input" placeholder="Enter target width..." oninput="scaleFromWidth()">
+              </div>
+
+              <div class="form-group">
+                <label for="ratio-h2" class="form-label">New Target Height (px)</label>
+                <input type="number" id="ratio-h2" class="form-input" placeholder="Enter target height..." oninput="scaleFromHeight()">
+              </div>
+
+              <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem;">Adjusting width or height automatically calculates the other dimension, maintaining original proportions.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- AdSense Native Ad slot between Tool and Instructions -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
+        </div>
+
+        <!-- SEO Content Section -->
+        <section class="tool-seo-content">
+          <h2>What is an Aspect Ratio?</h2>
+          <p>An aspect ratio represents the proportional relationship between the width and height of an image, video container, or monitor screen. Written as two values separated by a colon (e.g. `Width:Height`), it indicates scale dimensions regardless of overall screen resolutions.</p>
+
+          <h3>Common Aspect Ratios & Use Cases</h3>
+          <ul>
+            <li><strong>16:9 (High Definition):</strong> The international standard format for HDTVs, digital screens, YouTube streams, and standard monitors. Common resolutions include 1920x1080 (FHD) and 3840x2160 (4K).</li>
+            <li><strong>9:16 (Vertical HD):</strong> The exact inversion of 16:9. Heavily utilized across smartphone layouts, TikTok clips, Instagram Reels, and YouTube Shorts.</li>
+            <li><strong>4:3 (Academy Standard):</strong> The vintage TV standard preceding HD formats, occasionally utilized in retro photography and design workflows.</li>
+            <li><strong>1:1 (Square Format):</strong> Equal width and height dimensions, popularized by social platforms (Instagram posts) and profile avatar dimensions.</li>
+            <li><strong>21:9 (Ultrawide Cinemascope):</strong> Wider widescreen layout common in gaming monitors and cinematic movie projections.</li>
+          </ul>
+
+          <h3>The Mathematics Behind Aspect Ratio Sizing</h3>
+          <p>To reduce dimensions to their simplest aspect ratio, we compute the <strong>Greatest Common Divisor (GCD)</strong> of the width and height. Dividing both width and height by the GCD yields the simplified aspect ratio.</p>
+          <p>
+            <code>Simplified Width = Width / GCD</code><br>
+            <code>Simplified Height = Height / GCD</code>
+          </p>
+          <p>Proportional scaling follows direct mathematical ratios. For example, maintaining an aspect ratio <code>(W1/H1)</code> implies:<br>
+          <code>New Height = (New Width * H1) / W1</code><br>
+          <code>New Width = (New Height * W1) / H1</code></p>
+        </section>
+
+      </main>
+
+      <!-- Right Column Ads -->
+      <aside class="app-adbar">
+        <div class="ad-card" style="min-height: 600px;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-text">
+          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
+        </div>
+        <ul class="footer-links">
+          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script>
+    const w1Input = document.getElementById('ratio-w1');
+    const h1Input = document.getElementById('ratio-h1');
+    const w2Input = document.getElementById('ratio-w2');
+    const h2Input = document.getElementById('ratio-h2');
+    const outputRatio = document.getElementById('ratio-output');
+    const alertBox = 'ratio-alert-box';
+
+    window.addEventListener('load', () => {
+      calculateRatio();
+    });
+
+    // Euclidean Algorithm to compute Greatest Common Divisor
+    function getGCD(a, b) {
+      return b === 0 ? a : getGCD(b, a % b);
+    }
+
+    function calculateRatio() {
+      clearAlert(alertBox);
+      const w1 = parseInt(w1Input.value, 10);
+      const h1 = parseInt(h1Input.value, 10);
+
+      if (isNaN(w1) || isNaN(h1) || w1 <= 0 || h1 <= 0) {
+        outputRatio.textContent = '-- : --';
+        return;
+      }
+
+      const divisor = getGCD(w1, h1);
+      const ratioW = w1 / divisor;
+      const ratioH = h1 / divisor;
+      
+      outputRatio.textContent = `${ratioW}:${ratioH}`;
+      
+      // Update target inputs if they contain values
+      if (w2Input.value) {
+        scaleFromWidth();
+      } else if (h2Input.value) {
+        scaleFromHeight();
+      }
+    }
+
+    function scaleFromWidth() {
+      const w1 = parseInt(w1Input.value, 10);
+      const h1 = parseInt(h1Input.value, 10);
+      const w2 = parseInt(w2Input.value, 10);
+
+      if (isNaN(w1) || isNaN(h1) || isNaN(w2) || w1 <= 0 || h1 <= 0 || w2 <= 0) {
+        h2Input.value = '';
+        return;
+      }
+
+      const scaledHeight = Math.round((w2 * h1) / w1);
+      h2Input.value = scaledHeight;
+    }
+
+    function scaleFromHeight() {
+      const w1 = parseInt(w1Input.value, 10);
+      const h1 = parseInt(h1Input.value, 10);
+      const h2 = parseInt(h2Input.value, 10);
+
+      if (isNaN(w1) || isNaN(h1) || isNaN(h2) || w1 <= 0 || h1 <= 0 || h2 <= 0) {
+        w2Input.value = '';
+        return;
+      }
+
+      const scaledWidth = Math.round((h2 * w1) / h1);
+      w2Input.value = scaledWidth;
+    }
+
+    function applyPreset(w, h) {
+      w1Input.value = w;
+      h1Input.value = h;
+      
+      // Highlight preset button
+      document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`p-${w}-${h}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      calculateRatio();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>Free Online Compound Interest Calculator | Visual Growth Planner | UtilifyHub</title>
+  <meta name="description" content="Calculate compound interest savings and investments. Plan monthly deposits, adjust interest rates, and analyze year-by-year visual growth tables completely client-side.">
+  <meta name="keywords" content="compound interest calculator, savings calculator, investment planner, compound calculator, monthly compound, compound table, finance calculator">
+  
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kpi-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .kpi-value {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .kpi-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+    .growth-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+    .growth-table th, .growth-table td {
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    .growth-table th {
+      background-color: var(--bg-secondary);
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: #fff;
+    }
+    .growth-table tr:hover {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <a href="../../index.html" class="brand" id="brand-link">
+          <div class="brand-logo">U</div>
+          <span class="brand-name">UtilifyHub</span>
+        </a>
+      </div>
+      
+      <nav class="header-actions">
+        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+      
+      <!-- Left sidebar navigation -->
+      <aside class="app-sidebar">
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Popular Tools</h2>
+          <ul class="sidebar-menu">
+            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
+            <li><a href="../qr-generator/index.html" class="sidebar-link" id="pop-qr">📱 QR Generator</a></li>
+            <li><a href="#" class="sidebar-link active" id="pop-savings">💰 Savings Calc</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Sponsor</h2>
+          <div class="ad-card" style="min-height: 180px;">
+            <span class="ad-label">Sponsor</span>
+            <p class="ad-placeholder-text">AdSense Banner</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Tool Space -->
+      <main class="workspace-content">
+        
+        <div class="tool-workspace">
+          
+          <div class="tool-header">
+            <div class="tool-title-area">
+              <div class="tool-icon">💰</div>
+              <div>
+                <h2>Compound Interest Calculator</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Map out your investment growth and compounding returns over time.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert Display -->
+          <div id="savings-alert-box"></div>
+
+          <!-- Inputs / Results Columns -->
+          <div class="workspace-grid" style="grid-template-columns: 1fr 1.2fr;">
+            
+            <!-- Parameters Column -->
+            <div style="display: flex; flex-direction: column; gap: 1rem; background-color: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff;">Investment Settings</h3>
+              
+              <div class="form-group">
+                <label for="p-initial" class="form-label">Initial Balance ($)</label>
+                <input type="number" id="p-initial" class="form-input" value="10000" oninput="calculateSavings()">
+              </div>
+
+              <div class="form-group">
+                <label for="p-monthly" class="form-label">Monthly Contribution ($)</label>
+                <input type="number" id="p-monthly" class="form-input" value="200" oninput="calculateSavings()">
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label for="p-rate" class="form-label">Annual Rate (%)</label>
+                  <input type="number" id="p-rate" class="form-input" value="7.5" step="0.1" oninput="calculateSavings()">
+                </div>
+                <div class="form-group">
+                  <label for="p-years" class="form-label">Years to Invest</label>
+                  <input type="number" id="p-years" class="form-input" value="10" oninput="calculateSavings()">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="p-compound" class="form-label">Compounding Frequency</label>
+                <select id="p-compound" class="form-select" onchange="calculateSavings()">
+                  <option value="12" selected>Monthly Compounding</option>
+                  <option value="1">Annual Compounding</option>
+                  <option value="4">Quarterly Compounding</option>
+                  <option value="365">Daily Compounding</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Results Output -->
+            <div style="display: flex; flex-direction: column; justify-content: flex-start;">
+              <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff; margin-bottom: 0.75rem;">Calculated Returns</h3>
+              
+              <!-- KPI Card Metrics -->
+              <div class="kpi-grid" style="grid-template-columns: 1fr; gap: 0.75rem;">
+                <div class="kpi-card" style="border-color: var(--accent-secondary); background: rgba(16, 185, 129, 0.03);">
+                  <div class="kpi-value" id="res-future-val" style="color: var(--accent-secondary); font-size: 2.2rem;">$0.00</div>
+                  <div class="kpi-label">Total Future Balance</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div class="kpi-card">
+                    <div class="kpi-value" id="res-principal" style="color: #fff; font-size: 1.3rem;">$0.00</div>
+                    <div class="kpi-label">Principal Paid</div>
+                  </div>
+                  <div class="kpi-card">
+                    <div class="kpi-value" id="res-interest" style="color: var(--accent-primary); font-size: 1.3rem;">$0.00</div>
+                    <div class="kpi-label">Interest Earned</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Yearly Growth Schedule Table -->
+          <div style="overflow-x: auto; margin-top: 1rem;">
+            <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem;">Annual Growth Schedule</h3>
+            <table class="growth-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Principal Invested</th>
+                  <th>Interest Earned</th>
+                  <th>Total Balance</th>
+                </tr>
+              </thead>
+              <tbody id="savings-schedule-body">
+                <!-- Rows generated in script -->
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <!-- AdSense Native Ad slot between Tool and Instructions -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Native In-Feed Ad (Highly targeted financial audience)</p>
+        </div>
+
+        <!-- SEO Content Section -->
+        <section class="tool-seo-content">
+          <h2>What is Compound Interest?</h2>
+          <p>Compound interest has often been referenced as the "eighth wonder of the world". Unlike simple interest, which computes returns strictly on the initial principal capital, compound interest calculates interest on your initial principal **plus every dollar of accumulated interest** earned in preceding periods.</p>
+
+          <h3>The Mathematics of Compounding Growth</h3>
+          <p>The standard formula mapping compound interest with recurrent periodic deposits is:</p>
+          <p>
+            <code>A = P(1 + r/n)^(nt) + PMT * [((1 + r/n)^(nt) - 1) / (r/n)] * (1 + r/n)</code>
+          </p>
+          <p>Where:
+            <ul>
+              <li><strong>A:</strong> The final future total balance of the investment.</li>
+              <li><strong>P:</strong> The initial principal capital balance ($).</li>
+              <li><strong>r:</strong> The annual nominal interest rate in decimal form (e.g., 7.5% = 0.075).</li>
+              <li><strong>n:</strong> The compounding frequency per year (e.g., 12 for Monthly compounding).</li>
+              <li><strong>t:</strong> The overall period of investment measured in years.</li>
+              <li><strong>PMT:</strong> The periodic deposit contribution made at the start of each interval ($).</li>
+            </ul>
+          </p>
+
+          <h3>Maximizing Compounding Yields</h3>
+          <p>Three core variables dictate the speed of your investment compounding:
+            <ol>
+              <li><strong>Time:</strong> The longer your savings remain invested, the faster the exponent curves compound interest upward.</li>
+              <li><strong>Compounding Frequency:</strong> Daily or monthly compounding yields higher overall returns than quarterly or yearly compounding because interest is reinvested faster.</li>
+              <li><strong>Regular Contributions:</strong> Adding regular monthly deposits exponentially expands your interest-generating foundation.</li>
+            </ol>
+          </p>
+        </section>
+
+      </main>
+
+      <!-- Right Column Ads -->
+      <aside class="app-adbar">
+        <div class="ad-card" style="min-height: 600px;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-text">
+          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
+        </div>
+        <ul class="footer-links">
+          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script>
+    window.addEventListener('load', calculateSavings);
+
+    function calculateSavings() {
+      clearAlert('savings-alert-box');
+
+      const initial = parseFloat(document.getElementById('p-initial').value);
+      const monthly = parseFloat(document.getElementById('p-monthly').value);
+      const rateVal = parseFloat(document.getElementById('p-rate').value);
+      const years = parseInt(document.getElementById('p-years').value, 10);
+      const compoundsPerYear = parseInt(document.getElementById('p-compound').value, 10);
+
+      // DOM Results
+      const futureValSpan = document.getElementById('res-future-val');
+      const principalSpan = document.getElementById('res-principal');
+      const interestSpan = document.getElementById('res-interest');
+      const scheduleBody = document.getElementById('savings-schedule-body');
+
+      if (isNaN(initial) || isNaN(monthly) || isNaN(rateVal) || isNaN(years) || years < 0) {
+        futureValSpan.textContent = '$0.00';
+        principalSpan.textContent = '$0.00';
+        interestSpan.textContent = '$0.00';
+        scheduleBody.innerHTML = '';
+        return;
+      }
+
+      if (years > 60) {
+        showAlert('savings-alert-box', 'For calculation accuracy, please enter a year value under 60 years.', 'warning');
+        return;
+      }
+
+      const decimalRate = rateVal / 100;
+      scheduleBody.innerHTML = '';
+
+      let totalBalance = initial;
+      let totalPrincipal = initial;
+      
+      const tableRows = [];
+
+      for (let y = 1; y <= years; y++) {
+        // Calculate compounding growth for this year
+        let yearlyContribution = 0;
+        
+        // Loop through 12 months for this year
+        for (let m = 1; m <= 12; m++) {
+          // Add monthly deposit
+          totalBalance += monthly;
+          totalPrincipal += monthly;
+          yearlyContribution += monthly;
+          
+          // Apply fractional compounding interest per month if compounding is monthly/daily
+          if (compoundsPerYear === 12) {
+            totalBalance *= (1 + decimalRate / 12);
+          } else if (compoundsPerYear === 365) {
+            // Approx monthly share of daily compounds
+            totalBalance *= Math.pow(1 + decimalRate / 365, 365 / 12);
+          }
+        }
+
+        // Apply compounding once at year end if compounding is annual
+        if (compoundsPerYear === 1) {
+          totalBalance *= (1 + decimalRate);
+        } else if (compoundsPerYear === 4) {
+          // Quarterly compound at year end loops
+          totalBalance *= Math.pow(1 + decimalRate / 4, 4);
+        }
+
+        const totalInterest = totalBalance - totalPrincipal;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>Year ${y}</strong></td>
+          <td>$${Math.round(totalPrincipal).toLocaleString()}</td>
+          <td>$${Math.round(totalInterest).toLocaleString()}</td>
+          <td><strong style="color: var(--accent-secondary);">$${Math.round(totalBalance).toLocaleString()}</strong></td>
+        `;
+        scheduleBody.appendChild(row);
+      }
+
+      const finalInterest = totalBalance - totalPrincipal;
+
+      // Update KPI
+      futureValSpan.textContent = `$${Math.round(totalBalance).toLocaleString()}`;
+      principalSpan.textContent = `$${Math.round(totalPrincipal).toLocaleString()}`;
+      interestSpan.textContent = `$${Math.round(finalInterest).toLocaleString()}`;
+    }
+  </script>
+</body>
+</html>

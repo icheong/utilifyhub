@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>Free Secure Online Password Generator | Random Key Creator | UtilifyHub</title>
+  <meta name="description" content="Generate highly secure, randomized passwords locally. Choose length, include numbers and symbols, filter similar characters, and check password entropy instantly.">
+  <meta name="keywords" content="password generator, secure password creator, random key generator, password entropy checker, strong password generator, cryptography tools">
+  
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    .pass-strength-bar {
+      height: 6px;
+      width: 100%;
+      background-color: var(--bg-tertiary);
+      border-radius: var(--radius-full);
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    .pass-strength-fill {
+      height: 100%;
+      width: 0%;
+      transition: width var(--transition-normal), background-color var(--transition-normal);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <a href="../../index.html" class="brand" id="brand-link">
+          <div class="brand-logo">U</div>
+          <span class="brand-name">UtilifyHub</span>
+        </a>
+      </div>
+      
+      <nav class="header-actions">
+        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+      
+      <!-- Left sidebar navigation -->
+      <aside class="app-sidebar">
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Popular Tools</h2>
+          <ul class="sidebar-menu">
+            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
+            <li><a href="../word-counter/index.html" class="sidebar-link" id="pop-words">📝 Word Counter</a></li>
+            <li><a href="#" class="sidebar-link active" id="pop-password">🔒 Password Gen</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Sponsor</h2>
+          <div class="ad-card" style="min-height: 180px;">
+            <span class="ad-label">Sponsor</span>
+            <p class="ad-placeholder-text">AdSense Banner</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Tool Space -->
+      <main class="workspace-content">
+        
+        <div class="tool-workspace">
+          
+          <div class="tool-header">
+            <div class="tool-title-area">
+              <div class="tool-icon">🔒</div>
+              <div>
+                <h2>Secure Password Generator</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Generate strong, highly randomized passwords locally in your browser sandbox.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert Display -->
+          <div id="pass-alert-box"></div>
+
+          <!-- Password Display Card -->
+          <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+              <!-- Large Display Box -->
+              <input type="text" id="pass-display" readonly style="flex: 1; font-family: var(--font-code); font-size: 1.5rem; color: #fff; background-color: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 0.75rem 1rem; text-align: center; font-weight: 500;" placeholder="Your secure key will show here...">
+              
+              <button class="btn btn-primary" id="btn-copy-pass" onclick="copyPassword()" style="height: 52px; padding: 0 1.5rem;">Copy</button>
+            </div>
+
+            <!-- Strength parameters -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+              <span>Strength Rating: <strong id="pass-strength-label" style="color: var(--accent-danger);">Weak</strong></span>
+              <span id="pass-entropy-label">Entropy: 0 bits</span>
+            </div>
+            
+            <div class="pass-strength-bar">
+              <div class="pass-strength-fill" id="pass-strength-indicator"></div>
+            </div>
+          </div>
+
+          <!-- Generation Settings -->
+          <div class="workspace-grid" style="grid-template-columns: 1.2fr 1fr;">
+            
+            <!-- Parameters Left -->
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff;">1. Password Parameters</h3>
+              
+              <!-- Length Slider -->
+              <div class="form-group" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <label for="pass-len" class="form-label">Password Length</label>
+                  <strong id="pass-len-val" style="font-family: var(--font-display); font-size: 1.1rem; color: var(--accent-primary);">16</strong>
+                </div>
+                <input type="range" id="pass-len" min="6" max="64" value="16" style="width: 100%; height: 6px; cursor: pointer; background: var(--bg-secondary);" oninput="updateLenVal(); generatePassword();">
+              </div>
+            </div>
+
+            <!-- Options Checkboxes Right -->
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; background-color: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff;">2. Character Sets</h3>
+              
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label style="display: flex; align-items: center; gap: 0.50rem; font-size: 0.9rem; cursor: pointer; user-select: none;">
+                  <input type="checkbox" id="pass-uppercase" checked onchange="generatePassword()" style="width: 16px; height: 16px;">
+                  Uppercase Letters (A-Z)
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.50rem; font-size: 0.9rem; cursor: pointer; user-select: none;">
+                  <input type="checkbox" id="pass-lowercase" checked onchange="generatePassword()" style="width: 16px; height: 16px;">
+                  Lowercase Letters (a-z)
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.50rem; font-size: 0.9rem; cursor: pointer; user-select: none;">
+                  <input type="checkbox" id="pass-numbers" checked onchange="generatePassword()" style="width: 16px; height: 16px;">
+                  Numerical Values (0-9)
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.50rem; font-size: 0.9rem; cursor: pointer; user-select: none;">
+                  <input type="checkbox" id="pass-symbols" checked onchange="generatePassword()" style="width: 16px; height: 16px;">
+                  Special Characters (!@#$%^&*)
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.50rem; font-size: 0.9rem; cursor: pointer; user-select: none; border-top: 1px dashed var(--border-color); padding-top: 0.5rem; margin-top: 0.25rem; color: var(--text-secondary);">
+                  <input type="checkbox" id="pass-exclude-similar" onchange="generatePassword()" style="width: 16px; height: 16px;">
+                  Exclude similar (i, l, 1, L, o, 0, O)
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="button-row">
+            <button class="btn btn-primary" onclick="generatePassword()" style="padding: 0.75rem 1.75rem;">Generate Fresh Key</button>
+          </div>
+
+        </div>
+
+        <!-- AdSense Native Ad slot between Tool and Instructions -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
+        </div>
+
+        <!-- SEO Content Section -->
+        <section class="tool-seo-content">
+          <h2>How Are Strong Passwords Constructed?</h2>
+          <p>Strong passwords act as the primary defense barricade guarding your online digital systems. Many casual internet users construct credentials utilizing memorable dictionary words or familiar dates, leaving their portals highly susceptible to automated brute-force attacks. Strong security requires absolute randomness.</p>
+
+          <h3>Why Client-Side Generation is Mandatory</h3>
+          <p>Uploading created passwords to cloud databases represents a highly dangerous cybersecurity action. If the generator site logs your credentials, those keys can easily be stolen. UtilifyHub works <strong>completely offline in your local browser sandbox</strong> using client-side JavaScript calculations. Absolutely no credentials navigate our structural pipes, safeguarding complete security.</p>
+
+          <h3>Understanding Cryptographic Entropy</h3>
+          <p>Password strength is measured scientifically in terms of <strong>Information Entropy (bits)</strong>. Entropy calculates the computational complexity required by a machine to decode the randomized pattern. The formula is:</p>
+          <p>
+            <code>Entropy = L * log2(R)</code>
+          </p>
+          <p>Where:
+            <ul>
+              <li><strong>L:</strong> The absolute length of the credential string.</li>
+              <li><strong>R:</strong> The size of the available character pool (e.g. 26 lowercase + 26 uppercase + 10 digits + 32 symbols = 94 options).</li>
+            </ul>
+          </p>
+          <p>Strength rankings adapt based on entropy bits:
+            <ul>
+              <li><strong>Weak (0 to 45 bits):</strong> Easily broken by dictionary calculators in seconds.</li>
+              <li><strong>Medium (46 to 75 bits):</strong> Fairly resilient but brute-force calculators can decode patterns in months.</li>
+              <li><strong>Strong (76+ bits):</strong> Practically unbreakable; would take modern supercomputers billions of years to decode. We highly recommend generating <strong>at least 16-character keys</strong> utilizing all character sets.</li>
+            </ul>
+          </p>
+        </section>
+
+      </main>
+
+      <!-- Right Column Ads -->
+      <aside class="app-adbar">
+        <div class="ad-card" style="min-height: 600px;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-text">
+          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
+        </div>
+        <ul class="footer-links">
+          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script>
+    const passDisplay = document.getElementById('pass-display');
+    const lengthSlider = document.getElementById('pass-len');
+    const lengthVal = document.getElementById('pass-len-val');
+    
+    const uppercaseCb = document.getElementById('pass-uppercase');
+    const lowercaseCb = document.getElementById('pass-lowercase');
+    const numbersCb = document.getElementById('pass-numbers');
+    const symbolsCb = document.getElementById('pass-symbols');
+    const excludeSimilarCb = document.getElementById('pass-exclude-similar');
+
+    const strengthLabel = document.getElementById('pass-strength-label');
+    const entropyLabel = document.getElementById('pass-entropy-label');
+    const strengthIndicator = document.getElementById('pass-strength-indicator');
+    const alertBox = 'pass-alert-box';
+
+    window.addEventListener('load', () => {
+      generatePassword();
+    });
+
+    function updateLenVal() {
+      lengthVal.textContent = lengthSlider.value;
+    }
+
+    function generatePassword() {
+      clearAlert(alertBox);
+      const length = parseInt(lengthSlider.value, 10);
+      
+      let uppercaseSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let lowercaseSet = 'abcdefghijklmnopqrstuvwxyz';
+      let numbersSet = '0123456789';
+      let symbolsSet = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+
+      if (excludeSimilarCb.checked) {
+        // i, l, 1, L, o, 0, O
+        uppercaseSet = uppercaseSet.replace(/[IL]/g, '');
+        lowercaseSet = lowercaseSet.replace(/[io]/g, '');
+        numbersSet = numbersSet.replace(/[01]/g, '');
+      }
+
+      let charset = '';
+      let poolSize = 0;
+
+      if (uppercaseCb.checked) { charset += uppercaseSet; poolSize += uppercaseSet.length; }
+      if (lowercaseCb.checked) { charset += lowercaseSet; poolSize += lowercaseSet.length; }
+      if (numbersCb.checked) { charset += numbersSet; poolSize += numbersSet.length; }
+      if (symbolsCb.checked) { charset += symbolsSet; poolSize += symbolsSet.length; }
+
+      if (charset.length === 0) {
+        passDisplay.value = '';
+        strengthLabel.textContent = 'None';
+        strengthLabel.style.color = 'var(--text-muted)';
+        entropyLabel.textContent = 'Entropy: 0 bits';
+        strengthIndicator.style.width = '0%';
+        showAlert(alertBox, 'Please select at least one character set above.', 'warning');
+        return;
+      }
+
+      let generated = '';
+      
+      // Cryptographically stronger pseudorandom generator using window.crypto if available
+      const randomValues = new Uint32Array(length);
+      window.crypto.getRandomValues(randomValues);
+
+      for (let i = 0; i < length; i++) {
+        generated += charset.charAt(randomValues[i] % charset.length);
+      }
+
+      passDisplay.value = generated;
+
+      // Calculate Entropy
+      const entropy = Math.round(length * Math.log2(poolSize));
+      entropyLabel.textContent = `Entropy: ${entropy} bits`;
+
+      // Update strength bars
+      if (entropy < 45) {
+        strengthLabel.textContent = 'Weak';
+        strengthLabel.style.color = 'var(--accent-danger)';
+        strengthIndicator.style.width = '25%';
+        strengthIndicator.style.backgroundColor = 'var(--accent-danger)';
+      } else if (entropy < 75) {
+        strengthLabel.textContent = 'Medium';
+        strengthLabel.style.color = 'var(--accent-warning)';
+        strengthIndicator.style.width = '60%';
+        strengthIndicator.style.backgroundColor = 'var(--accent-warning)';
+      } else {
+        strengthLabel.textContent = 'Strong';
+        strengthLabel.style.color = 'var(--accent-secondary)';
+        strengthIndicator.style.width = '100%';
+        strengthIndicator.style.backgroundColor = 'var(--accent-secondary)';
+      }
+    }
+
+    function copyPassword() {
+      const pass = passDisplay.value;
+      if (!pass) return;
+      const btn = document.getElementById('btn-copy-pass');
+      copyToClipboard(pass, btn, 'Copy');
+    }
+  </script>
+</body>
+</html>

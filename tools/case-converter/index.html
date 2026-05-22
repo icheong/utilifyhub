@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>Free Online Case Converter | Upper, Lower, Title & Sentence Case | UtilifyHub</title>
+  <meta name="description" content="Convert text cases between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, and snake_case instantly. Free offline writing utility with word copy support.">
+  <meta name="keywords" content="case converter, convert case, uppercase converter, lowercase, title case converter, sentence case, camelcase, text formatter, online text editor">
+  
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <a href="../../index.html" class="brand" id="brand-link">
+          <div class="brand-logo">U</div>
+          <span class="brand-name">UtilifyHub</span>
+        </a>
+      </div>
+      
+      <nav class="header-actions">
+        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+      
+      <!-- Left sidebar navigation -->
+      <aside class="app-sidebar">
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Popular Tools</h2>
+          <ul class="sidebar-menu">
+            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
+            <li><a href="../word-counter/index.html" class="sidebar-link" id="pop-words">📝 Word Counter</a></li>
+            <li><a href="#" class="sidebar-link active" id="pop-case">aA Case Converter</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Sponsor</h2>
+          <div class="ad-card" style="min-height: 180px;">
+            <span class="ad-label">Sponsor</span>
+            <p class="ad-placeholder-text">AdSense Banner</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Tool Space -->
+      <main class="workspace-content">
+        
+        <div class="tool-workspace">
+          
+          <div class="tool-header">
+            <div class="tool-title-area">
+              <div class="tool-icon">aA</div>
+              <div>
+                <h2>Case Converter</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Instantly format text capitalization structures to suit your publishing requirements.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert Display -->
+          <div id="case-alert-box"></div>
+
+          <!-- Workspace Column Layout -->
+          <div>
+            <div class="panel-header">
+              <span class="panel-title">Source text workspace</span>
+              <div style="display: flex; gap: 0.5rem;">
+                <span id="case-word-char-count" style="font-size: 0.8rem; color: var(--text-secondary); align-self: center; margin-right: 0.5rem;">Words: 0 | Chars: 0</span>
+                <button class="btn btn-secondary" id="btn-copy-result" onclick="copyResult()" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">Copy Output</button>
+                <button class="btn btn-secondary" onclick="clearInput()" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">Clear</button>
+              </div>
+            </div>
+            
+            <div class="textarea-container">
+              <textarea id="case-textarea" class="tool-textarea" style="height: 300px; font-family: var(--font-body);" placeholder="Paste your text manuscript here to convert case immediately..." oninput="updateMetrics()"></textarea>
+            </div>
+          </div>
+
+          <!-- Conversion Buttons -->
+          <div class="button-row">
+            <button class="btn btn-primary" onclick="convertToSentence()">Sentence case</button>
+            <button class="btn btn-primary" onclick="convertToTitle()">Title Case</button>
+            <button class="btn btn-secondary" onclick="convertToUpper()">UPPERCASE</button>
+            <button class="btn btn-secondary" onclick="convertToLower()">lowercase</button>
+            <button class="btn btn-secondary" onclick="convertToCamel()">camelCase</button>
+            <button class="btn btn-secondary" onclick="convertToSnake()">snake_case</button>
+          </div>
+
+        </div>
+
+        <!-- AdSense Native Ad slot between Tool and Instructions -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
+        </div>
+
+        <!-- SEO Content Section -->
+        <section class="tool-seo-content">
+          <h2>Why Use an Online Case Converter?</h2>
+          <p>Writing and typing draft structures on keyboards often yields unintentional capitalization layouts due to active caps-lock keys or varied cross-platform text copy routines. Re-typing lengthy segments to fix capitalization is tedious and time-consuming. Case converters resolve these issues in milliseconds.</p>
+
+          <h3>Common Capitalization Layouts</h3>
+          <ul>
+            <li><strong>Sentence Case:</strong> Capitalizes the initial character of each sentence, keeping succeeding strings lowercase. Perfect for standard document reports.</li>
+            <li><strong>Title Case:</strong> Capitalizes the first letter of each significant word. Ideal for blog titles and article headers.</li>
+            <li><strong>UPPERCASE:</strong> Converts every single alphabetical character to capitals. Excellent for screaming emphasis tags.</li>
+            <li><strong>lowercase:</strong> Transforms all characters to standard minified sizing. Handy for tidying parameters.</li>
+            <li><strong>camelCase:</strong> Strips whitespace characters, capitalizing the starting letter of succeeding words (e.g. `thisIsCamelCase`). Perfect for software developers managing variable declarations.</li>
+            <li><strong>snake_case:</strong> Replaces spaces with underscores and sets everything lowercase (e.g. `this_is_snake_case`). Highly incorporated in database columns and Python programming structures.</li>
+          </ul>
+
+          <h3>Absolute Local Privacy</h3>
+          <p>Your texts may contain private company emails, copy drafts, password entries, or draft credentials. Using cloud-based formatters uploads your typography to remote servers. UtilifyHub converts your text **entirely client-side**. All formatting string conversions occur instantly on your computer in milliseconds, ensuring your written material remains private.</p>
+        </section>
+
+      </main>
+
+      <!-- Right Column Ads -->
+      <aside class="app-adbar">
+        <div class="ad-card" style="min-height: 600px;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-text">
+          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
+        </div>
+        <ul class="footer-links">
+          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script>
+    const textarea = document.getElementById('case-textarea');
+    const countsSpan = document.getElementById('case-word-char-count');
+    const alertBox = 'case-alert-box';
+
+    function clearInput() {
+      textarea.value = '';
+      updateMetrics();
+      clearAlert(alertBox);
+    }
+
+    function updateMetrics() {
+      const text = textarea.value;
+      const totalChars = text.length;
+      const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+      countsSpan.textContent = `Words: ${words} | Chars: ${totalChars}`;
+    }
+
+    function convertToUpper() {
+      clearAlert(alertBox);
+      if (!textarea.value) return;
+      textarea.value = textarea.value.toUpperCase();
+      showAlert(alertBox, 'Converted all characters to UPPERCASE!', 'success');
+    }
+
+    function convertToLower() {
+      clearAlert(alertBox);
+      if (!textarea.value) return;
+      textarea.value = textarea.value.toLowerCase();
+      showAlert(alertBox, 'Converted all characters to lowercase!', 'success');
+    }
+
+    function convertToSentence() {
+      clearAlert(alertBox);
+      if (!textarea.value) return;
+      
+      const text = textarea.value.toLowerCase();
+      // Regex matches starting letters of sentences following . ! or ?
+      textarea.value = text.replace(/(^\s*|[.!?]\s+)([a-z])/g, (match, separator, letter) => {
+        return separator + letter.toUpperCase();
+      });
+      showAlert(alertBox, 'Formatted text to Sentence case!', 'success');
+    }
+
+    function convertToTitle() {
+      clearAlert(alertBox);
+      if (!textarea.value) return;
+      
+      const text = textarea.value.toLowerCase();
+      // Capitalize first letter of every word
+      textarea.value = text.replace(/\b([a-z])/g, (match, letter) => {
+        return letter.toUpperCase();
+      });
+      showAlert(alertBox, 'Formatted text to Title Case!', 'success');
+    }
+
+    function convertToCamel() {
+      clearAlert(alertBox);
+      if (!textarea.value) return;
+      
+      const text = textarea.value.toLowerCase().trim();
+      const words = text.split(/\s+/).filter(w => w.length > 0);
+      
+      if (words.length === 0) return;
+      
+      const camel = words[0] + words.slice(1).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('');
+      textarea.value = camel.replace(/[^a-zA-Z0-9]/g, '');
+      showAlert(alertBox, 'Formatted text variables to camelCase!', 'success');
+      updateMetrics();
+    }
+
+    function convertToSnake() {
+      clearAlert(alertBox);
+      if (!textarea.value) return;
+      
+      const text = textarea.value.toLowerCase().trim();
+      textarea.value = text.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_');
+      showAlert(alertBox, 'Formatted text variables to snake_case!', 'success');
+      updateMetrics();
+    }
+
+    function copyResult() {
+      const text = textarea.value;
+      if (!text) return;
+      const btn = document.getElementById('btn-copy-result');
+      copyToClipboard(text, btn, 'Copy Output');
+    }
+  </script>
+</body>
+</html>

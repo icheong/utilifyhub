@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>Free Online JSON Formatter, Validator & Beautifier | UtilifyHub</title>
+  <meta name="description" content="Validate, format, parse, and minify raw JSON data immediately in your web browser. Free client-side tool with instant error reports, absolute security, and syntax cleanup.">
+  <meta name="keywords" content="json formatter, json validator, beautify json, minify json, parse json, developer tool, online json check">
+  
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <a href="../../index.html" class="brand" id="brand-link">
+          <div class="brand-logo">U</div>
+          <span class="brand-name">UtilifyHub</span>
+        </a>
+      </div>
+      
+      <nav class="header-actions">
+        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+      
+      <!-- Left sidebar navigation -->
+      <aside class="app-sidebar">
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Popular Tools</h2>
+          <ul class="sidebar-menu">
+            <li><a href="#" class="sidebar-link active" id="pop-json">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
+            <li><a href="../qr-generator/index.html" class="sidebar-link" id="pop-qr">📱 QR Generator</a></li>
+            <li><a href="../compound-interest/index.html" class="sidebar-link" id="pop-savings">💰 Savings Calc</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Sponsor</h2>
+          <div class="ad-card" style="min-height: 180px;">
+            <span class="ad-label">Sponsor</span>
+            <p class="ad-placeholder-text">AdSense Banner</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Tool Space -->
+      <main class="workspace-content">
+        
+        <div class="tool-workspace">
+          
+          <div class="tool-header">
+            <div class="tool-title-area">
+              <div class="tool-icon">{}</div>
+              <div>
+                <h2>JSON Formatter & Validator</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Format, validate, parse, and minify JSON strings securely.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert Display -->
+          <div id="json-alert-box"></div>
+
+          <!-- Options -->
+          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; background-color: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div class="form-group" style="margin-bottom: 0; flex-direction: row; align-items: center; gap: 0.5rem;">
+              <label for="json-tab-space" class="form-label" style="white-space: nowrap;">Tab Spacing:</label>
+              <select id="json-tab-space" class="form-select" style="padding: 0.4rem 0.8rem; width: 120px;">
+                <option value="2" selected>2 Spaces</option>
+                <option value="4">4 Spaces</option>
+                <option value="tab">Tab Character</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Input/Output Workspace -->
+          <div class="workspace-grid">
+            
+            <!-- Input Panel -->
+            <div>
+              <div class="panel-header">
+                <span class="panel-title">Raw JSON Input</span>
+                <button class="btn btn-secondary" onclick="clearInput()" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">Clear</button>
+              </div>
+              <div class="textarea-container">
+                <textarea id="json-input" class="tool-textarea" placeholder="Paste your raw, unformatted JSON here...&#10;e.g. {&quot;name&quot;:&quot;UtilifyHub&quot;,&quot;type&quot;:&quot;utility&quot;,&quot;active&quot;:true,&quot;tools&quot;:[1,2,3]}"></textarea>
+              </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div>
+              <div class="panel-header">
+                <span class="panel-title">Formatted Result</span>
+                <button class="btn btn-secondary" id="btn-copy-result" onclick="copyResult()" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">Copy Output</button>
+              </div>
+              <div class="textarea-container">
+                <textarea id="json-output" class="tool-textarea" readonly placeholder="Your clean, structured output will generate here..."></textarea>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Buttons -->
+          <div class="button-row">
+            <button class="btn btn-primary" onclick="formatJSON()">Beautify JSON</button>
+            <button class="btn btn-secondary" onclick="minifyJSON()">Minify JSON</button>
+            <button class="btn btn-secondary" onclick="validateJSONOnly()">Validate Integrity</button>
+          </div>
+
+        </div>
+
+        <!-- AdSense Native Ad slot between Tool and Instructions -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Native In-Feed Ad (High Click-Through Placement)</p>
+        </div>
+
+        <!-- SEO/FAQ Instruction Section -->
+        <section class="tool-seo-content">
+          <h2>Everything You Need to Know About JSON</h2>
+          <p>JSON (JavaScript Object Notation) has emerged as the standard standard format for data transmission on the modern web, replacing older and heavier XML formats. Whether you are consuming APIs, managing config structures, or testing databases, formatted JSON is vital for human parsing.</p>
+
+          <h3>Why Use an Offline Client-Side Validator?</h3>
+          <p>Many online formatter utilities upload your pasted data to active backend databases to perform structural transformations. If you are handling confidential client credentials, private database strings, or personal user logs, this presents severe data compliance exposures. UtilifyHub acts <strong>entirely client-side</strong>. The parser resides in your local browser sandbox, ensuring your parameters never navigate the web.</p>
+
+          <h3>Common JSON Parsing Errors & How to Resolve Them</h3>
+          <ul>
+            <li><strong>Trailing Commas:</strong> Unlike JavaScript arrays, standard JSON files forbid trailing commas behind the final key/value parameter. Check your closing array `]` and brackets `}`.</li>
+            <li><strong>Single Quotes:</strong> All key identifiers and text string values inside valid JSON must strictly incorporate double quotes `""`. Single quotes `''` will throw immediate parser anomalies.</li>
+            <li><strong>Missing Quotation Marks:</strong> Ensure all object dictionary keys are fully enclosed within double quotation marks.</li>
+            <li><strong>Mismatched Brackets:</strong> Ensure each opening brace `{` or bracket `[` corresponds to an appropriate closing brace `}` or bracket `]`.</li>
+          </ul>
+
+          <h3>How to Format JSON with UtilifyHub</h3>
+          <ol>
+            <li>Paste your raw, minified, or unformatted text payload into the <strong>Raw JSON Input</strong> pane above.</li>
+            <li>Select your preferred indent format (2 spaces, 4 spaces, or structural tabs) using our configuration row.</li>
+            <li>Click <strong>Beautify JSON</strong>. Our local JS scripts parse and align the string instantly.</li>
+            <li>If any parsing failures exist, a dynamic error alert with line-specific debug metrics will display instantly to help you resolve the code discrepancy.</li>
+            <li>Once formatted, click <strong>Copy Output</strong> to transfer the clean data seamlessly to your clipboard.</li>
+          </ol>
+        </section>
+
+      </main>
+
+      <!-- Right Column Ads -->
+      <aside class="app-adbar">
+        <div class="ad-card" style="min-height: 600px;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Large Skyscraper<br>(300x600 px)</p>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-text">
+          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
+        </div>
+        <ul class="footer-links">
+          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script>
+    const inputArea = document.getElementById('json-input');
+    const outputArea = document.getElementById('json-output');
+    const tabSpaceSelect = document.getElementById('json-tab-space');
+    const alertContainer = 'json-alert-box';
+
+    function getIndentValue() {
+      const val = tabSpaceSelect.value;
+      if (val === 'tab') return '\t';
+      return parseInt(val, 10);
+    }
+
+    function clearInput() {
+      inputArea.value = '';
+      outputArea.value = '';
+      clearAlert(alertContainer);
+    }
+
+    function formatJSON() {
+      clearAlert(alertContainer);
+      const rawVal = inputArea.value.trim();
+      if (!rawVal) {
+        showAlert(alertContainer, 'Please paste or input a JSON string to format.', 'warning');
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(rawVal);
+        const indent = getIndentValue();
+        outputArea.value = JSON.stringify(parsed, null, indent);
+        showAlert(alertContainer, 'JSON successfully parsed, validated, and formatted!', 'success');
+      } catch (err) {
+        outputArea.value = '';
+        showAlert(alertContainer, 'Syntax Error: ' + err.message, 'danger');
+      }
+    }
+
+    function minifyJSON() {
+      clearAlert(alertContainer);
+      const rawVal = inputArea.value.trim();
+      if (!rawVal) {
+        showAlert(alertContainer, 'Please paste or input a JSON string to minify.', 'warning');
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(rawVal);
+        outputArea.value = JSON.stringify(parsed);
+        showAlert(alertContainer, 'JSON successfully minified!', 'success');
+      } catch (err) {
+        outputArea.value = '';
+        showAlert(alertContainer, 'Syntax Error: ' + err.message, 'danger');
+      }
+    }
+
+    function validateJSONOnly() {
+      clearAlert(alertContainer);
+      const rawVal = inputArea.value.trim();
+      if (!rawVal) {
+        showAlert(alertContainer, 'Please paste or input a JSON string to validate.', 'warning');
+        return;
+      }
+
+      try {
+        JSON.parse(rawVal);
+        showAlert(alertContainer, 'Structure Integrity OK: Valid JSON configuration!', 'success');
+      } catch (err) {
+        showAlert(alertContainer, 'Validation Failed: ' + err.message, 'danger');
+      }
+    }
+
+    function copyResult() {
+      const resultText = outputArea.value;
+      if (!resultText) return;
+      const copyBtn = document.getElementById('btn-copy-result');
+      copyToClipboard(resultText, copyBtn, 'Copy Output');
+    }
+  </script>
+</body>
+</html>

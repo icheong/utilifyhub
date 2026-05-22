@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>UtilifyHub | Free Developer, Calculator & Text Utilities Online</title>
+  <meta name="description" content="Discover a curated collection of free, high-performance web utility tools. Format JSON, generate QR codes, calculate compound interest, decode Base64, and more instantly in your browser.">
+  <meta name="keywords" content="utility tools, json formatter, qr code generator, word counter, compound interest calculator, base64 encoder, case converter, free online tools">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://utilifyhub.com/">
+  <meta property="og:title" content="UtilifyHub | Free Developer, Calculator & Text Utilities Online">
+  <meta property="og:description" content="Discover a curated collection of free, high-performance web utility tools. Format JSON, generate QR codes, calculate compound interest, decode Base64, and more instantly in your browser.">
+  
+  <!-- Styling -->
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand">
+        <a href="./index.html" class="brand" id="brand-home-link">
+          <div class="brand-logo">U</div>
+          <span class="brand-name">UtilifyHub</span>
+        </a>
+      </div>
+      
+      <div class="header-search">
+        <input type="text" id="search-tools" placeholder="Search across 10+ free tools...">
+      </div>
+      
+      <nav class="header-actions">
+        <a href="./pages/about.html" class="nav-link-btn" id="nav-about-link">About</a>
+        <a href="./pages/contact.html" class="nav-link-btn" id="nav-contact-link">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Main Layout Wrapper -->
+    <div class="main-wrapper">
+      
+      <!-- Left Navigation Sidebar -->
+      <aside class="app-sidebar">
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Categories</h2>
+          <ul class="sidebar-menu">
+            <li><a href="#" class="sidebar-link active" data-category="all" id="cat-all">🌐 All Utilities</a></li>
+            <li><a href="#" class="sidebar-link" data-category="dev" id="cat-dev">💻 Developer Tools</a></li>
+            <li><a href="#" class="sidebar-link" data-category="calc" id="cat-calc">🧮 Calculators</a></li>
+            <li><a href="#" class="sidebar-link" data-category="text" id="cat-text">📝 Text & Assets</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Ad Space</h2>
+          <!-- Google AdSense Responsive Left Block -->
+          <div class="ad-card" style="min-height: 200px;">
+            <span class="ad-label">Sponsor</span>
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📊</div>
+            <p class="ad-placeholder-text">AdSense Display Banner<br>(Auto-resizing)</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Dynamic Content Space -->
+      <main class="workspace-content">
+        
+        <!-- Hero Welcome Section -->
+        <section class="hero-banner">
+          <h1>Universal Web Utilities Built For Speed</h1>
+          <p>Completely secure client-side tools. All operations are run immediately inside your web browser. Zero server uploads, absolute privacy.</p>
+        </section>
+
+        <!-- Dynamic Tools Directory -->
+        <section class="tools-grid" id="tools-grid-container">
+          
+          <!-- Tool Card 1: JSON Formatter -->
+          <a href="./tools/json-formatter/index.html" class="tool-card" data-category="dev" data-tags="json formatter validator beautify minify developer parser" id="tool-json-formatter">
+            <span class="tool-badge">Highly Popular</span>
+            <div class="tool-icon">{}</div>
+            <div class="tool-info">
+              <h3>JSON Formatter & Validator</h3>
+              <p>Beautify, parse, validate, and minify JSON code instantly with live diagnostic syntax validation.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 2: Base64 Converter -->
+          <a href="./tools/base64-converter/index.html" class="tool-card" data-category="dev" data-tags="base64 encoder decoder binary string converter raw developer" id="tool-base64-converter">
+            <div class="tool-icon">64</div>
+            <div class="tool-info">
+              <h3>Base64 Encoder / Decoder</h3>
+              <p>Easily encode plain text or files into Base64 format and decode Base64 data back to clear strings.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 3: Word Counter -->
+          <a href="./tools/word-counter/index.html" class="tool-card" data-category="text" data-tags="word counter character read time paragraphs letters length text editor writing density seo" id="tool-word-counter">
+            <div class="tool-icon">📝</div>
+            <div class="tool-info">
+              <h3>Word & Character Counter</h3>
+              <p>Instant breakdown of writing statistics including characters, paragraphs, estimated reading duration, and keyword frequencies.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 4: Percentage Calculator -->
+          <a href="./tools/percentage-calculator/index.html" class="tool-card" data-category="calc" data-tags="percentage calculator math discount increase fraction decrease ratios finance" id="tool-percentage-calculator">
+            <div class="tool-icon">%</div>
+            <div class="tool-info">
+              <h3>Percentage Calculator</h3>
+              <p>Perform multi-mode ratio calculations such as percentage shifts, discounts, fraction splits, and inflation markups.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 5: QR Generator -->
+          <a href="./tools/qr-generator/index.html" class="tool-card" data-category="text" data-tags="qr code generator scanner canvas mobile download links barcodes svg designer text assets" id="tool-qr-generator">
+            <div class="tool-icon">📱</div>
+            <div class="tool-info">
+              <h3>QR Code Generator</h3>
+              <p>Create downloadable, custom pixel-ratio QR codes for URLs, contact cards, text, or Wi-Fi configurations in seconds.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 6: Compound Interest -->
+          <a href="./tools/compound-interest/index.html" class="tool-card" data-category="calc" data-tags="compound interest calculator simple saving finance mortgage return investments yield money stocks" id="tool-compound-interest">
+            <span class="tool-badge">High Value</span>
+            <div class="tool-icon">💰</div>
+            <div class="tool-info">
+              <h3>Compound Interest Calculator</h3>
+              <p>Plan visual growth models of your investment over time with monthly compounding interest and monthly deposits.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 7: Case Converter -->
+          <a href="./tools/case-converter/index.html" class="tool-card" data-category="text" data-tags="case converter uppercase lowercase title sentence camelcase snakecase string text formatter writing" id="tool-case-converter">
+            <div class="tool-icon">aA</div>
+            <div class="tool-info">
+              <h3>Case Converter</h3>
+              <p>Quickly convert text casing between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, and snake_case.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 8: Aspect Ratio -->
+          <a href="./tools/aspect-ratio/index.html" class="tool-card" data-category="calc" data-tags="aspect ratio calculator designer screens size width height scaler responsive css pixels scaling" id="tool-aspect-ratio">
+            <div class="tool-icon">📐</div>
+            <div class="tool-info">
+              <h3>Aspect Ratio Calculator</h3>
+              <p>Obtain scaled resolution sizing metrics for designers and developers maintaining consistent dimensions.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 9: Epoch Converter -->
+          <a href="./tools/epoch-converter/index.html" class="tool-card" data-category="dev" data-tags="epoch converter unix timestamp date time convert developer ticks milliseconds clock coding" id="tool-epoch-converter">
+            <div class="tool-icon">🕒</div>
+            <div class="tool-info">
+              <h3>Epoch Timestamp Converter</h3>
+              <p>Translate Epoch Unix timestamps into human-readable timestamps and translate standard dates back instantly.</p>
+            </div>
+          </a>
+
+          <!-- Tool Card 10: Password Generator -->
+          <a href="./tools/password-generator/index.html" class="tool-card" data-category="dev" data-tags="password generator strength entropy random keys security hashes secure developer cryptography" id="tool-password-generator">
+            <div class="tool-icon">🔒</div>
+            <div class="tool-info">
+              <h3>Password Generator</h3>
+              <p>Generate highly randomized, secure string credentials with entropy ratings and specific char overrides.</p>
+            </div>
+          </a>
+
+        </section>
+      </main>
+
+      <!-- Strategic Right Column Ads -->
+      <aside class="app-adbar">
+        <div class="ad-card" style="min-height: 480px;">
+          <span class="ad-label">Sponsor</span>
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">💻</div>
+          <p class="ad-placeholder-text">High-CPC Ad Slot<br>(AdSense 300x600 Skyscraper)</p>
+          <div style="margin-top: 2rem; color: var(--text-muted); font-size: 0.75rem;">Premium ad targeting fits here</div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Sticky Bottom Ad banner -->
+    <div style="width: 100%; border-top: 1px solid var(--border-color); background-color: var(--bg-secondary); padding: 0.75rem 2rem; text-align: center; font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <span>💡 Fast, client-side execution makes this site secure. No input logs are stored on our servers.</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-text">
+          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
+        </div>
+        <ul class="footer-links">
+          <li><a href="./pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
+          <li><a href="./pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
+          <li><a href="./pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
+          <li><a href="./pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>

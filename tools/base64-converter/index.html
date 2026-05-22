@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Optimization -->
+  <title>Free Online Base64 Encoder & Decoder | UtilifyHub</title>
+  <meta name="description" content="Encode strings to Base64 or decode Base64 data to readable text instantly. Free client-side tool with URL-safe option, absolute security, and zero server logging.">
+  <meta name="keywords" content="base64 encoder, base64 decoder, base64 converter, binary to text, url safe base64, online base64 converter">
+  
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <a href="../../index.html" class="brand" id="brand-link">
+          <div class="brand-logo">U</div>
+          <span class="brand-name">UtilifyHub</span>
+        </a>
+      </div>
+      
+      <nav class="header-actions">
+        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-wrapper">
+      
+      <!-- Left sidebar navigation -->
+      <aside class="app-sidebar">
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Popular Tools</h2>
+          <ul class="sidebar-menu">
+            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
+            <li><a href="#" class="sidebar-link active" id="pop-base64">64 Base64 Converter</a></li>
+            <li><a href="../qr-generator/index.html" class="sidebar-link" id="pop-qr">📱 QR Generator</a></li>
+            <li><a href="../compound-interest/index.html" class="sidebar-link" id="pop-savings">💰 Savings Calc</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h2 class="sidebar-title">Sponsor</h2>
+          <div class="ad-card" style="min-height: 180px;">
+            <span class="ad-label">Sponsor</span>
+            <p class="ad-placeholder-text">AdSense Banner</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Tool Space -->
+      <main class="workspace-content">
+        
+        <div class="tool-workspace">
+          
+          <div class="tool-header">
+            <div class="tool-title-area">
+              <div class="tool-icon">64</div>
+              <div>
+                <h2>Base64 Encoder / Decoder</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Convert plain text strings into Base64 formats and decode Base64 data back instantly.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert Display -->
+          <div id="base64-alert-box"></div>
+
+          <!-- Options -->
+          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; background-color: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div class="form-group" style="margin-bottom: 0; flex-direction: row; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="base64-url-safe" style="width: 18px; height: 18px; cursor: pointer;">
+              <label for="base64-url-safe" class="form-label" style="cursor: pointer; user-select: none;">URL-Safe Base64 (replaces '+' with '-', '/' with '_', removes padding '=')</label>
+            </div>
+          </div>
+
+          <!-- Input/Output Workspace -->
+          <div class="workspace-grid">
+            
+            <!-- Input Panel -->
+            <div>
+              <div class="panel-header">
+                <span class="panel-title">Source String (Plain Text / Base64 Input)</span>
+                <button class="btn btn-secondary" onclick="clearInput()" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">Clear</button>
+              </div>
+              <div class="textarea-container">
+                <textarea id="base64-input" class="tool-textarea" placeholder="Input text to encode or Base64 string to decode..."></textarea>
+              </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div>
+              <div class="panel-header">
+                <span class="panel-title">Converted Output</span>
+                <button class="btn btn-secondary" id="btn-copy-result" onclick="copyResult()" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">Copy Output</button>
+              </div>
+              <div class="textarea-container">
+                <textarea id="base64-output" class="tool-textarea" readonly placeholder="Your conversion result will display here..."></textarea>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Buttons -->
+          <div class="button-row">
+            <button class="btn btn-primary" onclick="encodeText()">Encode to Base64</button>
+            <button class="btn btn-success" onclick="decodeText()">Decode from Base64</button>
+          </div>
+
+        </div>
+
+        <!-- AdSense Native Ad slot between Tool and Instructions -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
+        </div>
+
+        <!-- SEO Content Section -->
+        <section class="tool-seo-content">
+          <h2>What is Base64 Encoding & Decoding?</h2>
+          <p>Base64 is a binary-to-text encoding schema that translates binary data into a set of 64 characters (typically A-Z, a-z, 0-9, +, and /). It is widely incorporated in software environments to transmit assets like image streams or complex configuration strings embedded inside JSON parameters or URLs without character corruption.</p>
+
+          <h3>Why Perform Base64 Conversions Client-Side?</h3>
+          <p>Base64 encoding is frequently utilized to handle sensitive credentials, authorization hashes (like Basic Auth headers), or encrypted token payloads. Uploading these variables to remote formatting websites introduces security vulnerabilities. Our Base64 converter conducts all operations **directly in your browser sandbox** via native Javascript `btoa()` and `atob()` methods. Absolutely no parameters navigate our structural pipelines.</p>
+
+          <h3>URL-Safe Base64 Variations</h3>
+          <p>Standard Base64 strings can include the `+`, `/`, and `=` characters, which hold distinct functional interpretations in URL structures. By enabling the <strong>URL-Safe</strong> checkbox above, the converter automatically adapts the output for secure web integration:
+          <ul>
+            <li>replaces the plus symbol `+` with a hyphen `-`</li>
+            <li>replaces the forward slash `/` with an underscore `_`</li>
+            <li>removes the trailing padding `=` symbols</li>
+          </ul>
+          Our decoder is fully optimized to handle both standard and URL-safe inputs automatically.</p>
+        </section>
+
+      </main>
+
+      <!-- Right Column Ads -->
+      <aside class="app-adbar">
+        <div class="ad-card" style="min-height: 600px;">
+          <span class="ad-label">Sponsor</span>
+          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-text">
+          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
+        </div>
+        <ul class="footer-links">
+          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="../../js/app.js"></script>
+  <script>
+    const inputArea = document.getElementById('base64-input');
+    const outputArea = document.getElementById('base64-output');
+    const urlSafeCheckbox = document.getElementById('base64-url-safe');
+    const alertContainer = 'base64-alert-box';
+
+    function clearInput() {
+      inputArea.value = '';
+      outputArea.value = '';
+      clearAlert(alertContainer);
+    }
+
+    // Helper: Convert Unicode string to base64 securely
+    function utf8_to_b64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }
+
+    // Helper: Convert base64 back to Unicode securely
+    function b64_to_utf8(str) {
+      return decodeURIComponent(escape(window.atob(str)));
+    }
+
+    function encodeText() {
+      clearAlert(alertContainer);
+      const rawText = inputArea.value;
+      if (!rawText) {
+        showAlert(alertContainer, 'Please enter some text in the source pane to encode.', 'warning');
+        return;
+      }
+
+      try {
+        let b64 = utf8_to_b64(rawText);
+        
+        if (urlSafeCheckbox.checked) {
+          b64 = b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        }
+        
+        outputArea.value = b64;
+        showAlert(alertContainer, 'Text successfully encoded to Base64!', 'success');
+      } catch (err) {
+        outputArea.value = '';
+        showAlert(alertContainer, 'Encoding failed: ' + err.message, 'danger');
+      }
+    }
+
+    function decodeText() {
+      clearAlert(alertContainer);
+      let rawText = inputArea.value.trim();
+      if (!rawText) {
+        showAlert(alertContainer, 'Please enter a Base64 string in the source pane to decode.', 'warning');
+        return;
+      }
+
+      try {
+        // Normalize URL-Safe characters back to standard Base64 if needed
+        let normalized = rawText.replace(/-/g, '+').replace(/_/g, '/');
+        
+        // Restore necessary padding if stripped
+        const paddingRequired = (4 - (normalized.length % 4)) % 4;
+        if (paddingRequired > 0) {
+          normalized += '='.repeat(paddingRequired);
+        }
+
+        const decoded = b64_to_utf8(normalized);
+        outputArea.value = decoded;
+        showAlert(alertContainer, 'Base64 successfully decoded back to readable text!', 'success');
+      } catch (err) {
+        outputArea.value = '';
+        showAlert(alertContainer, 'Invalid Base64 format: Could not complete decoding.', 'danger');
+      }
+    }
+
+    function copyResult() {
+      const resultText = outputArea.value;
+      if (!resultText) return;
+      const copyBtn = document.getElementById('btn-copy-result');
+      copyToClipboard(resultText, copyBtn, 'Copy Output');
+    }
+  </script>
+</body>
+</html>
