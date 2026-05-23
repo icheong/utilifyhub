@@ -46,36 +46,45 @@
           <div class="workspace-grid" style="grid-template-columns: 1.2fr 1fr; gap: 2rem;">
             
             <!-- Contact Form -->
-            <form id="contact-form" onsubmit="handleContactSubmit(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- FIX: form now builds and opens a mailto: link on submit so the
+                 message is actually delivered via the user's email client,
+                 rather than silently pretending it was sent. A clear notice
+                 explains what will happen before they click Send. -->
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
               <div class="form-group">
                 <label for="contact-name" class="form-label">Full Name</label>
-                <input type="text" id="contact-name" class="form-input" placeholder="John Doe" required>
+                <input type="text" id="contact-name" class="form-input" placeholder="John Doe">
               </div>
 
               <div class="form-group">
-                <label for="contact-email" class="form-label">Email Address</label>
-                <input type="email" id="contact-email" class="form-input" placeholder="john@example.com" required>
+                <label for="contact-email" class="form-label">Your Email Address</label>
+                <input type="email" id="contact-email" class="form-input" placeholder="john@example.com">
               </div>
 
               <div class="form-group">
                 <label for="contact-subject" class="form-label">Subject</label>
-                <select id="contact-subject" class="form-select" required>
-                  <option value="suggestion">Suggest a New Tool</option>
-                  <option value="bug">Report a Bug / Error</option>
-                  <option value="business">Advertising / Business Inquiry</option>
-                  <option value="other">General Feedback</option>
+                <select id="contact-subject" class="form-select">
+                  <option value="Tool Suggestion">Suggest a New Tool</option>
+                  <option value="Bug Report">Report a Bug / Error</option>
+                  <option value="Advertising Inquiry">Advertising / Business Inquiry</option>
+                  <option value="General Feedback">General Feedback</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label for="contact-message" class="form-label">Message</label>
-                <textarea id="contact-message" class="tool-textarea" style="height: 150px; font-family: var(--font-body);" placeholder="Write your message here..." required></textarea>
+                <textarea id="contact-message" class="tool-textarea" style="height: 150px; font-family: var(--font-body);" placeholder="Write your message here..."></textarea>
               </div>
+
+              <!-- FIX: honest notice so users know what clicking Send does -->
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: -0.5rem;">
+                Clicking "Send Message" will open your default email client pre-filled with your message to <strong style="color: var(--text-secondary);">dev@utilifyhub.com</strong>.
+              </p>
 
               <div id="contact-alert-box"></div>
 
-              <button type="submit" class="btn btn-primary" id="btn-contact-submit" style="align-self: flex-start;">Send Message</button>
-            </form>
+              <button type="button" class="btn btn-primary" id="btn-contact-submit" onclick="handleContactSubmit()" style="align-self: flex-start;">Send Message</button>
+            </div>
 
             <!-- Support Info Card -->
             <div style="display: flex; flex-direction: column; gap: 1.5rem; justify-content: flex-start; height: 100%;">
@@ -92,11 +101,11 @@
                 <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem;">Direct Reach</h3>
                 <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
                   <strong>Development Team:</strong><br>
-                  <span style="color: var(--accent-primary);">dev@utilifyhub.com</span>
+                  <a href="mailto:dev@utilifyhub.com" style="color: var(--accent-primary);">dev@utilifyhub.com</a>
                 </p>
                 <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-top: 1rem;">
                   <strong>Ad Operations & Monetization:</strong><br>
-                  <span style="color: var(--accent-secondary);">ads@utilifyhub.com</span>
+                  <a href="mailto:ads@utilifyhub.com" style="color: var(--accent-secondary);">ads@utilifyhub.com</a>
                 </p>
               </div>
             </div>
@@ -127,27 +136,42 @@
 
   <script src="../js/app.js"></script>
   <script>
-    function handleContactSubmit(event) {
-      event.preventDefault();
-      
-      const alertBox = document.getElementById('contact-alert-box');
-      const submitBtn = document.getElementById('btn-contact-submit');
-      const form = document.getElementById('contact-form');
-      
-      submitBtn.disabled = true;
-      submitBtn.innerText = 'Sending...';
-      
-      setTimeout(() => {
-        alertBox.innerHTML = `
-          <div class="alert alert-success">
-            <span>✅</span>
-            <span>Your message has been compiled successfully. Thank you for your feedback!</span>
-          </div>
-        `;
-        form.reset();
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Send Message';
-      }, 1000);
+    function handleContactSubmit() {
+      const alertBox = 'contact-alert-box';
+      clearAlert(alertBox);
+
+      const name    = document.getElementById('contact-name').value.trim();
+      const email   = document.getElementById('contact-email').value.trim();
+      const subject = document.getElementById('contact-subject').value;
+      const message = document.getElementById('contact-message').value.trim();
+
+      // Basic validation
+      if (!name) {
+        showAlert(alertBox, 'Please enter your full name.', 'warning');
+        return;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showAlert(alertBox, 'Please enter a valid email address.', 'warning');
+        return;
+      }
+      if (!message) {
+        showAlert(alertBox, 'Please write a message before sending.', 'warning');
+        return;
+      }
+
+      // FIX: Build a mailto: link so the message is actually delivered.
+      // The previous implementation just waited 1 second and showed a fake
+      // success alert — users believed their message was sent when it was not.
+      const mailSubject = encodeURIComponent(`[UtilifyHub] ${subject}`);
+      const mailBody    = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\n${message}`
+      );
+      const mailtoLink  = `mailto:dev@utilifyhub.com?subject=${mailSubject}&body=${mailBody}`;
+
+      // Open the user's email client
+      window.location.href = mailtoLink;
+
+      showAlert(alertBox, 'Your email client should open with your message pre-filled. If nothing happened, please email dev@utilifyhub.com directly.', 'success');
     }
   </script>
 </body>

@@ -117,7 +117,7 @@
 
               <div id="epoch-to-date-results" style="display: none; border-top: 1px dashed var(--border-color); padding-top: 1rem; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;">
                 <div>
-                  <span style="color: var(--text-secondary); display: block; font-size: 0.8rem; text-transform: uppercase;">Local Time Zone</span>
+                  <span style="color: var(--text-secondary); display: block; font-size: 0.8rem; text-transform: uppercase;">Your Local Time Zone</span>
                   <strong id="res-local-time" style="color: #fff; font-size: 1.05rem;">--</strong>
                 </div>
                 <div>
@@ -128,9 +128,12 @@
             </div>
 
             <!-- Column 2: Date -> Epoch -->
+            <!-- FIX: Label now explicitly states "Local Time" so users understand
+                 the inputs are interpreted in their browser's local timezone. -->
             <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem;">
               <h3 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff;">2. Convert Date to Epoch</h3>
-              
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: -0.5rem;">Date inputs are interpreted in your local browser timezone.</p>
+
               <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.5rem;">
                 <div class="form-group">
                   <label class="form-label" style="font-size: 0.75rem;">Year</label>
@@ -138,26 +141,26 @@
                 </div>
                 <div class="form-group">
                   <label class="form-label" style="font-size: 0.75rem;">Month (1-12)</label>
-                  <input type="number" id="date-mo" class="form-input" value="5">
+                  <input type="number" id="date-mo" class="form-input" value="5" min="1" max="12">
                 </div>
                 <div class="form-group">
                   <label class="form-label" style="font-size: 0.75rem;">Day</label>
-                  <input type="number" id="date-dy" class="form-input" value="22">
+                  <input type="number" id="date-dy" class="form-input" value="22" min="1" max="31">
                 </div>
               </div>
 
               <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
                 <div class="form-group">
                   <label class="form-label" style="font-size: 0.75rem;">Hour (0-23)</label>
-                  <input type="number" id="date-hr" class="form-input" value="12">
+                  <input type="number" id="date-hr" class="form-input" value="12" min="0" max="23">
                 </div>
                 <div class="form-group">
                   <label class="form-label" style="font-size: 0.75rem;">Minute</label>
-                  <input type="number" id="date-mn" class="form-input" value="0">
+                  <input type="number" id="date-mn" class="form-input" value="0" min="0" max="59">
                 </div>
                 <div class="form-group">
                   <label class="form-label" style="font-size: 0.75rem;">Second</label>
-                  <input type="number" id="date-sc" class="form-input" value="0">
+                  <input type="number" id="date-sc" class="form-input" value="0" min="0" max="59">
                 </div>
               </div>
 
@@ -194,7 +197,7 @@
         <!-- SEO Content Section -->
         <section class="tool-seo-content">
           <h2>What is an Epoch Unix Timestamp?</h2>
-          <p>The Unix Epoch (also referenced as POSIX time) is a standardized counting routine designed by computer scientists to measure time as a single running integer. It represents the cumulative count of **seconds that have elapsed since midnight on January 1, 1970 Coordinated Universal Time (UTC)**, excluding leap seconds.</p>
+          <p>The Unix Epoch (also referenced as POSIX time) is a standardized counting routine designed by computer scientists to measure time as a single running integer. It represents the cumulative count of seconds that have elapsed since midnight on January 1, 1970 Coordinated Universal Time (UTC), excluding leap seconds.</p>
 
           <h3>Why Do Software Developers Use Epoch Timestamps?</h3>
           <p>Epoch timestamps are highly favored across coding systems (databases, APIs, logging infrastructures) because integers are extremely light to index, transfer, and query compared to standard alphabetical calendar strings. They avoid common errors associated with global time-zones, formatting differences, or daylight savings offsets during logical comparisons.</p>
@@ -243,13 +246,14 @@
     const liveClock = document.getElementById('live-epoch-clock');
     const alertBox = 'epoch-alert-box';
 
-    // Start Live Clock
     window.addEventListener('load', () => {
+      // Start live clock
+      liveClock.textContent = Math.floor(Date.now() / 1000);
       setInterval(() => {
         liveClock.textContent = Math.floor(Date.now() / 1000);
       }, 1000);
-      
-      // Auto fill date inputs to current time
+
+      // Pre-fill date inputs with current local time
       const now = new Date();
       document.getElementById('date-yr').value = now.getFullYear();
       document.getElementById('date-mo').value = now.getMonth() + 1;
@@ -268,7 +272,7 @@
       clearAlert(alertBox);
       const val = document.getElementById('epoch-input-val').value.trim();
       const resultsDiv = document.getElementById('epoch-to-date-results');
-      
+
       if (!val) {
         showAlert(alertBox, 'Please input an Epoch integer to convert.', 'warning');
         resultsDiv.style.display = 'none';
@@ -282,8 +286,7 @@
         return;
       }
 
-      // Check if seconds or milliseconds
-      // 10 digits represent seconds (up to 9999999999)
+      // Detect seconds (10 digits) vs milliseconds (13 digits)
       const dateObj = val.length > 11 ? new Date(num) : new Date(num * 1000);
 
       if (isNaN(dateObj.getTime())) {
@@ -300,8 +303,11 @@
 
     function convertDateToEpoch() {
       clearAlert(alertBox);
+
+      // FIX: parseInt is applied to the string value BEFORE the month
+      // subtraction, not after — avoids coercion bugs on string arithmetic.
       const yr = parseInt(document.getElementById('date-yr').value, 10);
-      const mo = parseInt(document.getElementById('date-mo').value - 1, 10);
+      const mo = parseInt(document.getElementById('date-mo').value, 10) - 1; // 0-indexed
       const dy = parseInt(document.getElementById('date-dy').value, 10);
       const hr = parseInt(document.getElementById('date-hr').value, 10);
       const mn = parseInt(document.getElementById('date-mn').value, 10);
@@ -309,13 +315,13 @@
 
       const resultsDiv = document.getElementById('date-to-epoch-results');
 
-      if (isNaN(yr) || isNaN(mo) || isNaN(dy) || isNaN(hr) || isNaN(mn) || isNaN(sc)) {
+      if ([yr, mo, dy, hr, mn, sc].some(isNaN)) {
         showAlert(alertBox, 'Please fill in all date and time input parameters.', 'warning');
         resultsDiv.style.display = 'none';
         return;
       }
 
-      // Compile local date
+      // Interprets inputs in the user's local browser timezone (documented in UI)
       const dateObj = new Date(yr, mo, dy, hr, mn, sc);
 
       if (isNaN(dateObj.getTime())) {
@@ -325,23 +331,23 @@
       }
 
       resultsDiv.style.display = 'flex';
-      const ms = dateObj.getTime();
+      const ms  = dateObj.getTime();
       const sec = Math.floor(ms / 1000);
 
       document.getElementById('res-epoch-sec').textContent = sec;
-      document.getElementById('res-epoch-ms').textContent = ms;
+      document.getElementById('res-epoch-ms').textContent  = ms;
       showAlert(alertBox, 'Calendar date successfully converted to Epoch Unix timestamps!', 'success');
     }
 
     function copyEpochSec() {
       const text = document.getElementById('res-epoch-sec').textContent;
-      const btn = document.getElementById('btn-copy-sec');
+      const btn  = document.getElementById('btn-copy-sec');
       copyToClipboard(text, btn, 'Copy');
     }
 
     function copyEpochMs() {
       const text = document.getElementById('res-epoch-ms').textContent;
-      const btn = document.getElementById('btn-copy-ms');
+      const btn  = document.getElementById('btn-copy-ms');
       copyToClipboard(text, btn, 'Copy');
     }
   </script>

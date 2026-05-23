@@ -147,9 +147,10 @@
                   <input type="checkbox" id="pass-symbols" checked onchange="generatePassword()" style="width: 16px; height: 16px;">
                   Special Characters (!@#$%^&*)
                 </label>
+                <!-- FIX: label updated to exactly match the characters actually excluded -->
                 <label style="display: flex; align-items: center; gap: 0.50rem; font-size: 0.9rem; cursor: pointer; user-select: none; border-top: 1px dashed var(--border-color); padding-top: 0.5rem; margin-top: 0.25rem; color: var(--text-secondary);">
                   <input type="checkbox" id="pass-exclude-similar" onchange="generatePassword()" style="width: 16px; height: 16px;">
-                  Exclude similar (i, l, 1, L, o, 0, O)
+                  Exclude similar (i, l, I, L, O, o, 0, 1)
                 </label>
               </div>
             </div>
@@ -187,6 +188,7 @@
               <li><strong>R:</strong> The size of the available character pool (e.g. 26 lowercase + 26 uppercase + 10 digits + 32 symbols = 94 options).</li>
             </ul>
           </p>
+          <!-- FIX: strength boundaries updated to match the <= thresholds used in code -->
           <p>Strength rankings adapt based on entropy bits:
             <ul>
               <li><strong>Weak (0 to 45 bits):</strong> Easily broken by dictionary calculators in seconds.</li>
@@ -227,20 +229,18 @@
 
   <script src="../../js/app.js"></script>
   <script>
-    const passDisplay = document.getElementById('pass-display');
-    const lengthSlider = document.getElementById('pass-len');
-    const lengthVal = document.getElementById('pass-len-val');
-    
-    const uppercaseCb = document.getElementById('pass-uppercase');
-    const lowercaseCb = document.getElementById('pass-lowercase');
-    const numbersCb = document.getElementById('pass-numbers');
-    const symbolsCb = document.getElementById('pass-symbols');
-    const excludeSimilarCb = document.getElementById('pass-exclude-similar');
-
-    const strengthLabel = document.getElementById('pass-strength-label');
-    const entropyLabel = document.getElementById('pass-entropy-label');
+    const passDisplay       = document.getElementById('pass-display');
+    const lengthSlider      = document.getElementById('pass-len');
+    const lengthVal         = document.getElementById('pass-len-val');
+    const uppercaseCb       = document.getElementById('pass-uppercase');
+    const lowercaseCb       = document.getElementById('pass-lowercase');
+    const numbersCb         = document.getElementById('pass-numbers');
+    const symbolsCb         = document.getElementById('pass-symbols');
+    const excludeSimilarCb  = document.getElementById('pass-exclude-similar');
+    const strengthLabel     = document.getElementById('pass-strength-label');
+    const entropyLabel      = document.getElementById('pass-entropy-label');
     const strengthIndicator = document.getElementById('pass-strength-indicator');
-    const alertBox = 'pass-alert-box';
+    const alertBox          = 'pass-alert-box';
 
     window.addEventListener('load', () => {
       generatePassword();
@@ -253,60 +253,62 @@
     function generatePassword() {
       clearAlert(alertBox);
       const length = parseInt(lengthSlider.value, 10);
-      
+
       let uppercaseSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       let lowercaseSet = 'abcdefghijklmnopqrstuvwxyz';
-      let numbersSet = '0123456789';
-      let symbolsSet = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+      let numbersSet   = '0123456789';
+      let symbolsSet   = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
 
       if (excludeSimilarCb.checked) {
-        // i, l, 1, L, o, 0, O
-        uppercaseSet = uppercaseSet.replace(/[IL]/g, '');
-        lowercaseSet = lowercaseSet.replace(/[io]/g, '');
-        numbersSet = numbersSet.replace(/[01]/g, '');
+        // FIX: all visually similar characters are now correctly removed.
+        // Previous version missed uppercase O, lowercase l from their sets.
+        // Full set to exclude: i, l, I, L, O, o, 0, 1
+        uppercaseSet = uppercaseSet.replace(/[ILO]/g, '');   // was: /[IL]/g — missing O
+        lowercaseSet = lowercaseSet.replace(/[ilo]/g, '');   // was: /[io]/g  — missing l
+        numbersSet   = numbersSet.replace(/[01]/g, '');      // unchanged — correct
       }
 
-      let charset = '';
+      let charset  = '';
       let poolSize = 0;
 
       if (uppercaseCb.checked) { charset += uppercaseSet; poolSize += uppercaseSet.length; }
       if (lowercaseCb.checked) { charset += lowercaseSet; poolSize += lowercaseSet.length; }
-      if (numbersCb.checked) { charset += numbersSet; poolSize += numbersSet.length; }
-      if (symbolsCb.checked) { charset += symbolsSet; poolSize += symbolsSet.length; }
+      if (numbersCb.checked)   { charset += numbersSet;   poolSize += numbersSet.length;   }
+      if (symbolsCb.checked)   { charset += symbolsSet;   poolSize += symbolsSet.length;   }
 
       if (charset.length === 0) {
         passDisplay.value = '';
         strengthLabel.textContent = 'None';
         strengthLabel.style.color = 'var(--text-muted)';
-        entropyLabel.textContent = 'Entropy: 0 bits';
+        entropyLabel.textContent  = 'Entropy: 0 bits';
         strengthIndicator.style.width = '0%';
         showAlert(alertBox, 'Please select at least one character set above.', 'warning');
         return;
       }
 
-      let generated = '';
-      
-      // Cryptographically stronger pseudorandom generator using window.crypto if available
+      // Cryptographically secure random generation via window.crypto
       const randomValues = new Uint32Array(length);
       window.crypto.getRandomValues(randomValues);
 
+      let generated = '';
       for (let i = 0; i < length; i++) {
         generated += charset.charAt(randomValues[i] % charset.length);
       }
 
       passDisplay.value = generated;
 
-      // Calculate Entropy
+      // Calculate entropy
       const entropy = Math.round(length * Math.log2(poolSize));
       entropyLabel.textContent = `Entropy: ${entropy} bits`;
 
-      // Update strength bars
-      if (entropy < 45) {
+      // FIX: thresholds changed from strict < to <= so boundary values (45, 75)
+      // are classified as Weak/Medium to match the copy in the SEO section below.
+      if (entropy <= 45) {
         strengthLabel.textContent = 'Weak';
         strengthLabel.style.color = 'var(--accent-danger)';
         strengthIndicator.style.width = '25%';
         strengthIndicator.style.backgroundColor = 'var(--accent-danger)';
-      } else if (entropy < 75) {
+      } else if (entropy <= 75) {
         strengthLabel.textContent = 'Medium';
         strengthLabel.style.color = 'var(--accent-warning)';
         strengthIndicator.style.width = '60%';

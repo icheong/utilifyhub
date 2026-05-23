@@ -122,6 +122,9 @@
               <div class="kpi-label">Sentences</div>
             </div>
             <div class="kpi-card">
+              <!-- FIX: reading time now shows "0m" for empty, "<1m" for fewer than
+                   200 words, and the correct ceiling in minutes otherwise.
+                   Previously, even a single word would show "1m" which was misleading. -->
               <div class="kpi-value" id="kpi-reading-time">0m</div>
               <div class="kpi-label">Read Time</div>
             </div>
@@ -163,12 +166,12 @@
           </ul>
 
           <h3>Client-Side Privacy Security</h3>
-          <p>Many authors copy and paste proprietary draft contents, confidential marketing emails, or legal agreements into online formatting programs to check character sizes. Doing so transfers your writing to external servers, which poses privacy issues. UtilifyHub evaluates your typography **100% inside your web browser**. No input parameters are transferred, securing complete data confidentiality.</p>
+          <p>Many authors copy and paste proprietary draft contents, confidential marketing emails, or legal agreements into online formatting programs to check character sizes. Doing so transfers your writing to external servers, which poses privacy issues. UtilifyHub evaluates your typography <strong>100% inside your web browser</strong>. No input parameters are transferred, securing complete data confidentiality.</p>
 
           <h3>Understanding the Metrics</h3>
           <p>
             <strong>Paragraph Counting:</strong> Computed dynamically via double newline breaks. Single bullet points or isolated returns are tracked to provide true structure maps.<br>
-            <strong>Estimated Reading Time:</strong> Calibrated using standard human reading ratios of approximately 200 Words Per Minute (WPM).<br>
+            <strong>Estimated Reading Time:</strong> Calibrated using standard human reading ratios of approximately 200 Words Per Minute (WPM). Texts under 200 words display as &lt;1m rather than a misleading 1m.<br>
             <strong>Keyword Density:</strong> Scans non-common terms (ignoring common articles like "the", "and", "a", etc.) to highlight the keywords most repetitive in your manuscript. Perfect for maximizing SEO optimization without keyword stuffing!
           </p>
         </section>
@@ -204,18 +207,18 @@
 
   <script src="../../js/app.js"></script>
   <script>
-    const textInput = document.getElementById('counter-textarea');
-    const wordsKpi = document.getElementById('kpi-words');
-    const charsSpaceKpi = document.getElementById('kpi-chars-space');
+    const textInput       = document.getElementById('counter-textarea');
+    const wordsKpi        = document.getElementById('kpi-words');
+    const charsSpaceKpi   = document.getElementById('kpi-chars-space');
     const charsNoSpaceKpi = document.getElementById('kpi-chars-nospace');
-    const paragraphsKpi = document.getElementById('kpi-paragraphs');
-    const sentencesKpi = document.getElementById('kpi-sentences');
-    const readingKpi = document.getElementById('kpi-reading-time');
-    const densitySection = document.getElementById('density-section');
+    const paragraphsKpi   = document.getElementById('kpi-paragraphs');
+    const sentencesKpi    = document.getElementById('kpi-sentences');
+    const readingKpi      = document.getElementById('kpi-reading-time');
+    const densitySection  = document.getElementById('density-section');
     const densityContainer = document.getElementById('density-badge-container');
 
     const stopWords = new Set([
-      'the', 'and', 'a', 'to', 'of', 'in', 'i', 'is', 'that', 'it', 'on', 'you', 'this', 'for', 
+      'the', 'and', 'a', 'to', 'of', 'in', 'i', 'is', 'that', 'it', 'on', 'you', 'this', 'for',
       'but', 'with', 'as', 'are', 'was', 'at', 'by', 'an', 'be', 'or', 'from', 'your', 'my'
     ]);
 
@@ -228,35 +231,41 @@
 
     function runAnalysis() {
       const text = textInput.value;
-      
-      // Chars
-      const totalChars = text.length;
-      const noSpaceChars = text.replace(/\s/g, '').length;
-      
+
+      // Characters
+      const totalChars    = text.length;
+      const noSpaceChars  = text.replace(/\s/g, '').length;
+
       // Words
       const wordsArray = text.trim().split(/\s+/).filter(w => w.length > 0);
-      const wordCount = wordsArray.length;
-      
-      // Paragraphs
-      const paragraphsArray = text.split(/\n+/).filter(p => p.trim().length > 0);
-      const paragraphCount = paragraphsArray.length;
-      
-      // Sentences
-      const sentencesArray = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-      const sentenceCount = sentencesArray.length;
-      
-      // Reading Time (200 Words per Min)
-      const readMin = Math.ceil(wordCount / 200);
-      
-      // Update KPIs
-      wordsKpi.textContent = wordCount;
-      charsSpaceKpi.textContent = totalChars;
-      charsNoSpaceKpi.textContent = noSpaceChars;
-      paragraphsKpi.textContent = paragraphCount;
-      sentencesKpi.textContent = sentenceCount;
-      readingKpi.textContent = wordCount > 0 ? readMin + 'm' : '0m';
+      const wordCount  = wordsArray.length;
 
-      // Density analysis
+      // Paragraphs
+      const paragraphCount = text.split(/\n+/).filter(p => p.trim().length > 0).length;
+
+      // Sentences
+      const sentenceCount = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+
+      // FIX: Reading time — show "0m" when empty, "<1m" for under 200 words,
+      // and the correct ceiling otherwise. The old Math.ceil always returned at
+      // least 1, making even a single word show "1m".
+      let readingTime;
+      if (wordCount === 0) {
+        readingTime = '0m';
+      } else if (wordCount < 200) {
+        readingTime = '<1m';
+      } else {
+        readingTime = Math.ceil(wordCount / 200) + 'm';
+      }
+
+      // Update KPIs
+      wordsKpi.textContent        = wordCount;
+      charsSpaceKpi.textContent   = totalChars;
+      charsNoSpaceKpi.textContent = noSpaceChars;
+      paragraphsKpi.textContent   = paragraphCount;
+      sentencesKpi.textContent    = sentenceCount;
+      readingKpi.textContent      = readingTime;
+
       updateDensity(wordsArray);
     }
 
@@ -285,16 +294,16 @@
 
       densitySection.style.display = 'block';
       densityContainer.innerHTML = '';
-      
+
       sortedWords.forEach(([word, count]) => {
         const percentage = ((count / words.length) * 100).toFixed(1);
         const badge = document.createElement('span');
         badge.style.backgroundColor = 'var(--bg-tertiary)';
-        badge.style.border = '1px solid var(--border-color)';
-        badge.style.borderRadius = 'var(--radius-sm)';
-        badge.style.padding = '0.35rem 0.75rem';
-        badge.style.fontSize = '0.85rem';
-        badge.style.color = '#fff';
+        badge.style.border          = '1px solid var(--border-color)';
+        badge.style.borderRadius    = 'var(--radius-sm)';
+        badge.style.padding         = '0.35rem 0.75rem';
+        badge.style.fontSize        = '0.85rem';
+        badge.style.color           = '#fff';
         badge.innerHTML = `<strong>${word}</strong>: ${count} (${percentage}%)`;
         densityContainer.appendChild(badge);
       });
