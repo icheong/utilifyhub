@@ -57,6 +57,82 @@
     .growth-table tr:hover {
       background-color: rgba(255, 255, 255, 0.02);
     }
+
+    /* Chart */
+    .chart-section {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .chart-toggle-group {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .chart-toggle {
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      background: var(--bg-tertiary);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .chart-toggle:hover, .chart-toggle.active {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      background: var(--accent-primary-glow);
+    }
+    .chart-legend {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+    .chart-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .chart-legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    canvas#growth-chart {
+      width: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+    .chart-tooltip {
+      position: absolute;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 10;
+      min-width: 175px;
+      line-height: 1.7;
+    }
+    .chart-tooltip.visible { opacity: 1; }
+    .chart-wrap { position: relative; }
   </style>
 </head>
 <body>
@@ -185,6 +261,36 @@
 
           </div>
 
+          <!-- ── CHART SECTION ───────────────────────────────────── -->
+          <div class="chart-section">
+            <div class="chart-header">
+              <div>
+                <div style="font-family: var(--font-display); font-size: 1rem; color: #fff; margin-bottom: 0.35rem;">Growth Chart</div>
+                <div class="chart-legend">
+                  <span class="chart-legend-item">
+                    <span class="chart-legend-swatch" style="background: #6366f1;"></span>Principal Invested
+                  </span>
+                  <span class="chart-legend-item">
+                    <span class="chart-legend-swatch" style="background: #10b981;"></span>Interest Earned
+                  </span>
+                  <span class="chart-legend-item">
+                    <span class="chart-legend-swatch" style="background: #f59e0b; border-radius: 50%;"></span>Total Balance
+                  </span>
+                </div>
+              </div>
+              <div class="chart-toggle-group">
+                <button class="chart-toggle active" id="toggle-stacked" onclick="setChartMode('stacked', this)">Stacked</button>
+                <button class="chart-toggle" id="toggle-grouped" onclick="setChartMode('grouped', this)">Grouped</button>
+                <button class="chart-toggle" id="toggle-growth" onclick="setChartMode('growth', this)">Growth Line</button>
+              </div>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="growth-chart" height="320"></canvas>
+              <div class="chart-tooltip" id="chart-tooltip"></div>
+            </div>
+          </div>
+          <!-- ── END CHART SECTION ──────────────────────────────── -->
+
           <!-- Dynamic Yearly Growth Schedule Table -->
           <div style="overflow-x: auto; margin-top: 1rem;">
             <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem;">Annual Growth Schedule</h3>
@@ -214,7 +320,7 @@
         <!-- SEO Content Section -->
         <section class="tool-seo-content">
           <h2>What is Compound Interest?</h2>
-          <p>Compound interest has often been referenced as the "eighth wonder of the world". Unlike simple interest, which computes returns strictly on the initial principal capital, compound interest calculates interest on your initial principal **plus every dollar of accumulated interest** earned in preceding periods.</p>
+          <p>Compound interest has often been referenced as the "eighth wonder of the world". Unlike simple interest, which computes returns strictly on the initial principal capital, compound interest calculates interest on your initial principal plus every dollar of accumulated interest earned in preceding periods.</p>
 
           <h3>The Mathematics of Compounding Growth</h3>
           <p>The standard formula mapping compound interest with recurrent periodic deposits is:</p>
@@ -231,6 +337,9 @@
               <li><strong>PMT:</strong> The periodic deposit contribution made at the start of each interval ($).</li>
             </ul>
           </p>
+
+          <h3>Reading the Growth Chart</h3>
+          <p>The stacked bar chart makes the compound effect visually unmistakable. In early years the green interest segment is slim. As time progresses, interest earned accelerates dramatically — the bars tip increasingly green. The Growth Line view isolates your total balance trajectory as a single curve, making the exponential nature of compounding immediately apparent.</p>
 
           <h3>Maximizing Compounding Yields</h3>
           <p>Three core variables dictate the speed of your investment compounding:
@@ -273,28 +382,54 @@
 
   <script src="../../js/app.js"></script>
   <script>
-    window.addEventListener('load', calculateSavings);
+    // ── Colour constants ─────────────────────────────────────
+    const C_PRINCIPAL = '#6366f1';   // indigo  — principal invested
+    const C_INTEREST  = '#10b981';   // emerald — interest earned
+    const C_BALANCE   = '#f59e0b';   // amber   — total balance line
+    const C_GRID      = 'rgba(255,255,255,0.06)';
+    const C_TEXT      = '#9ca3af';
+    const C_WHITE     = '#f3f4f6';
 
+    // ── Shared state ─────────────────────────────────────────
+    let lastYearlyData = [];
+    let chartMode = 'stacked';
+
+    // ── Formatting ───────────────────────────────────────────
+    const fmtDollar = (n) => '$' + Math.round(n).toLocaleString();
+    const fmtK = (n) => {
+      if (Math.abs(n) >= 1e6) return '$' + (n / 1e6).toFixed(2).replace(/\.?0+$/, '') + 'M';
+      if (Math.abs(n) >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'K';
+      return '$' + Math.round(n);
+    };
+
+    // ── Chart mode toggle ────────────────────────────────────
+    function setChartMode(mode, btn) {
+      chartMode = mode;
+      document.querySelectorAll('.chart-toggle').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (lastYearlyData.length) drawChart(lastYearlyData);
+    }
+
+    // ── Main calculation ─────────────────────────────────────
     function calculateSavings() {
       clearAlert('savings-alert-box');
 
-      const initial = parseFloat(document.getElementById('p-initial').value);
-      const monthly = parseFloat(document.getElementById('p-monthly').value);
-      const rateVal = parseFloat(document.getElementById('p-rate').value);
-      const years = parseInt(document.getElementById('p-years').value, 10);
-      const compoundsPerYear = parseInt(document.getElementById('p-compound').value, 10);
+      const initial           = parseFloat(document.getElementById('p-initial').value);
+      const monthly           = parseFloat(document.getElementById('p-monthly').value);
+      const rateVal           = parseFloat(document.getElementById('p-rate').value);
+      const years             = parseInt(document.getElementById('p-years').value, 10);
+      const compoundsPerYear  = parseInt(document.getElementById('p-compound').value, 10);
 
-      // DOM Results
-      const futureValSpan = document.getElementById('res-future-val');
-      const principalSpan = document.getElementById('res-principal');
-      const interestSpan = document.getElementById('res-interest');
-      const scheduleBody = document.getElementById('savings-schedule-body');
+      const futureValSpan  = document.getElementById('res-future-val');
+      const principalSpan  = document.getElementById('res-principal');
+      const interestSpan   = document.getElementById('res-interest');
+      const scheduleBody   = document.getElementById('savings-schedule-body');
 
       if (isNaN(initial) || isNaN(monthly) || isNaN(rateVal) || isNaN(years) || years < 0) {
         futureValSpan.textContent = '$0.00';
         principalSpan.textContent = '$0.00';
-        interestSpan.textContent = '$0.00';
-        scheduleBody.innerHTML = '';
+        interestSpan.textContent  = '$0.00';
+        scheduleBody.innerHTML    = '';
         return;
       }
 
@@ -306,40 +441,36 @@
       const decimalRate = rateVal / 100;
       scheduleBody.innerHTML = '';
 
-      let totalBalance = initial;
+      let totalBalance   = initial;
       let totalPrincipal = initial;
-      
-      const tableRows = [];
+      const yearlyData   = [];
 
       for (let y = 1; y <= years; y++) {
-        // Calculate compounding growth for this year
-        let yearlyContribution = 0;
-        
-        // Loop through 12 months for this year
         for (let m = 1; m <= 12; m++) {
-          // Add monthly deposit
-          totalBalance += monthly;
+          totalBalance   += monthly;
           totalPrincipal += monthly;
-          yearlyContribution += monthly;
-          
-          // Apply fractional compounding interest per month if compounding is monthly/daily
+
           if (compoundsPerYear === 12) {
             totalBalance *= (1 + decimalRate / 12);
           } else if (compoundsPerYear === 365) {
-            // Approx monthly share of daily compounds
             totalBalance *= Math.pow(1 + decimalRate / 365, 365 / 12);
           }
         }
 
-        // Apply compounding once at year end if compounding is annual
         if (compoundsPerYear === 1) {
           totalBalance *= (1 + decimalRate);
         } else if (compoundsPerYear === 4) {
-          // Quarterly compound at year end loops
           totalBalance *= Math.pow(1 + decimalRate / 4, 4);
         }
 
         const totalInterest = totalBalance - totalPrincipal;
+
+        yearlyData.push({
+          year:      y,
+          principal: totalPrincipal,
+          interest:  totalInterest,
+          balance:   totalBalance,
+        });
 
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -352,12 +483,225 @@
       }
 
       const finalInterest = totalBalance - totalPrincipal;
-
-      // Update KPI
       futureValSpan.textContent = `$${Math.round(totalBalance).toLocaleString()}`;
       principalSpan.textContent = `$${Math.round(totalPrincipal).toLocaleString()}`;
-      interestSpan.textContent = `$${Math.round(finalInterest).toLocaleString()}`;
+      interestSpan.textContent  = `$${Math.round(finalInterest).toLocaleString()}`;
+
+      lastYearlyData = yearlyData;
+      drawChart(yearlyData);
     }
+
+    // ── Canvas chart ─────────────────────────────────────────
+    function drawChart(data) {
+      const canvas  = document.getElementById('growth-chart');
+      const tooltip = document.getElementById('chart-tooltip');
+      const dpr     = window.devicePixelRatio || 1;
+
+      const containerW = canvas.parentElement.clientWidth;
+      const cssH       = 320;
+      canvas.style.height = cssH + 'px';
+      canvas.width  = containerW * dpr;
+      canvas.height = cssH * dpr;
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      const W = containerW, H = cssH;
+
+      // Margins
+      const ML = 72, MR = 20, MT = 16, MB = 40;
+      const chartW = W - ML - MR;
+      const chartH = H - MT - MB;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // ── Scale ────────────────────────────────────────────
+      let yMax;
+      if (chartMode === 'growth') {
+        yMax = Math.max(...data.map(d => d.balance));
+      } else if (chartMode === 'stacked') {
+        yMax = Math.max(...data.map(d => d.balance)); // principal + interest = balance
+      } else { // grouped
+        yMax = Math.max(...data.map(d => Math.max(d.principal, d.interest)));
+      }
+      yMax = yMax * 1.08;
+
+      const xScale = (i) => ML + (i + 0.5) * (chartW / data.length);
+      const yScale = (v) => MT + chartH - (v / yMax) * chartH;
+
+      // ── Grid & Y labels ──────────────────────────────────
+      const gridLines = 5;
+      ctx.font = `11px 'Inter', sans-serif`;
+      ctx.fillStyle = C_TEXT;
+      ctx.textAlign = 'right';
+
+      for (let g = 0; g <= gridLines; g++) {
+        const v = (yMax / gridLines) * g;
+        const y = yScale(v);
+        ctx.beginPath();
+        ctx.strokeStyle = C_GRID;
+        ctx.lineWidth = 1;
+        ctx.moveTo(ML, y);
+        ctx.lineTo(ML + chartW, y);
+        ctx.stroke();
+        ctx.fillStyle = C_TEXT;
+        ctx.fillText(fmtK(v), ML - 6, y + 4);
+      }
+
+      // ── X labels ────────────────────────────────────────
+      ctx.textAlign = 'center';
+      ctx.fillStyle = C_TEXT;
+      const step = data.length > 20 ? Math.ceil(data.length / 10) : (data.length > 10 ? 2 : 1);
+      data.forEach((d, i) => {
+        if (i % step !== 0 && i !== data.length - 1) return;
+        ctx.fillText('Y' + d.year, xScale(i), H - MB + 16);
+      });
+
+      // ── Axis lines ───────────────────────────────────────
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+      ctx.lineWidth = 1;
+      ctx.moveTo(ML, MT);
+      ctx.lineTo(ML, MT + chartH);
+      ctx.lineTo(ML + chartW, MT + chartH);
+      ctx.stroke();
+
+      // ── Bars ─────────────────────────────────────────────
+      const barPad  = 0.18;
+      const barSlot = chartW / data.length;
+      const barW    = barSlot * (1 - barPad * 2);
+
+      if (chartMode === 'stacked') {
+        data.forEach((d, i) => {
+          const cx = ML + i * barSlot + barSlot * barPad;
+
+          // Principal (bottom)
+          const pH = (d.principal / yMax) * chartH;
+          const pY = MT + chartH - pH;
+          ctx.fillStyle = C_PRINCIPAL;
+          roundRect(ctx, cx, pY, barW, pH, [0, 0, 3, 3]);
+
+          // Interest (on top)
+          const iH = (d.interest / yMax) * chartH;
+          const iY = pY - iH;
+          ctx.fillStyle = C_INTEREST;
+          roundRect(ctx, cx, iY, barW, iH, [3, 3, 0, 0]);
+        });
+
+      } else if (chartMode === 'grouped') {
+        data.forEach((d, i) => {
+          const cx    = ML + i * barSlot + barSlot * barPad;
+          const halfW = barW / 2 - 1;
+
+          // Principal
+          const pH = (d.principal / yMax) * chartH;
+          ctx.fillStyle = C_PRINCIPAL;
+          roundRect(ctx, cx, MT + chartH - pH, halfW, pH, [3, 3, 2, 2]);
+
+          // Interest
+          const iH = (d.interest / yMax) * chartH;
+          ctx.fillStyle = C_INTEREST;
+          roundRect(ctx, cx + halfW + 2, MT + chartH - iH, halfW, iH, [3, 3, 2, 2]);
+        });
+      }
+
+      // ── Balance / total growth line (all modes) ───────────
+      // Area fill
+      ctx.beginPath();
+      ctx.moveTo(xScale(0), yScale(data[0].balance));
+      data.forEach((d, i) => ctx.lineTo(xScale(i), yScale(d.balance)));
+      ctx.lineTo(xScale(data.length - 1), MT + chartH);
+      ctx.lineTo(xScale(0), MT + chartH);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, MT, 0, MT + chartH);
+      grad.addColorStop(0, 'rgba(245,158,11,0.20)');
+      grad.addColorStop(1, 'rgba(245,158,11,0.01)');
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Line
+      ctx.beginPath();
+      ctx.strokeStyle = C_BALANCE;
+      ctx.lineWidth   = 2.5;
+      ctx.lineJoin    = 'round';
+      data.forEach((d, i) => {
+        i === 0 ? ctx.moveTo(xScale(i), yScale(d.balance)) : ctx.lineTo(xScale(i), yScale(d.balance));
+      });
+      ctx.stroke();
+
+      // Dots — thin them out if many years
+      const dotStep = data.length > 20 ? Math.ceil(data.length / 15) : 1;
+      data.forEach((d, i) => {
+        if (i % dotStep !== 0 && i !== data.length - 1) return;
+        ctx.beginPath();
+        ctx.arc(xScale(i), yScale(d.balance), 3.5, 0, Math.PI * 2);
+        ctx.fillStyle   = C_BALANCE;
+        ctx.fill();
+        ctx.strokeStyle = '#121b2d';
+        ctx.lineWidth   = 1.5;
+        ctx.stroke();
+      });
+
+      // ── Tooltip ──────────────────────────────────────────
+      canvas.onmousemove = (e) => {
+        const rect   = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+
+        let closest = -1, minDist = Infinity;
+        data.forEach((d, i) => {
+          const dist = Math.abs(xScale(i) - mouseX);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+
+        if (closest === -1 || minDist > barSlot) {
+          tooltip.classList.remove('visible');
+          return;
+        }
+
+        const d = data[closest];
+        const interestPct = d.balance > 0 ? ((d.interest / d.balance) * 100).toFixed(1) : '0.0';
+        tooltip.innerHTML = `
+          <strong style="color:${C_WHITE};">Year ${d.year}</strong><br>
+          <span style="color:${C_PRINCIPAL};">■</span> Principal: ${fmtDollar(d.principal)}<br>
+          <span style="color:${C_INTEREST};">■</span> Interest: ${fmtDollar(d.interest)} (${interestPct}%)<br>
+          <span style="color:${C_BALANCE};">●</span> Balance: ${fmtDollar(d.balance)}
+        `;
+
+        const tipW = 185, tipH = 95;
+        let tipX = e.clientX - rect.left + 14;
+        let tipY = e.clientY - rect.top - tipH / 2;
+        if (tipX + tipW > W) tipX = e.clientX - rect.left - tipW - 14;
+        if (tipY < 0) tipY = 4;
+        tooltip.style.left = tipX + 'px';
+        tooltip.style.top  = tipY + 'px';
+        tooltip.classList.add('visible');
+      };
+
+      canvas.onmouseleave = () => tooltip.classList.remove('visible');
+    }
+
+    // ── Helper: rounded rect ─────────────────────────────────
+    function roundRect(ctx, x, y, w, h, radii) {
+      if (h <= 0) return;
+      const [tl, tr, br, bl] = radii;
+      ctx.beginPath();
+      ctx.moveTo(x + tl, y);
+      ctx.lineTo(x + w - tr, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + tr);
+      ctx.lineTo(x + w, y + h - br);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
+      ctx.lineTo(x + bl, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - bl);
+      ctx.lineTo(x, y + tl);
+      ctx.quadraticCurveTo(x, y, x + tl, y);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    window.addEventListener('resize', () => {
+      if (lastYearlyData.length) drawChart(lastYearlyData);
+    });
+
+    window.addEventListener('load', calculateSavings);
   </script>
 </body>
 </html>
