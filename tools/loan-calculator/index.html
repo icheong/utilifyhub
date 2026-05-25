@@ -51,28 +51,92 @@
     .amort-table tr:hover { background-color: rgba(255,255,255,0.02); }
     .amort-table tfoot td { background-color: var(--bg-tertiary); font-weight: 700; color: #fff; }
 
-    /* Simple donut chart via conic-gradient */
-    .donut-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
+    /* Donut */
+    .donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
     .donut {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
+      width: 120px; height: 120px; border-radius: 50%;
       background: conic-gradient(var(--accent-primary) 0% 50%, var(--accent-danger) 50% 100%);
       transition: background var(--transition-normal);
     }
-    .donut-legend {
-      display: flex;
-      gap: 1rem;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-    }
+    .donut-legend { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--text-secondary); }
     .donut-legend span { display: flex; align-items: center; gap: 0.35rem; }
     .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+    /* Chart area */
+    .chart-section {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .chart-toggle-group {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .chart-toggle {
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      background: var(--bg-tertiary);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .chart-toggle:hover, .chart-toggle.active {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      background: var(--accent-primary-glow);
+    }
+    .chart-legend {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+    .chart-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .chart-legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    canvas#amort-chart {
+      width: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+    .chart-tooltip {
+      position: absolute;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 10;
+      min-width: 160px;
+      line-height: 1.6;
+    }
+    .chart-tooltip.visible { opacity: 1; }
+    .chart-wrap { position: relative; }
   </style>
 </head>
 <body>
@@ -213,6 +277,36 @@
 
           </div>
 
+          <!-- ── CHART SECTION ───────────────────────────────────── -->
+          <div class="chart-section">
+            <div class="chart-header">
+              <div>
+                <div style="font-family: var(--font-display); font-size: 1rem; color: #fff; margin-bottom: 0.35rem;">Amortisation Chart</div>
+                <div class="chart-legend">
+                  <span class="chart-legend-item">
+                    <span class="chart-legend-swatch" style="background: #6366f1;"></span>Principal Paid
+                  </span>
+                  <span class="chart-legend-item">
+                    <span class="chart-legend-swatch" style="background: #ef4444;"></span>Interest Paid
+                  </span>
+                  <span class="chart-legend-item">
+                    <span class="chart-legend-swatch" style="background: #10b981; border-radius: 50%;"></span>Remaining Balance
+                  </span>
+                </div>
+              </div>
+              <div class="chart-toggle-group">
+                <button class="chart-toggle active" id="toggle-stacked" onclick="setChartMode('stacked', this)">Stacked</button>
+                <button class="chart-toggle" id="toggle-grouped" onclick="setChartMode('grouped', this)">Grouped</button>
+                <button class="chart-toggle" id="toggle-balance" onclick="setChartMode('balance', this)">Balance</button>
+              </div>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="amort-chart" height="320"></canvas>
+              <div class="chart-tooltip" id="chart-tooltip"></div>
+            </div>
+          </div>
+          <!-- ── END CHART SECTION ──────────────────────────────── -->
+
           <!-- Amortisation Table -->
           <div>
             <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem;">Annual Amortisation Schedule</h3>
@@ -250,7 +344,7 @@
           <p>Where: <strong>P</strong> = principal loan amount; <strong>r</strong> = monthly interest rate (annual rate ÷ 12); <strong>n</strong> = total number of monthly payments (years × 12).</p>
 
           <h3>How Amortisation Works</h3>
-          <p>In the early years of a loan, most of your monthly payment covers interest — a very small portion reduces the principal. As the balance decreases, the interest portion shrinks and the principal portion grows. This is why the first few years of a mortgage feel slow for building equity.</p>
+          <p>In the early years of a loan, most of your monthly payment covers interest — a very small portion reduces the principal. As the balance decreases, the interest portion shrinks and the principal portion grows. This is why the first few years of a mortgage feel slow for building equity. The chart above makes this shift clearly visible.</p>
 
           <h3>The Power of Extra Repayments</h3>
           <p>Even small additional monthly payments dramatically reduce total interest paid and shorten the loan term. On a $500,000 mortgage at 6.5% over 30 years, an extra $200/month reduces total interest by tens of thousands of dollars and cuts the term by several years. Use the extra payment field above to model this.</p>
@@ -286,26 +380,50 @@
 
   <script src="../../js/app.js"></script>
   <script>
-    const fmt = (n) => '$' + Math.round(n).toLocaleString();
+    // ── Formatting helpers ───────────────────────────────────
+    const fmt  = (n) => '$' + Math.round(n).toLocaleString();
     const fmt2 = (n) => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const fmtK = (n) => {
+      if (Math.abs(n) >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+      if (Math.abs(n) >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'K';
+      return '$' + Math.round(n);
+    };
 
+    // ── Shared state ─────────────────────────────────────────
+    let lastYearlyData = [];
+    let chartMode = 'stacked'; // 'stacked' | 'grouped' | 'balance'
+
+    // ── Colours (CSS var resolved once) ─────────────────────
+    const C_PRINCIPAL = '#6366f1';  // accent-primary
+    const C_INTEREST  = '#ef4444';  // accent-danger
+    const C_BALANCE   = '#10b981';  // accent-secondary
+    const C_GRID      = 'rgba(255,255,255,0.06)';
+    const C_TEXT      = '#9ca3af';  // text-secondary
+    const C_WHITE     = '#f3f4f6';
+
+    // ── Chart mode toggle ────────────────────────────────────
+    function setChartMode(mode, btn) {
+      chartMode = mode;
+      document.querySelectorAll('.chart-toggle').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (lastYearlyData.length) drawChart(lastYearlyData);
+    }
+
+    // ── Main calculation ─────────────────────────────────────
     function calculate() {
       clearAlert('loan-alert-box');
 
-      const principal = parseFloat(document.getElementById('loan-amount').value);
-      const annualRate = parseFloat(document.getElementById('loan-rate').value);
-      const termVal = parseInt(document.getElementById('loan-term').value);
-      const termUnit = document.getElementById('loan-term-unit').value;
+      const principal   = parseFloat(document.getElementById('loan-amount').value);
+      const annualRate  = parseFloat(document.getElementById('loan-rate').value);
+      const termVal     = parseInt(document.getElementById('loan-term').value);
+      const termUnit    = document.getElementById('loan-term-unit').value;
       const extraPayment = parseFloat(document.getElementById('loan-extra').value) || 0;
 
-      if (isNaN(principal) || isNaN(annualRate) || isNaN(termVal) || principal <= 0 || annualRate < 0 || termVal <= 0) {
-        return;
-      }
+      if (isNaN(principal) || isNaN(annualRate) || isNaN(termVal) || principal <= 0 || annualRate < 0 || termVal <= 0) return;
 
       const totalMonths = termUnit === 'years' ? termVal * 12 : termVal;
       const monthlyRate = annualRate / 100 / 12;
 
-      // Standard monthly payment
       let monthlyPayment;
       if (monthlyRate === 0) {
         monthlyPayment = principal / totalMonths;
@@ -314,95 +432,307 @@
           / (Math.pow(1 + monthlyRate, totalMonths) - 1);
       }
 
-      // Simulate with extra payments
+      // Simulate month by month
       let balance = principal;
-      let totalInterest = 0;
-      let totalPaid = 0;
-      let monthsActual = 0;
+      let totalInterest = 0, totalPaid = 0, monthsActual = 0;
       const yearlyData = [];
       let yearPrincipal = 0, yearInterest = 0, yearPayment = 0;
 
       while (balance > 0.01 && monthsActual < totalMonths * 2) {
-        const interestCharge = balance * monthlyRate;
-        const payment = Math.min(balance + interestCharge, monthlyPayment + extraPayment);
+        const interestCharge  = balance * monthlyRate;
+        const payment         = Math.min(balance + interestCharge, monthlyPayment + extraPayment);
         const principalPayment = payment - interestCharge;
 
-        balance -= principalPayment;
-        totalInterest += interestCharge;
-        totalPaid += payment;
+        balance        -= principalPayment;
+        totalInterest  += interestCharge;
+        totalPaid      += payment;
         monthsActual++;
-        yearPrincipal += principalPayment;
-        yearInterest += interestCharge;
-        yearPayment += payment;
+        yearPrincipal  += principalPayment;
+        yearInterest   += interestCharge;
+        yearPayment    += payment;
 
         if (monthsActual % 12 === 0 || balance <= 0.01) {
           yearlyData.push({
-            year: Math.ceil(monthsActual / 12),
+            year:      Math.ceil(monthsActual / 12),
             principal: yearPrincipal,
-            interest: yearInterest,
-            payment: yearPayment,
-            balance: Math.max(0, balance)
+            interest:  yearInterest,
+            payment:   yearPayment,
+            balance:   Math.max(0, balance)
           });
           yearPrincipal = yearInterest = yearPayment = 0;
         }
       }
 
-      // Baseline (no extra) total interest for savings calculation
+      // Baseline interest (no extra) for savings calc
       let baseInterest = 0, baseBalance = principal;
       for (let m = 0; m < totalMonths; m++) {
         const ic = baseBalance * monthlyRate;
         baseInterest += ic;
-        baseBalance -= (monthlyPayment - ic);
+        baseBalance  -= (monthlyPayment - ic);
       }
       const interestSavings = Math.max(0, baseInterest - totalInterest);
 
       // KPIs
-      document.getElementById('res-monthly').textContent = fmt2(monthlyPayment + extraPayment);
-      document.getElementById('res-total-paid').textContent = fmt(totalPaid);
+      document.getElementById('res-monthly').textContent        = fmt2(monthlyPayment + extraPayment);
+      document.getElementById('res-total-paid').textContent     = fmt(totalPaid);
       document.getElementById('res-total-interest').textContent = fmt(totalInterest);
-      const yrs = Math.floor(monthsActual / 12);
-      const mos = monthsActual % 12;
+      const yrs = Math.floor(monthsActual / 12), mos = monthsActual % 12;
       document.getElementById('res-payoff').textContent =
         yrs > 0 ? `${yrs}y ${mos > 0 ? mos + 'm' : ''}`.trim() : `${mos}m`;
       document.getElementById('res-interest-savings').textContent = fmt(interestSavings);
 
-      // Donut chart
+      // Donut
       const principalPct = principal / totalPaid * 100;
-      const interestPct = 100 - principalPct;
       document.getElementById('donut-chart').style.background =
-        `conic-gradient(var(--accent-primary) 0% ${principalPct.toFixed(1)}%, var(--accent-danger) ${principalPct.toFixed(1)}% 100%)`;
+        `conic-gradient(${C_PRINCIPAL} 0% ${principalPct.toFixed(1)}%, ${C_INTEREST} ${principalPct.toFixed(1)}% 100%)`;
       document.getElementById('donut-pct-label').textContent =
-        `Principal ${principalPct.toFixed(0)}% · Interest ${interestPct.toFixed(0)}%`;
+        `Principal ${principalPct.toFixed(0)}% · Interest ${(100 - principalPct).toFixed(0)}%`;
 
       // Amortisation table
       const body = document.getElementById('amort-body');
       const foot = document.getElementById('amort-foot');
       body.innerHTML = '';
-      let cumPrincipal = 0, cumInterest = 0, cumPayment = 0;
+      let cumP = 0, cumI = 0, cumPmt = 0;
 
       yearlyData.forEach(row => {
-        cumPrincipal += row.principal;
-        cumInterest += row.interest;
-        cumPayment += row.payment;
+        cumP += row.principal; cumI += row.interest; cumPmt += row.payment;
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>Year ${row.year}</td>
           <td>${fmt(row.principal)}</td>
-          <td style="color: var(--accent-danger);">${fmt(row.interest)}</td>
+          <td style="color:${C_INTEREST};">${fmt(row.interest)}</td>
           <td>${fmt(row.payment)}</td>
-          <td style="color: var(--accent-secondary);">${fmt(row.balance)}</td>
+          <td style="color:${C_BALANCE};">${fmt(row.balance)}</td>
         `;
         body.appendChild(tr);
       });
-
       foot.innerHTML = `<tr>
-        <td>Totals</td>
-        <td>${fmt(cumPrincipal)}</td>
-        <td>${fmt(cumInterest)}</td>
-        <td>${fmt(cumPayment)}</td>
-        <td>$0</td>
+        <td>Totals</td><td>${fmt(cumP)}</td>
+        <td>${fmt(cumI)}</td><td>${fmt(cumPmt)}</td><td>$0</td>
       </tr>`;
+
+      // Chart
+      lastYearlyData = yearlyData;
+      drawChart(yearlyData);
     }
+
+    // ── Canvas chart ─────────────────────────────────────────
+    function drawChart(data) {
+      const canvas  = document.getElementById('amort-chart');
+      const tooltip = document.getElementById('chart-tooltip');
+      const dpr     = window.devicePixelRatio || 1;
+
+      // Size canvas to container width
+      const containerW = canvas.parentElement.clientWidth;
+      const cssH       = 320;
+      canvas.style.height = cssH + 'px';
+      canvas.width  = containerW * dpr;
+      canvas.height = cssH * dpr;
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      const W = containerW, H = cssH;
+
+      // Margins
+      const ML = 68, MR = 20, MT = 16, MB = 40;
+      const chartW = W - ML - MR;
+      const chartH = H - MT - MB;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // ── Compute scales ───────────────────────────────────
+      let yMax;
+      if (chartMode === 'balance') {
+        yMax = Math.max(...data.map(d => d.balance));
+      } else if (chartMode === 'stacked') {
+        yMax = Math.max(...data.map(d => d.principal + d.interest));
+      } else { // grouped
+        yMax = Math.max(...data.map(d => Math.max(d.principal, d.interest)));
+      }
+      yMax = yMax * 1.08; // 8% headroom
+
+      const xScale = (i) => ML + (i + 0.5) * (chartW / data.length);
+      const yScale = (v) => MT + chartH - (v / yMax) * chartH;
+
+      // ── Grid lines & Y labels ────────────────────────────
+      const gridLines = 5;
+      ctx.textAlign = 'right';
+      ctx.font = `11px 'Inter', sans-serif`;
+      ctx.fillStyle = C_TEXT;
+
+      for (let g = 0; g <= gridLines; g++) {
+        const v = (yMax / gridLines) * g;
+        const y = yScale(v);
+        ctx.beginPath();
+        ctx.strokeStyle = C_GRID;
+        ctx.lineWidth = 1;
+        ctx.moveTo(ML, y);
+        ctx.lineTo(ML + chartW, y);
+        ctx.stroke();
+        ctx.fillStyle = C_TEXT;
+        ctx.fillText(fmtK(v), ML - 6, y + 4);
+      }
+
+      // ── X axis labels (year numbers, thinned if many) ────
+      ctx.textAlign = 'center';
+      ctx.fillStyle = C_TEXT;
+      const step = data.length > 20 ? Math.ceil(data.length / 10) : (data.length > 10 ? 2 : 1);
+
+      data.forEach((d, i) => {
+        if (i % step !== 0 && i !== data.length - 1) return;
+        ctx.fillText('Y' + d.year, xScale(i), H - MB + 16);
+      });
+
+      // ── Axis lines ───────────────────────────────────────
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+      ctx.lineWidth = 1;
+      ctx.moveTo(ML, MT);
+      ctx.lineTo(ML, MT + chartH);
+      ctx.lineTo(ML + chartW, MT + chartH);
+      ctx.stroke();
+
+      // ── Draw bars ────────────────────────────────────────
+      const barPad   = 0.18;
+      const barSlot  = chartW / data.length;
+      const barW     = barSlot * (1 - barPad * 2);
+
+      if (chartMode === 'stacked' || chartMode === 'grouped') {
+        data.forEach((d, i) => {
+          const cx = ML + i * barSlot + barSlot * barPad;
+
+          if (chartMode === 'stacked') {
+            // Interest bar (bottom)
+            const iH = (d.interest / yMax) * chartH;
+            const iY = MT + chartH - iH;
+            ctx.fillStyle = C_INTEREST;
+            roundRect(ctx, cx, iY, barW, iH, [0, 0, 3, 3]);
+
+            // Principal bar (on top)
+            const pH = (d.principal / yMax) * chartH;
+            const pY = iY - pH;
+            ctx.fillStyle = C_PRINCIPAL;
+            roundRect(ctx, cx, pY, barW, pH, [3, 3, 0, 0]);
+
+          } else { // grouped
+            const halfW  = barW / 2 - 1;
+            // Principal
+            const pH = (d.principal / yMax) * chartH;
+            ctx.fillStyle = C_PRINCIPAL;
+            roundRect(ctx, cx, MT + chartH - pH, halfW, pH, [3, 3, 2, 2]);
+            // Interest
+            const iH = (d.interest / yMax) * chartH;
+            ctx.fillStyle = C_INTEREST;
+            roundRect(ctx, cx + halfW + 2, MT + chartH - iH, halfW, iH, [3, 3, 2, 2]);
+          }
+        });
+      }
+
+      // ── Balance line (always in stacked/grouped; sole element in balance mode) ──
+      if (chartMode === 'balance' || chartMode === 'stacked' || chartMode === 'grouped') {
+        const lineData = chartMode === 'balance' ? data : data;
+
+        // Area fill under balance line
+        ctx.beginPath();
+        ctx.moveTo(xScale(0), yScale(lineData[0].balance));
+        lineData.forEach((d, i) => ctx.lineTo(xScale(i), yScale(d.balance)));
+        ctx.lineTo(xScale(lineData.length - 1), MT + chartH);
+        ctx.lineTo(xScale(0), MT + chartH);
+        ctx.closePath();
+        const grad = ctx.createLinearGradient(0, MT, 0, MT + chartH);
+        grad.addColorStop(0, 'rgba(16,185,129,0.18)');
+        grad.addColorStop(1, 'rgba(16,185,129,0.01)');
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Line
+        ctx.beginPath();
+        ctx.strokeStyle = C_BALANCE;
+        ctx.lineWidth = 2.5;
+        ctx.lineJoin = 'round';
+        lineData.forEach((d, i) => {
+          const x = xScale(i), y = yScale(d.balance);
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+
+        // Dots at each data point
+        lineData.forEach((d, i) => {
+          ctx.beginPath();
+          ctx.arc(xScale(i), yScale(d.balance), 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = C_BALANCE;
+          ctx.fill();
+          ctx.strokeStyle = '#121b2d';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        });
+      }
+
+      // ── Tooltip on hover ─────────────────────────────────
+      // Remove old listener by cloning canvas
+      const newCanvas = canvas.cloneNode(true);
+      canvas.parentNode.replaceChild(newCanvas, newCanvas); // no-op to keep ref
+      // Use mousemove on original canvas reference
+      canvas.onmousemove = (e) => {
+        const rect   = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+
+        // Find nearest bar
+        let closest = -1, minDist = Infinity;
+        data.forEach((d, i) => {
+          const dist = Math.abs(xScale(i) - mouseX);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+
+        if (closest === -1 || minDist > barSlot) {
+          tooltip.classList.remove('visible');
+          return;
+        }
+
+        const d = data[closest];
+        tooltip.innerHTML = `
+          <strong style="color:${C_WHITE};">Year ${d.year}</strong><br>
+          <span style="color:${C_PRINCIPAL};">■</span> Principal: ${fmt(d.principal)}<br>
+          <span style="color:${C_INTEREST};">■</span> Interest: ${fmt(d.interest)}<br>
+          <span style="color:${C_BALANCE};">●</span> Balance: ${fmt(d.balance)}
+        `;
+
+        // Position tooltip — keep inside container
+        const tipW = 170, tipH = 90;
+        let tipX = e.clientX - rect.left + 14;
+        let tipY = e.clientY - rect.top - tipH / 2;
+        if (tipX + tipW > W) tipX = e.clientX - rect.left - tipW - 14;
+        if (tipY < 0) tipY = 4;
+        tooltip.style.left = tipX + 'px';
+        tooltip.style.top  = tipY + 'px';
+        tooltip.classList.add('visible');
+      };
+
+      canvas.onmouseleave = () => tooltip.classList.remove('visible');
+    }
+
+    // ── Helper: rounded rectangle ────────────────────────────
+    function roundRect(ctx, x, y, w, h, radii) {
+      if (h <= 0) return;
+      const [tl, tr, br, bl] = radii;
+      ctx.beginPath();
+      ctx.moveTo(x + tl, y);
+      ctx.lineTo(x + w - tr, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + tr);
+      ctx.lineTo(x + w, y + h - br);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
+      ctx.lineTo(x + bl, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - bl);
+      ctx.lineTo(x, y + tl);
+      ctx.quadraticCurveTo(x, y, x + tl, y);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Redraw on resize
+    window.addEventListener('resize', () => {
+      if (lastYearlyData.length) drawChart(lastYearlyData);
+    });
 
     window.addEventListener('load', calculate);
   </script>
