@@ -3,81 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Free Online Color Converter | HEX RGB HSL HSB | UtilifyHub</title>
+  <title>Free Online Color Converter | HEX RGB HSL HSB | UtilifyGrid</title>
   <meta name="description" content="Convert colors between HEX, RGB, HSL, and HSB formats instantly. Live color preview, complementary palette generator, and one-click copy. Free client-side tool.">
   <meta name="keywords" content="color converter, hex to rgb, rgb to hex, hsl converter, hsb converter, color picker, palette generator, css color tool">
-
   <link rel="stylesheet" href="../../styles.css">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
   <style>
-    .color-preview-swatch {
-      width: 100%;
-      height: 120px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
-      transition: background-color var(--transition-normal);
-      margin-bottom: 1rem;
-    }
-    .color-value-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background-color: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 0.65rem 1rem;
-      margin-bottom: 0.75rem;
-    }
-    .color-value-label {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      width: 40px;
-      flex-shrink: 0;
-    }
-    .color-value-text {
-      font-family: var(--font-code);
-      font-size: 0.95rem;
-      color: #fff;
-      flex: 1;
-    }
-    .palette-swatch {
-      flex: 1;
-      height: 60px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: transform var(--transition-fast);
-      border: 1px solid var(--border-color);
-      position: relative;
-      overflow: hidden;
-    }
-    .palette-swatch:hover {
-      transform: scaleY(1.1);
-    }
-    .palette-swatch .swatch-label {
-      position: absolute;
-      bottom: 4px;
-      left: 0; right: 0;
-      text-align: center;
-      font-size: 0.65rem;
-      font-family: var(--font-code);
-      color: rgba(255,255,255,0.8);
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
+    .color-preview-swatch{width:100%;height:120px;border-radius:var(--radius-md);border:1px solid var(--border-color);transition:background-color var(--transition-normal);margin-bottom:1rem;}
+    .color-value-row{display:flex;align-items:center;gap:0.75rem;background-color:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:0.65rem 1rem;margin-bottom:0.75rem;}
+    .color-value-label{font-family:var(--font-display);font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);width:40px;flex-shrink:0;}
+    .color-value-text{font-family:var(--font-code);font-size:0.95rem;color:#fff;flex:1;}
+    .palette-swatch{flex:1;height:60px;border-radius:var(--radius-sm);cursor:pointer;transition:transform var(--transition-fast);border:1px solid var(--border-color);position:relative;overflow:hidden;}
+    .palette-swatch:hover{transform:scaleY(1.1);}
+    .palette-swatch .swatch-label{position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:0.65rem;font-family:var(--font-code);color:rgba(255,255,255,0.8);text-shadow:0 1px 2px rgba(0,0,0,0.5);}
   </style>
 </head>
 <body>
-
   <div class="app-container">
-
     <header class="app-header">
       <div class="brand">
-        <a href="../../index.html" class="brand" id="brand-link">
-          <div class="brand-logo">U</div>
-          <span class="brand-name">UtilifyHub</span>
+        <a href="../../index.html" class="brand">
+          <div class="brand-logo">G</div>
+          <span class="brand-name">UtilifyGrid</span>
         </a>
       </div>
       <nav class="header-actions">
@@ -86,171 +34,88 @@
         <a href="../../pages/contact.html" class="nav-link-btn">Contact</a>
       </nav>
     </header>
-
     <div class="main-wrapper">
-
       <aside class="app-sidebar">
         <div class="sidebar-card">
           <h2 class="sidebar-title">Popular Tools</h2>
           <ul class="sidebar-menu">
             <li><a href="../json-formatter/index.html" class="sidebar-link">{} JSON Formatter</a></li>
-            <li><a href="../hash-generator/index.html" class="sidebar-link">🔐 Hash Generator</a></li>
-            <li><a href="../uuid-generator/index.html" class="sidebar-link">🆔 UUID Generator</a></li>
-            <li><a href="#" class="sidebar-link active">🎨 Color Converter</a></li>
+            <li><a href="../hash-generator/index.html" class="sidebar-link">&#128272; Hash Generator</a></li>
+            <li><a href="../uuid-generator/index.html" class="sidebar-link">&#127327; UUID Generator</a></li>
+            <li><a href="#" class="sidebar-link active">&#127912; Color Converter</a></li>
           </ul>
         </div>
         <div class="sidebar-card">
           <h2 class="sidebar-title">Sponsor</h2>
-          <div class="ad-card" style="min-height: 180px;">
-            <span class="ad-label">Sponsor</span>
-            <p class="ad-placeholder-text">AdSense Banner</p>
-          </div>
+          <div class="ad-card" style="min-height:180px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Banner</p></div>
         </div>
       </aside>
-
       <main class="workspace-content">
-
         <div class="tool-workspace">
-
           <div class="tool-header">
             <div class="tool-title-area">
-              <div class="tool-icon">🎨</div>
+              <div class="tool-icon">&#127912;</div>
               <div>
                 <h2>Color Converter</h2>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Convert between HEX, RGB, HSL, and HSB. Preview live swatches and generate palettes.</p>
+                <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.1rem;">Convert between HEX, RGB, HSL, and HSB. Preview live swatches and generate palettes.</p>
               </div>
             </div>
           </div>
-
           <div id="color-alert-box"></div>
-
-          <div class="workspace-grid" style="grid-template-columns: 1fr 1.3fr;">
-
-            <!-- Input column -->
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-
-              <!-- Color picker -->
-              <div style="display: flex; align-items: center; gap: 1rem;">
-                <input type="color" id="color-picker" value="#6366f1"
-                  style="width: 64px; height: 64px; border: none; background: none; cursor: pointer; border-radius: var(--radius-md); padding: 0;"
-                  oninput="onPickerChange()">
+          <div class="workspace-grid" style="grid-template-columns:1fr 1.3fr;">
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <div style="display:flex;align-items:center;gap:1rem;">
+                <input type="color" id="color-picker" value="#6366f1" style="width:64px;height:64px;border:none;background:none;cursor:pointer;border-radius:var(--radius-md);padding:0;" oninput="onPickerChange()">
                 <div>
-                  <div style="font-family: var(--font-display); font-weight: 600; color: #fff;">Pick a Color</div>
-                  <div style="font-size: 0.8rem; color: var(--text-secondary);">Or type values in any format below</div>
+                  <div style="font-family:var(--font-display);font-weight:600;color:#fff;">Pick a Color</div>
+                  <div style="font-size:0.8rem;color:var(--text-secondary);">Or type values in any format below</div>
                 </div>
               </div>
-
               <div class="form-group">
                 <label class="form-label">HEX</label>
-                <input type="text" id="input-hex" class="form-input" style="font-family: var(--font-code);" placeholder="#6366f1" oninput="onHexInput()">
+                <input type="text" id="input-hex" class="form-input" style="font-family:var(--font-code);" placeholder="#6366f1" oninput="onHexInput()">
               </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
-                <div class="form-group">
-                  <label class="form-label">R</label>
-                  <input type="number" id="input-r" class="form-input" min="0" max="255" placeholder="99" oninput="onRGBInput()">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">G</label>
-                  <input type="number" id="input-g" class="form-input" min="0" max="255" placeholder="102" oninput="onRGBInput()">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">B</label>
-                  <input type="number" id="input-b" class="form-input" min="0" max="255" placeholder="241" oninput="onRGBInput()">
-                </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;">
+                <div class="form-group"><label class="form-label">R</label><input type="number" id="input-r" class="form-input" min="0" max="255" placeholder="99" oninput="onRGBInput()"></div>
+                <div class="form-group"><label class="form-label">G</label><input type="number" id="input-g" class="form-input" min="0" max="255" placeholder="102" oninput="onRGBInput()"></div>
+                <div class="form-group"><label class="form-label">B</label><input type="number" id="input-b" class="form-input" min="0" max="255" placeholder="241" oninput="onRGBInput()"></div>
               </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
-                <div class="form-group">
-                  <label class="form-label">H°</label>
-                  <input type="number" id="input-h" class="form-input" min="0" max="360" placeholder="239" oninput="onHSLInput()">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">S%</label>
-                  <input type="number" id="input-s" class="form-input" min="0" max="100" placeholder="84" oninput="onHSLInput()">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">L%</label>
-                  <input type="number" id="input-l" class="form-input" min="0" max="100" placeholder="67" oninput="onHSLInput()">
-                </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;">
+                <div class="form-group"><label class="form-label">H°</label><input type="number" id="input-h" class="form-input" min="0" max="360" placeholder="239" oninput="onHSLInput()"></div>
+                <div class="form-group"><label class="form-label">S%</label><input type="number" id="input-s" class="form-input" min="0" max="100" placeholder="84" oninput="onHSLInput()"></div>
+                <div class="form-group"><label class="form-label">L%</label><input type="number" id="input-l" class="form-input" min="0" max="100" placeholder="67" oninput="onHSLInput()"></div>
               </div>
-
             </div>
-
-            <!-- Output / preview column -->
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
               <div class="color-preview-swatch" id="preview-swatch"></div>
-
-              <div class="color-value-row">
-                <span class="color-value-label">HEX</span>
-                <span class="color-value-text" id="out-hex">—</span>
-                <button class="btn btn-secondary" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="copyVal('out-hex')">Copy</button>
-              </div>
-              <div class="color-value-row">
-                <span class="color-value-label">RGB</span>
-                <span class="color-value-text" id="out-rgb">—</span>
-                <button class="btn btn-secondary" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="copyVal('out-rgb')">Copy</button>
-              </div>
-              <div class="color-value-row">
-                <span class="color-value-label">HSL</span>
-                <span class="color-value-text" id="out-hsl">—</span>
-                <button class="btn btn-secondary" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="copyVal('out-hsl')">Copy</button>
-              </div>
-              <div class="color-value-row">
-                <span class="color-value-label">HSB</span>
-                <span class="color-value-text" id="out-hsb">—</span>
-                <button class="btn btn-secondary" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="copyVal('out-hsb')">Copy</button>
-              </div>
-
-              <!-- Palette row -->
+              <div class="color-value-row"><span class="color-value-label">HEX</span><span class="color-value-text" id="out-hex">—</span><button class="btn btn-secondary" style="padding:0.2rem 0.6rem;font-size:0.75rem;" onclick="copyVal('out-hex')">Copy</button></div>
+              <div class="color-value-row"><span class="color-value-label">RGB</span><span class="color-value-text" id="out-rgb">—</span><button class="btn btn-secondary" style="padding:0.2rem 0.6rem;font-size:0.75rem;" onclick="copyVal('out-rgb')">Copy</button></div>
+              <div class="color-value-row"><span class="color-value-label">HSL</span><span class="color-value-text" id="out-hsl">—</span><button class="btn btn-secondary" style="padding:0.2rem 0.6rem;font-size:0.75rem;" onclick="copyVal('out-hsl')">Copy</button></div>
+              <div class="color-value-row"><span class="color-value-label">HSB</span><span class="color-value-text" id="out-hsb">—</span><button class="btn btn-secondary" style="padding:0.2rem 0.6rem;font-size:0.75rem;" onclick="copyVal('out-hsb')">Copy</button></div>
               <div>
-                <span class="panel-title" style="display: block; margin-bottom: 0.5rem;">Complementary Palette</span>
-                <div style="display: flex; gap: 0.5rem;" id="palette-row"></div>
+                <span class="panel-title" style="display:block;margin-bottom:0.5rem;">Complementary Palette</span>
+                <div style="display:flex;gap:0.5rem;" id="palette-row"></div>
               </div>
-
             </div>
-
           </div>
-
         </div>
-
-        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
-        </div>
-
+        <div class="ad-card" style="min-height:120px;width:100%;border-style:dashed;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Native In-Feed Ad</p></div>
         <section class="tool-seo-content">
           <h2>Color Format Reference Guide</h2>
-          <p>Modern web design and digital art workflows require fluency across multiple color notations. Each format encodes the same visible color through a different mathematical model.</p>
-
-          <h3>HEX (Hexadecimal)</h3>
-          <p>The most common CSS format: a hash followed by 6 hexadecimal digits representing red, green, and blue channels (e.g. <code>#6366f1</code>). Each pair ranges from <code>00</code> (0) to <code>ff</code> (255). Shorthand 3-digit forms like <code>#fff</code> are also valid.</p>
-
-          <h3>RGB (Red, Green, Blue)</h3>
-          <p>Defines color as three integers from 0–255. Used directly in CSS as <code>rgb(99, 102, 241)</code>. Intuitive for mixing — adding more red, green, or blue shifts the resulting hue accordingly.</p>
-
-          <h3>HSL (Hue, Saturation, Lightness)</h3>
-          <p>More human-intuitive than RGB. Hue is a degree on the color wheel (0–360), Saturation is the intensity (0–100%), and Lightness ranges from black (0%) to white (100%). Supported natively in CSS as <code>hsl(239, 84%, 67%)</code>.</p>
-
-          <h3>HSB / HSV (Hue, Saturation, Brightness)</h3>
-          <p>Similar to HSL but replaces Lightness with Brightness (also called Value). Widely used in design applications like Photoshop and Figma. A Brightness of 100% produces the purest form of the hue, not white as in HSL.</p>
+          <p>Modern web design requires fluency across multiple color notations. Each format encodes the same visible color through a different mathematical model.</p>
+          <h3>HEX</h3><p>The most common CSS format: a hash followed by 6 hexadecimal digits (e.g. <code>#6366f1</code>). Each pair ranges from <code>00</code> to <code>ff</code>.</p>
+          <h3>RGB</h3><p>Defines color as three integers from 0–255. Used in CSS as <code>rgb(99, 102, 241)</code>.</p>
+          <h3>HSL</h3><p>Hue is a degree on the color wheel (0–360), Saturation is intensity (0–100%), and Lightness ranges from black (0%) to white (100%).</p>
+          <h3>HSB / HSV</h3><p>Similar to HSL but replaces Lightness with Brightness. Widely used in design applications like Photoshop and Figma.</p>
         </section>
-
       </main>
-
       <aside class="app-adbar">
-        <div class="ad-card" style="min-height: 600px;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
-        </div>
+        <div class="ad-card" style="min-height:600px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Large Skyscraper</p></div>
       </aside>
-
     </div>
-
     <footer class="app-footer">
       <div class="footer-content">
-        <div class="footer-text">&copy; 2026 UtilifyHub. All tools process data locally in your browser.</div>
+        <div class="footer-text">&copy; 2026 UtilifyGrid. All tools process data locally in your browser.</div>
         <ul class="footer-links">
           <li><a href="../../pages/about.html" class="footer-link">About Us</a></li>
           <li><a href="../../pages/privacy.html" class="footer-link">Privacy Policy</a></li>
@@ -259,157 +124,23 @@
         </ul>
       </div>
     </footer>
-
   </div>
-
   <script src="../../js/app.js"></script>
   <script>
-    // ── State ──────────────────────────────────────────────
-    let currentRGB = { r: 99, g: 102, b: 241 };
-
-    // ── Conversion helpers ─────────────────────────────────
-    function hexToRGB(hex) {
-      hex = hex.replace(/^#/, '');
-      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
-      if (hex.length !== 6) return null;
-      const n = parseInt(hex, 16);
-      if (isNaN(n)) return null;
-      return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
-    }
-
-    function rgbToHex({ r, g, b }) {
-      return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
-    }
-
-    function rgbToHSL({ r, g, b }) {
-      r /= 255; g /= 255; b /= 255;
-      const max = Math.max(r, g, b), min = Math.min(r, g, b);
-      let h, s, l = (max + min) / 2;
-      if (max === min) { h = s = 0; }
-      else {
-        const d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        switch (max) {
-          case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
-          case g: h = ((b - r) / d + 2) / 6; break;
-          default: h = ((r - g) / d + 4) / 6;
-        }
-      }
-      return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
-    }
-
-    function rgbToHSB({ r, g, b }) {
-      r /= 255; g /= 255; b /= 255;
-      const max = Math.max(r, g, b), min = Math.min(r, g, b);
-      const d = max - min;
-      let h;
-      if (d === 0) h = 0;
-      else if (max === r) h = ((g - b) / d) % 6;
-      else if (max === g) h = (b - r) / d + 2;
-      else h = (r - g) / d + 4;
-      h = Math.round(h * 60);
-      if (h < 0) h += 360;
-      const s = max === 0 ? 0 : Math.round((d / max) * 100);
-      const v = Math.round(max * 100);
-      return { h, s, v };
-    }
-
-    function hslToRGB({ h, s, l }) {
-      s /= 100; l /= 100;
-      const k = n => (n + h / 30) % 12;
-      const a = s * Math.min(l, 1 - l);
-      const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-      return { r: Math.round(f(0) * 255), g: Math.round(f(8) * 255), b: Math.round(f(4) * 255) };
-    }
-
-    // ── Render all outputs from currentRGB ────────────────
-    function renderAll() {
-      const { r, g, b } = currentRGB;
-      const hex = rgbToHex({ r, g, b });
-      const hsl = rgbToHSL({ r, g, b });
-      const hsb = rgbToHSB({ r, g, b });
-
-      document.getElementById('preview-swatch').style.backgroundColor = hex;
-      document.getElementById('color-picker').value = hex;
-
-      document.getElementById('out-hex').textContent = hex.toUpperCase();
-      document.getElementById('out-rgb').textContent = `rgb(${r}, ${g}, ${b})`;
-      document.getElementById('out-hsl').textContent = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
-      document.getElementById('out-hsb').textContent = `hsb(${hsb.h}, ${hsb.s}%, ${hsb.v}%)`;
-
-      // Sync inputs without re-triggering
-      document.getElementById('input-hex').value = hex.toUpperCase();
-      document.getElementById('input-r').value = r;
-      document.getElementById('input-g').value = g;
-      document.getElementById('input-b').value = b;
-      document.getElementById('input-h').value = hsl.h;
-      document.getElementById('input-s').value = hsl.s;
-      document.getElementById('input-l').value = hsl.l;
-
-      renderPalette(hsl.h);
-    }
-
-    function renderPalette(baseHue) {
-      const row = document.getElementById('palette-row');
-      // Complementary, triadic, analogous offsets
-      const offsets = [0, 30, 60, 180, 240, 300];
-      row.innerHTML = '';
-      offsets.forEach(offset => {
-        const h = (baseHue + offset) % 360;
-        const rgb = hslToRGB({ h, s: 70, l: 55 });
-        const hex = rgbToHex(rgb);
-        const sw = document.createElement('div');
-        sw.className = 'palette-swatch';
-        sw.style.backgroundColor = hex;
-        sw.title = hex;
-        sw.innerHTML = `<span class="swatch-label">${hex.toUpperCase()}</span>`;
-        sw.onclick = () => { currentRGB = rgb; renderAll(); };
-        row.appendChild(sw);
-      });
-    }
-
-    // ── Input handlers ─────────────────────────────────────
-    function onPickerChange() {
-      const hex = document.getElementById('color-picker').value;
-      const rgb = hexToRGB(hex);
-      if (rgb) { currentRGB = rgb; renderAll(); }
-    }
-
-    function onHexInput() {
-      let val = document.getElementById('input-hex').value.trim();
-      if (!val.startsWith('#')) val = '#' + val;
-      const rgb = hexToRGB(val);
-      if (rgb) { currentRGB = rgb; renderAll(); }
-    }
-
-    function onRGBInput() {
-      const r = parseInt(document.getElementById('input-r').value);
-      const g = parseInt(document.getElementById('input-g').value);
-      const b = parseInt(document.getElementById('input-b').value);
-      if ([r,g,b].every(v => !isNaN(v) && v >= 0 && v <= 255)) {
-        currentRGB = { r, g, b }; renderAll();
-      }
-    }
-
-    function onHSLInput() {
-      const h = parseInt(document.getElementById('input-h').value);
-      const s = parseInt(document.getElementById('input-s').value);
-      const l = parseInt(document.getElementById('input-l').value);
-      if (!isNaN(h) && !isNaN(s) && !isNaN(l)) {
-        currentRGB = hslToRGB({ h, s, l }); renderAll();
-      }
-    }
-
-    function copyVal(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        showAlert('color-alert-box', `Copied: ${text}`, 'success');
-        setTimeout(() => clearAlert('color-alert-box'), 2000);
-      });
-    }
-
-    // Init
-    window.addEventListener('load', renderAll);
+    let currentRGB={r:99,g:102,b:241};
+    function hexToRGB(hex){hex=hex.replace(/^#/,'');if(hex.length===3)hex=hex.split('').map(c=>c+c).join('');if(hex.length!==6)return null;const n=parseInt(hex,16);if(isNaN(n))return null;return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
+    function rgbToHex({r,g,b}){return'#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');}
+    function rgbToHSL({r,g,b}){r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b);let h,s,l=(max+min)/2;if(max===min){h=s=0;}else{const d=max-min;s=l>0.5?d/(2-max-min):d/(max+min);switch(max){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;default:h=((r-g)/d+4)/6;}}return{h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)};}
+    function rgbToHSB({r,g,b}){r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;let h;if(d===0)h=0;else if(max===r)h=((g-b)/d)%6;else if(max===g)h=(b-r)/d+2;else h=(r-g)/d+4;h=Math.round(h*60);if(h<0)h+=360;return{h,s:max===0?0:Math.round((d/max)*100),v:Math.round(max*100)};}
+    function hslToRGB({h,s,l}){s/=100;l/=100;const k=n=>(n+h/30)%12,a=s*Math.min(l,1-l),f=n=>l-a*Math.max(-1,Math.min(k(n)-3,Math.min(9-k(n),1)));return{r:Math.round(f(0)*255),g:Math.round(f(8)*255),b:Math.round(f(4)*255)};}
+    function renderAll(){const{r,g,b}=currentRGB;const hex=rgbToHex({r,g,b}),hsl=rgbToHSL({r,g,b}),hsb=rgbToHSB({r,g,b});document.getElementById('preview-swatch').style.backgroundColor=hex;document.getElementById('color-picker').value=hex;document.getElementById('out-hex').textContent=hex.toUpperCase();document.getElementById('out-rgb').textContent=`rgb(${r}, ${g}, ${b})`;document.getElementById('out-hsl').textContent=`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;document.getElementById('out-hsb').textContent=`hsb(${hsb.h}, ${hsb.s}%, ${hsb.v}%)`;document.getElementById('input-hex').value=hex.toUpperCase();document.getElementById('input-r').value=r;document.getElementById('input-g').value=g;document.getElementById('input-b').value=b;document.getElementById('input-h').value=hsl.h;document.getElementById('input-s').value=hsl.s;document.getElementById('input-l').value=hsl.l;renderPalette(hsl.h);}
+    function renderPalette(baseHue){const row=document.getElementById('palette-row');const offsets=[0,30,60,180,240,300];row.innerHTML='';offsets.forEach(offset=>{const h=(baseHue+offset)%360,rgb=hslToRGB({h,s:70,l:55}),hex=rgbToHex(rgb);const sw=document.createElement('div');sw.className='palette-swatch';sw.style.backgroundColor=hex;sw.title=hex;sw.innerHTML=`<span class="swatch-label">${hex.toUpperCase()}</span>`;sw.onclick=()=>{currentRGB=rgb;renderAll();};row.appendChild(sw);});}
+    function onPickerChange(){const hex=document.getElementById('color-picker').value;const rgb=hexToRGB(hex);if(rgb){currentRGB=rgb;renderAll();}}
+    function onHexInput(){let val=document.getElementById('input-hex').value.trim();if(!val.startsWith('#'))val='#'+val;const rgb=hexToRGB(val);if(rgb){currentRGB=rgb;renderAll();}}
+    function onRGBInput(){const r=parseInt(document.getElementById('input-r').value),g=parseInt(document.getElementById('input-g').value),b=parseInt(document.getElementById('input-b').value);if([r,g,b].every(v=>!isNaN(v)&&v>=0&&v<=255)){currentRGB={r,g,b};renderAll();}}
+    function onHSLInput(){const h=parseInt(document.getElementById('input-h').value),s=parseInt(document.getElementById('input-s').value),l=parseInt(document.getElementById('input-l').value);if(!isNaN(h)&&!isNaN(s)&&!isNaN(l)){currentRGB=hslToRGB({h,s,l});renderAll();}}
+    function copyVal(id){const text=document.getElementById(id).textContent;navigator.clipboard.writeText(text).then(()=>{showAlert('color-alert-box',`Copied: ${text}`,'success');setTimeout(()=>clearAlert('color-alert-box'),2000);});}
+    window.addEventListener('load',renderAll);
   </script>
 </body>
 </html>

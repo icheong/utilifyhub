@@ -3,99 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Optimization -->
-  <title>Free Online QR Code Generator | Download Custom QRs | UtilifyHub</title>
+  <title>Free Online QR Code Generator | Download Custom QRs | UtilifyGrid</title>
   <meta name="description" content="Generate high-resolution QR codes completely offline. Customize sizes, colors, and download standard PNG formats immediately. Free secure utility tool.">
-  <meta name="keywords" content="qr code generator, create qr code, free qr generator, client-side qr, custom qr code, download qr, barcode generator">
-  
+  <meta name="keywords" content="qr code generator, create qr code, free qr generator, client-side qr, custom qr code, download qr">
   <link rel="stylesheet" href="../../styles.css">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
   <style>
-    .qr-preview-box {
-      background-color: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 250px;
-      margin-bottom: 1rem;
-    }
+    .qr-preview-box { background-color: #fff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; display: flex; align-items: center; justify-content: center; min-height: 250px; margin-bottom: 1rem; }
   </style>
 </head>
 <body>
-
   <div class="app-container">
-    
-    <!-- Header -->
     <header class="app-header">
       <div class="brand">
         <a href="../../index.html" class="brand" id="brand-link">
-          <div class="brand-logo">U</div>
-          <span class="brand-name">UtilifyHub</span>
+          <div class="brand-logo">G</div>
+          <span class="brand-name">UtilifyGrid</span>
         </a>
       </div>
-      
       <nav class="header-actions">
-        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
-        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
-        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+        <a href="../../index.html" class="nav-link-btn">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn">Contact</a>
       </nav>
     </header>
-
-    <!-- Main Workspace -->
     <div class="main-wrapper">
-      
-      <!-- Left sidebar navigation -->
       <aside class="app-sidebar">
         <div class="sidebar-card">
           <h2 class="sidebar-title">Popular Tools</h2>
           <ul class="sidebar-menu">
-            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
-            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
-            <li><a href="#" class="sidebar-link active" id="pop-qr">📱 QR Generator</a></li>
-            <li><a href="../compound-interest/index.html" class="sidebar-link" id="pop-savings">💰 Savings Calc</a></li>
+            <li><a href="../json-formatter/index.html" class="sidebar-link">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link">64 Base64 Converter</a></li>
+            <li><a href="#" class="sidebar-link active">&#128241; QR Generator</a></li>
+            <li><a href="../compound-interest/index.html" class="sidebar-link">&#128176; Savings Calc</a></li>
           </ul>
         </div>
-
         <div class="sidebar-card">
           <h2 class="sidebar-title">Sponsor</h2>
-          <div class="ad-card" style="min-height: 180px;">
-            <span class="ad-label">Sponsor</span>
-            <p class="ad-placeholder-text">AdSense Banner</p>
-          </div>
+          <div class="ad-card" style="min-height: 180px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Banner</p></div>
         </div>
       </aside>
-
-      <!-- Center Tool Space -->
       <main class="workspace-content">
-        
         <div class="tool-workspace">
-          
           <div class="tool-header">
             <div class="tool-title-area">
-              <div class="tool-icon">📱</div>
+              <div class="tool-icon">&#128241;</div>
               <div>
                 <h2>QR Code Generator</h2>
                 <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Create and download high-resolution QR codes in seconds.</p>
               </div>
             </div>
           </div>
-
-          <!-- Alert Display -->
           <div id="qr-alert-box"></div>
-
-          <!-- Form Split -->
           <div class="workspace-grid" style="grid-template-columns: 1.2fr 1fr;">
-            
-            <!-- Controls Form -->
             <div style="display: flex; flex-direction: column; gap: 1rem;">
               <div class="form-group">
                 <label for="qr-text" class="form-label">QR Code Content (URL, Text, or Wi-Fi config)</label>
-                <textarea id="qr-text" class="tool-textarea" style="height: 120px; font-family: var(--font-body);" placeholder="Type a website URL or simple message...&#10;e.g. https://utilifyhub.com" oninput="generateQR()"></textarea>
+                <textarea id="qr-text" class="tool-textarea" style="height: 120px; font-family: var(--font-body);" placeholder="Type a website URL or simple message..." oninput="generateQR()"></textarea>
               </div>
-
               <div class="form-group">
                 <label for="qr-size" class="form-label">Size (Pixels)</label>
                 <select id="qr-size" class="form-select" onchange="forceRebuild()">
@@ -105,7 +71,6 @@
                   <option value="512">512 x 512 px</option>
                 </select>
               </div>
-
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div class="form-group">
                   <label for="qr-color-dark" class="form-label">QR Color (Dark)</label>
@@ -117,76 +82,41 @@
                 </div>
               </div>
             </div>
-
-            <!-- Preview Card -->
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
               <div class="panel-title" style="margin-bottom: 0.5rem; align-self: flex-start;">QR Preview</div>
-              
               <div class="qr-preview-box" id="qr-preview-container">
                 <span style="color: #aaa; font-size: 0.85rem;">Input text content to render preview...</span>
               </div>
-              
               <div style="display: flex; gap: 0.5rem; width: 100%;">
                 <button class="btn btn-primary" id="btn-qr-download" onclick="downloadQR()" style="flex: 1;">Download PNG</button>
               </div>
             </div>
-
           </div>
-
         </div>
-
-        <!-- AdSense Native Ad slot between Tool and Instructions -->
-        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
-        </div>
-
-        <!-- SEO Content Section -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Native In-Feed Ad</p></div>
         <section class="tool-seo-content">
           <h2>What is a QR Code?</h2>
-          <p>A QR (Quick Response) Code is a specialized matrix barcode that contains encoded data readable by smartphone cameras and scanning devices. Widely incorporated across corporate operations, marketing campaigns, restaurant tables, and physical tickets, QR codes provide instant connections from real-world products to online interfaces.</p>
-
-          <h3>Absolute Security & Browser Isolation</h3>
-          <p>Many online QR creators require sending your targeted links, WiFi network passwords, or private contact details to online databases, raising data leaks risk. UtilifyHub uses a <strong>fully client-side compilation library</strong>. The code is compiled entirely inside your browser sandbox and rendered onto local HTML5 elements. None of your parameters are uploaded to external clouds.</p>
-
-          <h3>How to Customize Your QR Code</h3>
-          <ul>
-            <li><strong>Content Formatting:</strong> You can paste standard text string entries, Wi-Fi security descriptors, geographic coordinates, or raw URLs. Our encoder automatically manages complex alphanumeric characters.</li>
-            <li><strong>Sizing Dimensions:</strong> Scale up to 512px for high-definition pixel layouts suitable for both digital screens and physical paper distributions.</li>
-            <li><strong>Color Palette customization:</strong> Alter dark elements and light margins to match your corporate branding structures. Ensure high color contrast ratios (dark colors against bright margins) so phone scanners can read the code.</li>
-          </ul>
+          <p>A QR (Quick Response) Code is a specialized matrix barcode that contains encoded data readable by smartphone cameras and scanning devices. Widely incorporated across corporate operations, marketing campaigns, restaurant tables, and physical tickets.</p>
+          <h3>Absolute Security &amp; Browser Isolation</h3>
+          <p>UtilifyGrid uses a <strong>fully client-side compilation library</strong>. The code is compiled entirely inside your browser sandbox and rendered onto local HTML5 elements. None of your parameters are uploaded to external clouds.</p>
         </section>
-
       </main>
-
-      <!-- Right Column Ads -->
       <aside class="app-adbar">
-        <div class="ad-card" style="min-height: 600px;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
-        </div>
+        <div class="ad-card" style="min-height: 600px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Large Skyscraper</p></div>
       </aside>
-
     </div>
-
-    <!-- Footer -->
     <footer class="app-footer">
       <div class="footer-content">
-        <div class="footer-text">
-          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
-        </div>
+        <div class="footer-text">&copy; 2026 UtilifyGrid. All tools process data locally in your browser.</div>
         <ul class="footer-links">
-          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
-          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
-          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
-          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+          <li><a href="../../pages/about.html" class="footer-link">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link">Contact Support</a></li>
         </ul>
       </div>
     </footer>
-
   </div>
-
-  <!-- QR library: no integrity attribute to avoid SRI blocking -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="../../js/app.js"></script>
   <script>
@@ -196,83 +126,28 @@
     const colorDarkInput = document.getElementById('qr-color-dark');
     const colorLightInput = document.getElementById('qr-color-light');
     const alertBox = 'qr-alert-box';
-
-    let qrcodeInstance = null;
-    let currentSize = 256;
-
-    window.addEventListener('load', () => {
-      qrTextInput.value = "https://utilifyhub.com";
-      generateQR();
-    });
-
-    // Called when size or color changes — must fully rebuild the instance
-    function forceRebuild() {
-      qrcodeInstance = null;
-      generateQR();
-    }
-
+    let qrcodeInstance = null, currentSize = 256;
+    window.addEventListener('load', () => { qrTextInput.value = "https://utilifygrid.com"; generateQR(); });
+    function forceRebuild() { qrcodeInstance = null; generateQR(); }
     function generateQR() {
       clearAlert(alertBox);
       const textVal = qrTextInput.value;
-
-      if (!textVal) {
-        qrContainer.innerHTML = '<span style="color: #aaa; font-size: 0.85rem;">Input text content to render preview...</span>';
-        qrcodeInstance = null;
-        return;
-      }
-
+      if (!textVal) { qrContainer.innerHTML = '<span style="color:#aaa;font-size:0.85rem;">Input text content to render preview...</span>'; qrcodeInstance = null; return; }
       const size = parseInt(qrSizeSelect.value, 10);
-      const colorDark = colorDarkInput.value;
-      const colorLight = colorLightInput.value;
-
       try {
-        if (qrcodeInstance && size === currentSize) {
-          // Only text changed — use makeCode() to avoid rebuilding DOM
-          qrcodeInstance.makeCode(textVal);
-        } else {
-          // Size or color changed, or first render — full rebuild
-          qrContainer.innerHTML = '';
-          qrcodeInstance = new QRCode(qrContainer, {
-            text: textVal,
-            width: size,
-            height: size,
-            colorDark: colorDark,
-            colorLight: colorLight,
-            correctLevel: QRCode.CorrectLevel.H
-          });
-          currentSize = size;
-        }
-      } catch (err) {
-        qrcodeInstance = null;
-        showAlert(alertBox, 'Error generating QR code. Try shortening your input text.', 'danger');
-      }
+        if (qrcodeInstance && size === currentSize) { qrcodeInstance.makeCode(textVal); }
+        else { qrContainer.innerHTML = ''; qrcodeInstance = new QRCode(qrContainer, { text: textVal, width: size, height: size, colorDark: colorDarkInput.value, colorLight: colorLightInput.value, correctLevel: QRCode.CorrectLevel.H }); currentSize = size; }
+      } catch (err) { qrcodeInstance = null; showAlert(alertBox, 'Error generating QR code. Try shortening your input text.', 'danger'); }
     }
-
     function downloadQR() {
-      const canvas = qrContainer.querySelector('canvas');
-      const img = qrContainer.querySelector('img');
-
-      if (!canvas && !img) {
-        showAlert(alertBox, 'Please input QR content before attempting download.', 'warning');
-        return;
-      }
-
+      const canvas = qrContainer.querySelector('canvas'), img = qrContainer.querySelector('img');
+      if (!canvas && !img) { showAlert(alertBox, 'Please input QR content before attempting download.', 'warning'); return; }
       try {
-        // Prefer canvas as it always has current pixel data
-        const downloadUrl = canvas
-          ? canvas.toDataURL("image/png")
-          : img.src;
-
-        const a = document.createElement("a");
-        a.href = downloadUrl;
-        a.download = "utilifyhub-qrcode.png";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        const url = canvas ? canvas.toDataURL("image/png") : img.src;
+        const a = document.createElement("a"); a.href = url; a.download = "utilifygrid-qrcode.png";
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
         showAlert(alertBox, 'QR Code PNG successfully downloaded!', 'success');
-      } catch (err) {
-        showAlert(alertBox, 'Export Error: ' + err.message, 'danger');
-      }
+      } catch (err) { showAlert(alertBox, 'Export Error: ' + err.message, 'danger'); }
     }
   </script>
 </body>

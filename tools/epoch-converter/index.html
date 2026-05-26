@@ -3,353 +3,190 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Optimization -->
-  <title>Free Online Epoch Unix Timestamp Converter | Realtime Clock | UtilifyHub</title>
-  <meta name="description" content="Convert Epoch Unix timestamps to human-readable dates and vice-versa instantly. Live ticking epoch clock, UTC & local time conversion, secure client-side tool.">
-  <meta name="keywords" content="epoch converter, unix timestamp, timestamp converter, epoch clock, date to epoch, convert timestamp, coding utilities">
-  
+  <title>Free Online Epoch Unix Timestamp Converter | UtilifyGrid</title>
+  <meta name="description" content="Convert Epoch Unix timestamps to human-readable dates and vice-versa instantly. Live ticking epoch clock, UTC & local time conversion.">
+  <meta name="keywords" content="epoch converter, unix timestamp, timestamp converter, epoch clock, date to epoch">
   <link rel="stylesheet" href="../../styles.css">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
   <style>
-    .epoch-clock-card {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .epoch-clock-val {
-      font-family: var(--font-code);
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--accent-secondary);
-      letter-spacing: 0.05em;
-      margin-top: 0.5rem;
-    }
+    .epoch-clock-card { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(16,185,129,0.05) 100%); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; text-align: center; margin-bottom: 1.5rem; }
+    .epoch-clock-val { font-family: var(--font-code); font-size: 2.2rem; font-weight: 700; color: var(--accent-secondary); letter-spacing: 0.05em; margin-top: 0.5rem; }
   </style>
 </head>
 <body>
-
   <div class="app-container">
-    
-    <!-- Header -->
     <header class="app-header">
       <div class="brand">
-        <a href="../../index.html" class="brand" id="brand-link">
-          <div class="brand-logo">U</div>
-          <span class="brand-name">UtilifyHub</span>
+        <a href="../../index.html" class="brand">
+          <div class="brand-logo">G</div>
+          <span class="brand-name">UtilifyGrid</span>
         </a>
       </div>
-      
       <nav class="header-actions">
-        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
-        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
-        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+        <a href="../../index.html" class="nav-link-btn">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn">Contact</a>
       </nav>
     </header>
-
-    <!-- Main Workspace -->
     <div class="main-wrapper">
-      
-      <!-- Left sidebar navigation -->
       <aside class="app-sidebar">
         <div class="sidebar-card">
           <h2 class="sidebar-title">Popular Tools</h2>
           <ul class="sidebar-menu">
-            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
-            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
-            <li><a href="../word-counter/index.html" class="sidebar-link" id="pop-words">📝 Word Counter</a></li>
-            <li><a href="#" class="sidebar-link active" id="pop-epoch">🕒 Epoch Converter</a></li>
+            <li><a href="../json-formatter/index.html" class="sidebar-link">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link">64 Base64 Converter</a></li>
+            <li><a href="../word-counter/index.html" class="sidebar-link">&#128221; Word Counter</a></li>
+            <li><a href="#" class="sidebar-link active">&#128336; Epoch Converter</a></li>
           </ul>
         </div>
-
         <div class="sidebar-card">
           <h2 class="sidebar-title">Sponsor</h2>
-          <div class="ad-card" style="min-height: 180px;">
-            <span class="ad-label">Sponsor</span>
-            <p class="ad-placeholder-text">AdSense Banner</p>
-          </div>
+          <div class="ad-card" style="min-height: 180px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Banner</p></div>
         </div>
       </aside>
-
-      <!-- Center Tool Space -->
       <main class="workspace-content">
-        
-        <!-- Live Ticking Epoch Clock -->
         <div class="epoch-clock-card">
-          <span class="panel-title" style="color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; font-weight: 700;">Current Epoch Unix Timestamp</span>
-          <div class="epoch-clock-val" id="live-epoch-clock">1779450000</div>
-          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem;">Seconds since Jan 1, 1970 (UTC). Ticking live...</p>
+          <span class="panel-title" style="color:var(--text-secondary);text-transform:uppercase;font-size:0.8rem;letter-spacing:0.05em;font-weight:700;">Current Epoch Unix Timestamp</span>
+          <div class="epoch-clock-val" id="live-epoch-clock">0</div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;">Seconds since Jan 1, 1970 (UTC). Ticking live...</p>
         </div>
-
         <div class="tool-workspace">
-          
           <div class="tool-header">
             <div class="tool-title-area">
-              <div class="tool-icon">🕒</div>
+              <div class="tool-icon">&#128336;</div>
               <div>
                 <h2>Epoch Timestamp Converter</h2>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Convert Epoch Unix integers to readable calendar dates and vice-versa.</p>
+                <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.1rem;">Convert Epoch Unix integers to readable calendar dates and vice-versa.</p>
               </div>
             </div>
           </div>
-
-          <!-- Alert Display -->
           <div id="epoch-alert-box"></div>
-
-          <!-- Converter Split columns -->
           <div class="workspace-grid">
-            
-            <!-- Column 1: Epoch -> Date -->
-            <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem;">
-              <h3 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff;">1. Convert Epoch to Date</h3>
-              
+            <div style="background-color:var(--bg-secondary);padding:1.5rem;border-radius:var(--radius-md);border:1px solid var(--border-color);display:flex;flex-direction:column;gap:1rem;">
+              <h3 style="font-family:var(--font-display);font-size:1.05rem;color:#fff;">1. Convert Epoch to Date</h3>
               <div class="form-group">
                 <label for="epoch-input-val" class="form-label">Epoch Unix Timestamp (seconds or ms)</label>
-                <div style="display: flex; gap: 0.5rem;">
-                  <input type="number" id="epoch-input-val" class="form-input" style="font-family: var(--font-code);" placeholder="e.g. 1779450000">
-                  <button class="btn btn-secondary" onclick="useCurrentEpoch()" style="white-space: nowrap; padding: 0.5rem 1rem;">Current Time</button>
+                <div style="display:flex;gap:0.5rem;">
+                  <input type="number" id="epoch-input-val" class="form-input" style="font-family:var(--font-code);" placeholder="e.g. 1779450000">
+                  <button class="btn btn-secondary" onclick="useCurrentEpoch()" style="white-space:nowrap;padding:0.5rem 1rem;">Current Time</button>
                 </div>
               </div>
-
               <button class="btn btn-primary" onclick="convertEpochToDate()">Convert to Calendar</button>
-
-              <div id="epoch-to-date-results" style="display: none; border-top: 1px dashed var(--border-color); padding-top: 1rem; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;">
-                <div>
-                  <span style="color: var(--text-secondary); display: block; font-size: 0.8rem; text-transform: uppercase;">Your Local Time Zone</span>
-                  <strong id="res-local-time" style="color: #fff; font-size: 1.05rem;">--</strong>
-                </div>
-                <div>
-                  <span style="color: var(--text-secondary); display: block; font-size: 0.8rem; text-transform: uppercase;">Universal Coordinated Time (UTC)</span>
-                  <strong id="res-utc-time" style="color: var(--accent-secondary); font-size: 1.05rem;">--</strong>
-                </div>
+              <div id="epoch-to-date-results" style="display:none;border-top:1px dashed var(--border-color);padding-top:1rem;flex-direction:column;gap:0.75rem;font-size:0.9rem;">
+                <div><span style="color:var(--text-secondary);display:block;font-size:0.8rem;text-transform:uppercase;">Your Local Time Zone</span><strong id="res-local-time" style="color:#fff;font-size:1.05rem;">--</strong></div>
+                <div><span style="color:var(--text-secondary);display:block;font-size:0.8rem;text-transform:uppercase;">Universal Coordinated Time (UTC)</span><strong id="res-utc-time" style="color:var(--accent-secondary);font-size:1.05rem;">--</strong></div>
               </div>
             </div>
-
-            <!-- Column 2: Date -> Epoch -->
-            <!-- FIX: Label now explicitly states "Local Time" so users understand
-                 the inputs are interpreted in their browser's local timezone. -->
-            <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 1rem;">
-              <h3 style="font-family: var(--font-display); font-size: 1.05rem; color: #fff;">2. Convert Date to Epoch</h3>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: -0.5rem;">Date inputs are interpreted in your local browser timezone.</p>
-
-              <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.5rem;">
-                <div class="form-group">
-                  <label class="form-label" style="font-size: 0.75rem;">Year</label>
-                  <input type="number" id="date-yr" class="form-input" value="2026">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" style="font-size: 0.75rem;">Month (1-12)</label>
-                  <input type="number" id="date-mo" class="form-input" value="5" min="1" max="12">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" style="font-size: 0.75rem;">Day</label>
-                  <input type="number" id="date-dy" class="form-input" value="22" min="1" max="31">
-                </div>
+            <div style="background-color:var(--bg-secondary);padding:1.5rem;border-radius:var(--radius-md);border:1px solid var(--border-color);display:flex;flex-direction:column;gap:1rem;">
+              <h3 style="font-family:var(--font-display);font-size:1.05rem;color:#fff;">2. Convert Date to Epoch</h3>
+              <p style="font-size:0.8rem;color:var(--text-muted);margin-top:-0.5rem;">Date inputs are interpreted in your local browser timezone.</p>
+              <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:0.5rem;">
+                <div class="form-group"><label class="form-label" style="font-size:0.75rem;">Year</label><input type="number" id="date-yr" class="form-input" value="2026"></div>
+                <div class="form-group"><label class="form-label" style="font-size:0.75rem;">Month (1-12)</label><input type="number" id="date-mo" class="form-input" value="5" min="1" max="12"></div>
+                <div class="form-group"><label class="form-label" style="font-size:0.75rem;">Day</label><input type="number" id="date-dy" class="form-input" value="26" min="1" max="31"></div>
               </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
-                <div class="form-group">
-                  <label class="form-label" style="font-size: 0.75rem;">Hour (0-23)</label>
-                  <input type="number" id="date-hr" class="form-input" value="12" min="0" max="23">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" style="font-size: 0.75rem;">Minute</label>
-                  <input type="number" id="date-mn" class="form-input" value="0" min="0" max="59">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" style="font-size: 0.75rem;">Second</label>
-                  <input type="number" id="date-sc" class="form-input" value="0" min="0" max="59">
-                </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;">
+                <div class="form-group"><label class="form-label" style="font-size:0.75rem;">Hour (0-23)</label><input type="number" id="date-hr" class="form-input" value="12" min="0" max="23"></div>
+                <div class="form-group"><label class="form-label" style="font-size:0.75rem;">Minute</label><input type="number" id="date-mn" class="form-input" value="0" min="0" max="59"></div>
+                <div class="form-group"><label class="form-label" style="font-size:0.75rem;">Second</label><input type="number" id="date-sc" class="form-input" value="0" min="0" max="59"></div>
               </div>
-
               <button class="btn btn-success" onclick="convertDateToEpoch()">Convert to Epoch</button>
-
-              <div id="date-to-epoch-results" style="display: none; border-top: 1px dashed var(--border-color); padding-top: 1rem; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
-                <div>
-                  <span style="color: var(--text-secondary); display: block; font-size: 0.8rem; text-transform: uppercase;">Unix Epoch Seconds</span>
-                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
-                    <strong id="res-epoch-sec" style="color: #fff; font-family: var(--font-code); font-size: 1.2rem;">--</strong>
-                    <button class="btn btn-secondary" id="btn-copy-sec" onclick="copyEpochSec()" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">Copy</button>
+              <div id="date-to-epoch-results" style="display:none;border-top:1px dashed var(--border-color);padding-top:1rem;flex-direction:column;gap:0.5rem;font-size:0.9rem;">
+                <div><span style="color:var(--text-secondary);display:block;font-size:0.8rem;text-transform:uppercase;">Unix Epoch Seconds</span>
+                  <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.2rem;">
+                    <strong id="res-epoch-sec" style="color:#fff;font-family:var(--font-code);font-size:1.2rem;">--</strong>
+                    <button class="btn btn-secondary" id="btn-copy-sec" onclick="copyEpochSec()" style="padding:0.2rem 0.5rem;font-size:0.75rem;">Copy</button>
                   </div>
                 </div>
-                <div>
-                  <span style="color: var(--text-secondary); display: block; font-size: 0.8rem; text-transform: uppercase;">Unix Epoch Milliseconds</span>
-                  <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
-                    <strong id="res-epoch-ms" style="color: var(--accent-primary); font-family: var(--font-code); font-size: 1.1rem;">--</strong>
-                    <button class="btn btn-secondary" id="btn-copy-ms" onclick="copyEpochMs()" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">Copy</button>
+                <div><span style="color:var(--text-secondary);display:block;font-size:0.8rem;text-transform:uppercase;">Unix Epoch Milliseconds</span>
+                  <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.2rem;">
+                    <strong id="res-epoch-ms" style="color:var(--accent-primary);font-family:var(--font-code);font-size:1.1rem;">--</strong>
+                    <button class="btn btn-secondary" id="btn-copy-ms" onclick="copyEpochMs()" style="padding:0.2rem 0.5rem;font-size:0.75rem;">Copy</button>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
-
-        <!-- AdSense Native Ad slot between Tool and Instructions -->
         <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
+          <span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
         </div>
-
-        <!-- SEO Content Section -->
         <section class="tool-seo-content">
           <h2>What is an Epoch Unix Timestamp?</h2>
-          <p>The Unix Epoch (also referenced as POSIX time) is a standardized counting routine designed by computer scientists to measure time as a single running integer. It represents the cumulative count of seconds that have elapsed since midnight on January 1, 1970 Coordinated Universal Time (UTC), excluding leap seconds.</p>
-
-          <h3>Why Do Software Developers Use Epoch Timestamps?</h3>
-          <p>Epoch timestamps are highly favored across coding systems (databases, APIs, logging infrastructures) because integers are extremely light to index, transfer, and query compared to standard alphabetical calendar strings. They avoid common errors associated with global time-zones, formatting differences, or daylight savings offsets during logical comparisons.</p>
-
-          <h3>Decoding Seconds vs Milliseconds</h3>
-          <p>Epoch timestamps generally exist in two common formats:
-            <ul>
-              <li><strong>Seconds (10 digits):</strong> Standard POSIX timestamp measuring elapsed seconds (e.g. 1779450000). Highly incorporated in standard database indexes.</li>
-              <li><strong>Milliseconds (13 digits):</strong> Detailed clock measurements utilized by programming frameworks like JavaScript (e.g. 1779450000000).</li>
-            </ul>
-            Our Epoch Converter parses both formats dynamically and extracts accurate local and UTC date readings.
-          </p>
+          <p>The Unix Epoch is a standardized counting routine that represents the cumulative count of seconds that have elapsed since midnight on January 1, 1970 Coordinated Universal Time (UTC), excluding leap seconds.</p>
+          <h3>Seconds vs Milliseconds</h3>
+          <ul>
+            <li><strong>Seconds (10 digits):</strong> Standard POSIX timestamp (e.g. 1779450000). Commonly used in databases.</li>
+            <li><strong>Milliseconds (13 digits):</strong> Used by JavaScript frameworks (e.g. 1779450000000).</li>
+          </ul>
         </section>
-
       </main>
-
-      <!-- Right Column Ads -->
       <aside class="app-adbar">
         <div class="ad-card" style="min-height: 600px;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
+          <span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Large Skyscraper</p>
         </div>
       </aside>
-
     </div>
-
-    <!-- Footer -->
     <footer class="app-footer">
       <div class="footer-content">
-        <div class="footer-text">
-          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
-        </div>
+        <div class="footer-text">&copy; 2026 UtilifyGrid. All tools process data locally in your browser.</div>
         <ul class="footer-links">
-          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
-          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
-          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
-          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+          <li><a href="../../pages/about.html" class="footer-link">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link">Contact Support</a></li>
         </ul>
       </div>
     </footer>
-
   </div>
-
   <script src="../../js/app.js"></script>
   <script>
     const liveClock = document.getElementById('live-epoch-clock');
     const alertBox = 'epoch-alert-box';
-
     window.addEventListener('load', () => {
-      // Start live clock
-      liveClock.textContent = Math.floor(Date.now() / 1000);
-      setInterval(() => {
-        liveClock.textContent = Math.floor(Date.now() / 1000);
-      }, 1000);
-
-      // Pre-fill date inputs with current local time
+      liveClock.textContent = Math.floor(Date.now()/1000);
+      setInterval(() => { liveClock.textContent = Math.floor(Date.now()/1000); }, 1000);
       const now = new Date();
       document.getElementById('date-yr').value = now.getFullYear();
-      document.getElementById('date-mo').value = now.getMonth() + 1;
+      document.getElementById('date-mo').value = now.getMonth()+1;
       document.getElementById('date-dy').value = now.getDate();
       document.getElementById('date-hr').value = now.getHours();
       document.getElementById('date-mn').value = now.getMinutes();
       document.getElementById('date-sc').value = now.getSeconds();
     });
-
-    function useCurrentEpoch() {
-      document.getElementById('epoch-input-val').value = Math.floor(Date.now() / 1000);
-      convertEpochToDate();
-    }
-
+    function useCurrentEpoch() { document.getElementById('epoch-input-val').value = Math.floor(Date.now()/1000); convertEpochToDate(); }
     function convertEpochToDate() {
       clearAlert(alertBox);
       const val = document.getElementById('epoch-input-val').value.trim();
       const resultsDiv = document.getElementById('epoch-to-date-results');
-
-      if (!val) {
-        showAlert(alertBox, 'Please input an Epoch integer to convert.', 'warning');
-        resultsDiv.style.display = 'none';
-        return;
-      }
-
-      const num = parseInt(val, 10);
-      if (isNaN(num)) {
-        showAlert(alertBox, 'Parsing Failure: Epoch must be a valid numerical integer.', 'danger');
-        resultsDiv.style.display = 'none';
-        return;
-      }
-
-      // Detect seconds (10 digits) vs milliseconds (13 digits)
-      const dateObj = val.length > 11 ? new Date(num) : new Date(num * 1000);
-
-      if (isNaN(dateObj.getTime())) {
-        showAlert(alertBox, 'Invalid timestamp: Resulting date falls out of boundary ranges.', 'danger');
-        resultsDiv.style.display = 'none';
-        return;
-      }
-
-      resultsDiv.style.display = 'flex';
+      if (!val) { showAlert(alertBox,'Please input an Epoch integer to convert.','warning'); resultsDiv.style.display='none'; return; }
+      const num = parseInt(val,10);
+      if (isNaN(num)) { showAlert(alertBox,'Parsing Failure: Epoch must be a valid numerical integer.','danger'); resultsDiv.style.display='none'; return; }
+      const dateObj = val.length > 11 ? new Date(num) : new Date(num*1000);
+      if (isNaN(dateObj.getTime())) { showAlert(alertBox,'Invalid timestamp: Resulting date falls out of boundary ranges.','danger'); resultsDiv.style.display='none'; return; }
+      resultsDiv.style.display='flex';
       document.getElementById('res-local-time').textContent = dateObj.toString();
       document.getElementById('res-utc-time').textContent = dateObj.toUTCString();
-      showAlert(alertBox, 'Epoch successfully parsed and converted!', 'success');
+      showAlert(alertBox,'Epoch successfully parsed and converted!','success');
     }
-
     function convertDateToEpoch() {
       clearAlert(alertBox);
-
-      // FIX: parseInt is applied to the string value BEFORE the month
-      // subtraction, not after — avoids coercion bugs on string arithmetic.
-      const yr = parseInt(document.getElementById('date-yr').value, 10);
-      const mo = parseInt(document.getElementById('date-mo').value, 10) - 1; // 0-indexed
-      const dy = parseInt(document.getElementById('date-dy').value, 10);
-      const hr = parseInt(document.getElementById('date-hr').value, 10);
-      const mn = parseInt(document.getElementById('date-mn').value, 10);
-      const sc = parseInt(document.getElementById('date-sc').value, 10);
-
+      const yr=parseInt(document.getElementById('date-yr').value,10), mo=parseInt(document.getElementById('date-mo').value,10)-1;
+      const dy=parseInt(document.getElementById('date-dy').value,10), hr=parseInt(document.getElementById('date-hr').value,10);
+      const mn=parseInt(document.getElementById('date-mn').value,10), sc=parseInt(document.getElementById('date-sc').value,10);
       const resultsDiv = document.getElementById('date-to-epoch-results');
-
-      if ([yr, mo, dy, hr, mn, sc].some(isNaN)) {
-        showAlert(alertBox, 'Please fill in all date and time input parameters.', 'warning');
-        resultsDiv.style.display = 'none';
-        return;
-      }
-
-      // Interprets inputs in the user's local browser timezone (documented in UI)
-      const dateObj = new Date(yr, mo, dy, hr, mn, sc);
-
-      if (isNaN(dateObj.getTime())) {
-        showAlert(alertBox, 'Invalid calendar date inputs. Please double check calendar ranges.', 'danger');
-        resultsDiv.style.display = 'none';
-        return;
-      }
-
-      resultsDiv.style.display = 'flex';
-      const ms  = dateObj.getTime();
-      const sec = Math.floor(ms / 1000);
-
-      document.getElementById('res-epoch-sec').textContent = sec;
-      document.getElementById('res-epoch-ms').textContent  = ms;
-      showAlert(alertBox, 'Calendar date successfully converted to Epoch Unix timestamps!', 'success');
+      if ([yr,mo,dy,hr,mn,sc].some(isNaN)) { showAlert(alertBox,'Please fill in all date and time input parameters.','warning'); resultsDiv.style.display='none'; return; }
+      const dateObj = new Date(yr,mo,dy,hr,mn,sc);
+      if (isNaN(dateObj.getTime())) { showAlert(alertBox,'Invalid calendar date inputs.','danger'); resultsDiv.style.display='none'; return; }
+      resultsDiv.style.display='flex';
+      const ms=dateObj.getTime(), sec=Math.floor(ms/1000);
+      document.getElementById('res-epoch-sec').textContent=sec;
+      document.getElementById('res-epoch-ms').textContent=ms;
+      showAlert(alertBox,'Calendar date successfully converted to Epoch Unix timestamps!','success');
     }
-
-    function copyEpochSec() {
-      const text = document.getElementById('res-epoch-sec').textContent;
-      const btn  = document.getElementById('btn-copy-sec');
-      copyToClipboard(text, btn, 'Copy');
-    }
-
-    function copyEpochMs() {
-      const text = document.getElementById('res-epoch-ms').textContent;
-      const btn  = document.getElementById('btn-copy-ms');
-      copyToClipboard(text, btn, 'Copy');
-    }
+    function copyEpochSec() { copyToClipboard(document.getElementById('res-epoch-sec').textContent, document.getElementById('btn-copy-sec'),'Copy'); }
+    function copyEpochMs() { copyToClipboard(document.getElementById('res-epoch-ms').textContent, document.getElementById('btn-copy-ms'),'Copy'); }
   </script>
 </body>
 </html>

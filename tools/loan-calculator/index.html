@@ -3,151 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Free Online Loan & Mortgage Calculator | Monthly Repayment Planner | UtilifyHub</title>
+  <title>Free Online Loan &amp; Mortgage Calculator | Monthly Repayment Planner | UtilifyGrid</title>
   <meta name="description" content="Calculate monthly loan repayments, total interest paid, and view a full amortisation schedule. Supports mortgages, car loans, and personal loans. Free client-side finance tool.">
-  <meta name="keywords" content="loan calculator, mortgage calculator, monthly repayment, amortisation schedule, home loan calculator, car loan calculator, interest calculator, finance tool">
-
+  <meta name="keywords" content="loan calculator, mortgage calculator, monthly repayment, amortisation schedule, home loan calculator, car loan calculator, interest calculator">
   <link rel="stylesheet" href="../../styles.css">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
   <style>
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .kpi-card {
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      text-align: center;
-    }
-    .kpi-value {
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-    .kpi-label {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 0.3rem;
-    }
-    .amort-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
-    }
-    .amort-table th, .amort-table td {
-      border: 1px solid var(--border-color);
-      padding: 0.6rem 0.85rem;
-      text-align: right;
-    }
-    .amort-table th { background-color: var(--bg-secondary); color: #fff; font-weight: 600; text-align: center; }
-    .amort-table td:first-child { text-align: center; font-weight: 600; }
-    .amort-table tr:hover { background-color: rgba(255,255,255,0.02); }
-    .amort-table tfoot td { background-color: var(--bg-tertiary); font-weight: 700; color: #fff; }
-
-    /* Donut */
-    .donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
-    .donut {
-      width: 120px; height: 120px; border-radius: 50%;
-      background: conic-gradient(var(--accent-primary) 0% 50%, var(--accent-danger) 50% 100%);
-      transition: background var(--transition-normal);
-    }
-    .donut-legend { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--text-secondary); }
-    .donut-legend span { display: flex; align-items: center; gap: 0.35rem; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-
-    /* Chart area */
-    .chart-section {
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-    }
-    .chart-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-    .chart-toggle-group {
-      display: flex;
-      gap: 0.4rem;
-    }
-    .chart-toggle {
-      padding: 0.3rem 0.85rem;
-      border-radius: var(--radius-full);
-      font-size: 0.8rem;
-      font-weight: 600;
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      background: var(--bg-tertiary);
-      cursor: pointer;
-      transition: var(--transition-fast);
-    }
-    .chart-toggle:hover, .chart-toggle.active {
-      border-color: var(--accent-primary);
-      color: var(--accent-primary);
-      background: var(--accent-primary-glow);
-    }
-    .chart-legend {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-    }
-    .chart-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .chart-legend-swatch {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-    canvas#amort-chart {
-      width: 100%;
-      display: block;
-      cursor: crosshair;
-    }
-    .chart-tooltip {
-      position: absolute;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 0.6rem 0.85rem;
-      font-size: 0.8rem;
-      color: var(--text-primary);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s ease;
-      z-index: 10;
-      min-width: 160px;
-      line-height: 1.6;
-    }
-    .chart-tooltip.visible { opacity: 1; }
-    .chart-wrap { position: relative; }
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1rem;margin-bottom:1.5rem;}
+    .kpi-card{background-color:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;text-align:center;}
+    .kpi-value{font-family:var(--font-display);font-size:1.55rem;font-weight:700;line-height:1.2;}
+    .kpi-label{font-size:0.78rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;margin-top:0.3rem;}
+    .amort-table{width:100%;border-collapse:collapse;font-size:0.875rem;}
+    .amort-table th,.amort-table td{border:1px solid var(--border-color);padding:0.6rem 0.85rem;text-align:right;}
+    .amort-table th{background-color:var(--bg-secondary);color:#fff;font-weight:600;text-align:center;}
+    .amort-table td:first-child{text-align:center;font-weight:600;}
+    .amort-table tr:hover{background-color:rgba(255,255,255,0.02);}
+    .amort-table tfoot td{background-color:var(--bg-tertiary);font-weight:700;color:#fff;}
+    .donut-wrap{display:flex;flex-direction:column;align-items:center;gap:0.75rem;}
+    .donut{width:120px;height:120px;border-radius:50%;transition:background var(--transition-normal);}
+    .donut-legend{display:flex;gap:1rem;font-size:0.8rem;color:var(--text-secondary);}
+    .donut-legend span{display:flex;align-items:center;gap:0.35rem;}
+    .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+    .chart-section{background-color:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.25rem;}
+    .chart-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;}
+    .chart-toggle-group{display:flex;gap:0.4rem;}
+    .chart-toggle{padding:0.3rem 0.85rem;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;border:1px solid var(--border-color);color:var(--text-secondary);background:var(--bg-tertiary);cursor:pointer;transition:var(--transition-fast);}
+    .chart-toggle:hover,.chart-toggle.active{border-color:var(--accent-primary);color:var(--accent-primary);background:var(--accent-primary-glow);}
+    .chart-legend{display:flex;gap:1.25rem;flex-wrap:wrap;font-size:0.78rem;color:var(--text-secondary);}
+    .chart-legend-item{display:flex;align-items:center;gap:0.4rem;}
+    .chart-legend-swatch{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+    canvas#amort-chart{width:100%;display:block;cursor:crosshair;}
+    .chart-tooltip{position:absolute;background:var(--bg-primary);border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:0.6rem 0.85rem;font-size:0.8rem;color:var(--text-primary);pointer-events:none;opacity:0;transition:opacity 0.15s ease;z-index:10;min-width:160px;line-height:1.6;}
+    .chart-tooltip.visible{opacity:1;}
+    .chart-wrap{position:relative;}
   </style>
 </head>
 <body>
-
   <div class="app-container">
-
     <header class="app-header">
       <div class="brand">
         <a href="../../index.html" class="brand">
-          <div class="brand-logo">U</div>
-          <span class="brand-name">UtilifyHub</span>
+          <div class="brand-logo">G</div>
+          <span class="brand-name">UtilifyGrid</span>
         </a>
       </div>
       <nav class="header-actions">
@@ -156,217 +54,122 @@
         <a href="../../pages/contact.html" class="nav-link-btn">Contact</a>
       </nav>
     </header>
-
     <div class="main-wrapper">
-
       <aside class="app-sidebar">
         <div class="sidebar-card">
           <h2 class="sidebar-title">Popular Tools</h2>
           <ul class="sidebar-menu">
-            <li><a href="../compound-interest/index.html" class="sidebar-link">💰 Savings Calc</a></li>
+            <li><a href="../compound-interest/index.html" class="sidebar-link">&#128176; Savings Calc</a></li>
             <li><a href="../percentage-calculator/index.html" class="sidebar-link">% Percentage Calc</a></li>
-            <li><a href="../unit-converter/index.html" class="sidebar-link">📏 Unit Converter</a></li>
-            <li><a href="#" class="sidebar-link active">🏠 Loan Calculator</a></li>
+            <li><a href="../unit-converter/index.html" class="sidebar-link">&#128207; Unit Converter</a></li>
+            <li><a href="#" class="sidebar-link active">&#127968; Loan Calculator</a></li>
           </ul>
         </div>
         <div class="sidebar-card">
           <h2 class="sidebar-title">Sponsor</h2>
-          <div class="ad-card" style="min-height: 180px;">
-            <span class="ad-label">Sponsor</span>
-            <p class="ad-placeholder-text">AdSense Banner</p>
-          </div>
+          <div class="ad-card" style="min-height:180px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Banner</p></div>
         </div>
       </aside>
-
       <main class="workspace-content">
-
         <div class="tool-workspace">
-
           <div class="tool-header">
             <div class="tool-title-area">
-              <div class="tool-icon">🏠</div>
+              <div class="tool-icon">&#127968;</div>
               <div>
-                <h2>Loan & Mortgage Calculator</h2>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Calculate monthly repayments, total interest, and view a full year-by-year amortisation schedule.</p>
+                <h2>Loan &amp; Mortgage Calculator</h2>
+                <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.1rem;">Calculate monthly repayments, total interest, and view a full year-by-year amortisation schedule.</p>
               </div>
             </div>
           </div>
-
           <div id="loan-alert-box"></div>
-
-          <div class="workspace-grid" style="grid-template-columns: 1fr 1.4fr;">
-
-            <!-- Inputs -->
-            <div style="display: flex; flex-direction: column; gap: 1rem; background-color: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-              <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff;">Loan Parameters</h3>
-
-              <div class="form-group">
-                <label class="form-label">Loan Type</label>
+          <div class="workspace-grid" style="grid-template-columns:1fr 1.4fr;">
+            <div style="display:flex;flex-direction:column;gap:1rem;background-color:rgba(255,255,255,0.02);padding:1.5rem;border-radius:var(--radius-md);border:1px solid var(--border-color);">
+              <h3 style="font-family:var(--font-display);font-size:1rem;color:#fff;">Loan Parameters</h3>
+              <div class="form-group"><label class="form-label">Loan Type</label>
                 <select id="loan-type" class="form-select" onchange="calculate()">
-                  <option value="mortgage">🏠 Home Mortgage</option>
-                  <option value="car">🚗 Car / Auto Loan</option>
-                  <option value="personal">💳 Personal Loan</option>
-                  <option value="business">🏢 Business Loan</option>
+                  <option value="mortgage">&#127968; Home Mortgage</option>
+                  <option value="car">&#128663; Car / Auto Loan</option>
+                  <option value="personal">&#128179; Personal Loan</option>
+                  <option value="business">&#127962; Business Loan</option>
                 </select>
               </div>
-
-              <div class="form-group">
-                <label class="form-label">Loan Amount ($)</label>
-                <input type="number" id="loan-amount" class="form-input" value="500000" min="0" oninput="calculate()">
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Annual Interest Rate (%)</label>
-                <input type="number" id="loan-rate" class="form-input" value="6.5" min="0" step="0.05" oninput="calculate()">
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Loan Term</label>
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.75rem;">
+              <div class="form-group"><label class="form-label">Loan Amount ($)</label><input type="number" id="loan-amount" class="form-input" value="500000" min="0" oninput="calculate()"></div>
+              <div class="form-group"><label class="form-label">Annual Interest Rate (%)</label><input type="number" id="loan-rate" class="form-input" value="6.5" min="0" step="0.05" oninput="calculate()"></div>
+              <div class="form-group"><label class="form-label">Loan Term</label>
+                <div style="display:grid;grid-template-columns:2fr 1fr;gap:0.75rem;">
                   <input type="number" id="loan-term" class="form-input" value="30" min="1" oninput="calculate()">
-                  <select id="loan-term-unit" class="form-select" onchange="calculate()">
-                    <option value="years">Years</option>
-                    <option value="months">Months</option>
-                  </select>
+                  <select id="loan-term-unit" class="form-select" onchange="calculate()"><option value="years">Years</option><option value="months">Months</option></select>
                 </div>
               </div>
-
-              <div class="form-group">
-                <label class="form-label">Extra Monthly Payment ($)</label>
-                <input type="number" id="loan-extra" class="form-input" value="0" min="0" oninput="calculate()">
-              </div>
-
-              <!-- Donut chart -->
-              <div class="donut-wrap" style="margin-top: 0.5rem;">
+              <div class="form-group"><label class="form-label">Extra Monthly Payment ($)</label><input type="number" id="loan-extra" class="form-input" value="0" min="0" oninput="calculate()"></div>
+              <div class="donut-wrap" style="margin-top:0.5rem;">
                 <div class="donut" id="donut-chart"></div>
                 <div class="donut-legend">
-                  <span><span class="dot" style="background: var(--accent-primary);"></span>Principal</span>
-                  <span><span class="dot" style="background: var(--accent-danger);"></span>Interest</span>
+                  <span><span class="dot" style="background:var(--accent-primary);"></span>Principal</span>
+                  <span><span class="dot" style="background:var(--accent-danger);"></span>Interest</span>
                 </div>
-                <div style="font-size: 0.8rem; color: var(--text-muted); text-align: center;" id="donut-pct-label"></div>
+                <div style="font-size:0.8rem;color:var(--text-muted);text-align:center;" id="donut-pct-label"></div>
               </div>
             </div>
-
-            <!-- Results -->
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-              <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff;">Calculated Results</h3>
-
-              <div class="kpi-grid" style="grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                <div class="kpi-card" style="border-color: var(--accent-secondary); background: rgba(16,185,129,0.04); grid-column: span 2;">
-                  <div class="kpi-value" id="res-monthly" style="color: var(--accent-secondary); font-size: 2rem;">$0.00</div>
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <h3 style="font-family:var(--font-display);font-size:1rem;color:#fff;">Calculated Results</h3>
+              <div class="kpi-grid" style="grid-template-columns:1fr 1fr;gap:0.75rem;">
+                <div class="kpi-card" style="border-color:var(--accent-secondary);background:rgba(16,185,129,0.04);grid-column:span 2;">
+                  <div class="kpi-value" id="res-monthly" style="color:var(--accent-secondary);font-size:2rem;">$0.00</div>
                   <div class="kpi-label">Monthly Repayment</div>
                 </div>
-                <div class="kpi-card">
-                  <div class="kpi-value" id="res-total-paid" style="color: #fff;">$0</div>
-                  <div class="kpi-label">Total Amount Paid</div>
-                </div>
-                <div class="kpi-card">
-                  <div class="kpi-value" id="res-total-interest" style="color: var(--accent-danger);">$0</div>
-                  <div class="kpi-label">Total Interest Paid</div>
-                </div>
-                <div class="kpi-card">
-                  <div class="kpi-value" id="res-payoff" style="color: var(--accent-primary);">— yrs</div>
-                  <div class="kpi-label">Payoff Period</div>
-                </div>
-                <div class="kpi-card">
-                  <div class="kpi-value" id="res-interest-savings" style="color: var(--accent-warning);">$0</div>
-                  <div class="kpi-label">Interest Saved (Extra Pmts)</div>
-                </div>
+                <div class="kpi-card"><div class="kpi-value" id="res-total-paid" style="color:#fff;">$0</div><div class="kpi-label">Total Amount Paid</div></div>
+                <div class="kpi-card"><div class="kpi-value" id="res-total-interest" style="color:var(--accent-danger);">$0</div><div class="kpi-label">Total Interest Paid</div></div>
+                <div class="kpi-card"><div class="kpi-value" id="res-payoff" style="color:var(--accent-primary);">— yrs</div><div class="kpi-label">Payoff Period</div></div>
+                <div class="kpi-card"><div class="kpi-value" id="res-interest-savings" style="color:var(--accent-warning);">$0</div><div class="kpi-label">Interest Saved (Extra Pmts)</div></div>
               </div>
             </div>
-
           </div>
-
-          <!-- ── CHART SECTION ───────────────────────────────────── -->
           <div class="chart-section">
             <div class="chart-header">
               <div>
-                <div style="font-family: var(--font-display); font-size: 1rem; color: #fff; margin-bottom: 0.35rem;">Amortisation Chart</div>
+                <div style="font-family:var(--font-display);font-size:1rem;color:#fff;margin-bottom:0.35rem;">Amortisation Chart</div>
                 <div class="chart-legend">
-                  <span class="chart-legend-item">
-                    <span class="chart-legend-swatch" style="background: #6366f1;"></span>Principal Paid
-                  </span>
-                  <span class="chart-legend-item">
-                    <span class="chart-legend-swatch" style="background: #ef4444;"></span>Interest Paid
-                  </span>
-                  <span class="chart-legend-item">
-                    <span class="chart-legend-swatch" style="background: #10b981; border-radius: 50%;"></span>Remaining Balance
-                  </span>
+                  <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#6366f1;"></span>Principal Paid</span>
+                  <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#ef4444;"></span>Interest Paid</span>
+                  <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#10b981;border-radius:50%;"></span>Remaining Balance</span>
                 </div>
               </div>
               <div class="chart-toggle-group">
-                <button class="chart-toggle active" id="toggle-stacked" onclick="setChartMode('stacked', this)">Stacked</button>
-                <button class="chart-toggle" id="toggle-grouped" onclick="setChartMode('grouped', this)">Grouped</button>
-                <button class="chart-toggle" id="toggle-balance" onclick="setChartMode('balance', this)">Balance</button>
+                <button class="chart-toggle active" onclick="setChartMode('stacked',this)">Stacked</button>
+                <button class="chart-toggle" onclick="setChartMode('grouped',this)">Grouped</button>
+                <button class="chart-toggle" onclick="setChartMode('balance',this)">Balance</button>
               </div>
             </div>
-            <div class="chart-wrap">
-              <canvas id="amort-chart" height="320"></canvas>
-              <div class="chart-tooltip" id="chart-tooltip"></div>
-            </div>
+            <div class="chart-wrap"><canvas id="amort-chart" height="320"></canvas><div class="chart-tooltip" id="chart-tooltip"></div></div>
           </div>
-          <!-- ── END CHART SECTION ──────────────────────────────── -->
-
-          <!-- Amortisation Table -->
           <div>
-            <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem;">Annual Amortisation Schedule</h3>
-            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+            <h3 style="font-family:var(--font-display);font-size:1.1rem;color:#fff;margin-bottom:0.75rem;">Annual Amortisation Schedule</h3>
+            <div style="overflow-x:auto;max-height:400px;overflow-y:auto;">
               <table class="amort-table">
-                <thead>
-                  <tr>
-                    <th>Year</th>
-                    <th>Principal Paid</th>
-                    <th>Interest Paid</th>
-                    <th>Total Payment</th>
-                    <th>Remaining Balance</th>
-                  </tr>
-                </thead>
+                <thead><tr><th>Year</th><th>Principal Paid</th><th>Interest Paid</th><th>Total Payment</th><th>Remaining Balance</th></tr></thead>
                 <tbody id="amort-body"></tbody>
                 <tfoot id="amort-foot"></tfoot>
               </table>
             </div>
           </div>
-
         </div>
-
-        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Native In-Feed Ad (High-CPC Finance Category)</p>
-        </div>
-
+        <div class="ad-card" style="min-height:120px;width:100%;border-style:dashed;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Native In-Feed Ad (High-CPC Finance)</p></div>
         <section class="tool-seo-content">
           <h2>How Loan Repayments Are Calculated</h2>
-          <p>Every fixed-rate loan repayment is calculated using the standard amortisation formula, which ensures the loan is fully paid off by the end of the term with equal monthly payments. Understanding the maths helps borrowers make informed decisions about extra repayments and term length.</p>
-
-          <h3>The Monthly Repayment Formula</h3>
-          <p>The standard formula for a fixed monthly payment (M) is:</p>
-          <p><code>M = P × [r(1+r)^n] / [(1+r)^n − 1]</code></p>
-          <p>Where: <strong>P</strong> = principal loan amount; <strong>r</strong> = monthly interest rate (annual rate ÷ 12); <strong>n</strong> = total number of monthly payments (years × 12).</p>
-
-          <h3>How Amortisation Works</h3>
-          <p>In the early years of a loan, most of your monthly payment covers interest — a very small portion reduces the principal. As the balance decreases, the interest portion shrinks and the principal portion grows. This is why the first few years of a mortgage feel slow for building equity. The chart above makes this shift clearly visible.</p>
-
+          <p>Every fixed-rate loan repayment is calculated using the standard amortisation formula: <code>M = P × [r(1+r)^n] / [(1+r)^n − 1]</code></p>
+          <p>Where <strong>P</strong> = principal, <strong>r</strong> = monthly interest rate (annual ÷ 12), <strong>n</strong> = total monthly payments.</p>
           <h3>The Power of Extra Repayments</h3>
-          <p>Even small additional monthly payments dramatically reduce total interest paid and shorten the loan term. On a $500,000 mortgage at 6.5% over 30 years, an extra $200/month reduces total interest by tens of thousands of dollars and cuts the term by several years. Use the extra payment field above to model this.</p>
-
+          <p>Even small additional monthly payments dramatically reduce total interest paid. On a $500,000 mortgage at 6.5% over 30 years, an extra $200/month can reduce total interest by tens of thousands of dollars and cut the term by several years.</p>
           <h3>Disclaimer</h3>
-          <p>This tool provides estimates for educational purposes only. Actual loan repayments may differ based on lender fees, offset accounts, variable rates, and other product-specific features. Always consult a licensed financial advisor or mortgage broker before making financial commitments.</p>
+          <p>This tool provides estimates for educational purposes only. Always consult a licensed financial advisor or mortgage broker before making financial commitments.</p>
         </section>
-
       </main>
-
-      <aside class="app-adbar">
-        <div class="ad-card" style="min-height: 600px;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
-        </div>
-      </aside>
-
+      <aside class="app-adbar"><div class="ad-card" style="min-height:600px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Large Skyscraper</p></div></aside>
     </div>
-
     <footer class="app-footer">
       <div class="footer-content">
-        <div class="footer-text">&copy; 2026 UtilifyHub. All tools process data locally in your browser.</div>
+        <div class="footer-text">&copy; 2026 UtilifyGrid. All tools process data locally in your browser.</div>
         <ul class="footer-links">
           <li><a href="../../pages/about.html" class="footer-link">About Us</a></li>
           <li><a href="../../pages/privacy.html" class="footer-link">Privacy Policy</a></li>
@@ -375,366 +178,67 @@
         </ul>
       </div>
     </footer>
-
   </div>
-
   <script src="../../js/app.js"></script>
   <script>
-    // ── Formatting helpers ───────────────────────────────────
-    const fmt  = (n) => '$' + Math.round(n).toLocaleString();
-    const fmt2 = (n) => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    const fmtK = (n) => {
-      if (Math.abs(n) >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
-      if (Math.abs(n) >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'K';
-      return '$' + Math.round(n);
-    };
-
-    // ── Shared state ─────────────────────────────────────────
-    let lastYearlyData = [];
-    let chartMode = 'stacked'; // 'stacked' | 'grouped' | 'balance'
-
-    // ── Colours (CSS var resolved once) ─────────────────────
-    const C_PRINCIPAL = '#6366f1';  // accent-primary
-    const C_INTEREST  = '#ef4444';  // accent-danger
-    const C_BALANCE   = '#10b981';  // accent-secondary
-    const C_GRID      = 'rgba(255,255,255,0.06)';
-    const C_TEXT      = '#9ca3af';  // text-secondary
-    const C_WHITE     = '#f3f4f6';
-
-    // ── Chart mode toggle ────────────────────────────────────
-    function setChartMode(mode, btn) {
-      chartMode = mode;
-      document.querySelectorAll('.chart-toggle').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      if (lastYearlyData.length) drawChart(lastYearlyData);
-    }
-
-    // ── Main calculation ─────────────────────────────────────
-    function calculate() {
+    const fmt=n=>'$'+Math.round(n).toLocaleString(),fmt2=n=>'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+    const fmtK=n=>{if(Math.abs(n)>=1e6)return'$'+(n/1e6).toFixed(1)+'M';if(Math.abs(n)>=1e3)return'$'+(n/1e3).toFixed(0)+'K';return'$'+Math.round(n);};
+    const CP='#6366f1',CI='#ef4444',CB='#10b981',CG='rgba(255,255,255,0.06)',CT='#9ca3af',CW='#f3f4f6';
+    let lyd=[],cm='stacked';
+    function setChartMode(m,btn){cm=m;document.querySelectorAll('.chart-toggle').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(lyd.length)drawChart(lyd);}
+    function calculate(){
       clearAlert('loan-alert-box');
-
-      const principal   = parseFloat(document.getElementById('loan-amount').value);
-      const annualRate  = parseFloat(document.getElementById('loan-rate').value);
-      const termVal     = parseInt(document.getElementById('loan-term').value);
-      const termUnit    = document.getElementById('loan-term-unit').value;
-      const extraPayment = parseFloat(document.getElementById('loan-extra').value) || 0;
-
-      if (isNaN(principal) || isNaN(annualRate) || isNaN(termVal) || principal <= 0 || annualRate < 0 || termVal <= 0) return;
-
-      const totalMonths = termUnit === 'years' ? termVal * 12 : termVal;
-      const monthlyRate = annualRate / 100 / 12;
-
-      let monthlyPayment;
-      if (monthlyRate === 0) {
-        monthlyPayment = principal / totalMonths;
-      } else {
-        monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths))
-          / (Math.pow(1 + monthlyRate, totalMonths) - 1);
-      }
-
-      // Simulate month by month
-      let balance = principal;
-      let totalInterest = 0, totalPaid = 0, monthsActual = 0;
-      const yearlyData = [];
-      let yearPrincipal = 0, yearInterest = 0, yearPayment = 0;
-
-      while (balance > 0.01 && monthsActual < totalMonths * 2) {
-        const interestCharge  = balance * monthlyRate;
-        const payment         = Math.min(balance + interestCharge, monthlyPayment + extraPayment);
-        const principalPayment = payment - interestCharge;
-
-        balance        -= principalPayment;
-        totalInterest  += interestCharge;
-        totalPaid      += payment;
-        monthsActual++;
-        yearPrincipal  += principalPayment;
-        yearInterest   += interestCharge;
-        yearPayment    += payment;
-
-        if (monthsActual % 12 === 0 || balance <= 0.01) {
-          yearlyData.push({
-            year:      Math.ceil(monthsActual / 12),
-            principal: yearPrincipal,
-            interest:  yearInterest,
-            payment:   yearPayment,
-            balance:   Math.max(0, balance)
-          });
-          yearPrincipal = yearInterest = yearPayment = 0;
-        }
-      }
-
-      // Baseline interest (no extra) for savings calc
-      let baseInterest = 0, baseBalance = principal;
-      for (let m = 0; m < totalMonths; m++) {
-        const ic = baseBalance * monthlyRate;
-        baseInterest += ic;
-        baseBalance  -= (monthlyPayment - ic);
-      }
-      const interestSavings = Math.max(0, baseInterest - totalInterest);
-
-      // KPIs
-      document.getElementById('res-monthly').textContent        = fmt2(monthlyPayment + extraPayment);
-      document.getElementById('res-total-paid').textContent     = fmt(totalPaid);
-      document.getElementById('res-total-interest').textContent = fmt(totalInterest);
-      const yrs = Math.floor(monthsActual / 12), mos = monthsActual % 12;
-      document.getElementById('res-payoff').textContent =
-        yrs > 0 ? `${yrs}y ${mos > 0 ? mos + 'm' : ''}`.trim() : `${mos}m`;
-      document.getElementById('res-interest-savings').textContent = fmt(interestSavings);
-
-      // Donut
-      const principalPct = principal / totalPaid * 100;
-      document.getElementById('donut-chart').style.background =
-        `conic-gradient(${C_PRINCIPAL} 0% ${principalPct.toFixed(1)}%, ${C_INTEREST} ${principalPct.toFixed(1)}% 100%)`;
-      document.getElementById('donut-pct-label').textContent =
-        `Principal ${principalPct.toFixed(0)}% · Interest ${(100 - principalPct).toFixed(0)}%`;
-
-      // Amortisation table
-      const body = document.getElementById('amort-body');
-      const foot = document.getElementById('amort-foot');
-      body.innerHTML = '';
-      let cumP = 0, cumI = 0, cumPmt = 0;
-
-      yearlyData.forEach(row => {
-        cumP += row.principal; cumI += row.interest; cumPmt += row.payment;
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>Year ${row.year}</td>
-          <td>${fmt(row.principal)}</td>
-          <td style="color:${C_INTEREST};">${fmt(row.interest)}</td>
-          <td>${fmt(row.payment)}</td>
-          <td style="color:${C_BALANCE};">${fmt(row.balance)}</td>
-        `;
-        body.appendChild(tr);
-      });
-      foot.innerHTML = `<tr>
-        <td>Totals</td><td>${fmt(cumP)}</td>
-        <td>${fmt(cumI)}</td><td>${fmt(cumPmt)}</td><td>$0</td>
-      </tr>`;
-
-      // Chart
-      lastYearlyData = yearlyData;
-      drawChart(yearlyData);
+      const P=parseFloat(document.getElementById('loan-amount').value),ar=parseFloat(document.getElementById('loan-rate').value);
+      const tv=parseInt(document.getElementById('loan-term').value),tu=document.getElementById('loan-term-unit').value;
+      const ex=parseFloat(document.getElementById('loan-extra').value)||0;
+      if([P,ar,tv].some(isNaN)||P<=0||ar<0||tv<=0)return;
+      const nm=tu==='years'?tv*12:tv,mr=ar/100/12;
+      let mp=mr===0?P/nm:P*(mr*Math.pow(1+mr,nm))/(Math.pow(1+mr,nm)-1);
+      let bal=P,ti=0,tp=0,ma=0;const yd=[];let yP=0,yI=0,yPmt=0;
+      while(bal>0.01&&ma<nm*2){const ic=bal*mr,pmt=Math.min(bal+ic,mp+ex),pp=pmt-ic;bal-=pp;ti+=ic;tp+=pmt;ma++;yP+=pp;yI+=ic;yPmt+=pmt;
+        if(ma%12===0||bal<=0.01){yd.push({year:Math.ceil(ma/12),principal:yP,interest:yI,payment:yPmt,balance:Math.max(0,bal)});yP=yI=yPmt=0;}}
+      let bI=0,bBal=P;for(let m=0;m<nm;m++){const ic=bBal*mr;bI+=ic;bBal-=(mp-ic);}
+      const iSav=Math.max(0,bI-ti);
+      document.getElementById('res-monthly').textContent=fmt2(mp+ex);
+      document.getElementById('res-total-paid').textContent=fmt(tp);
+      document.getElementById('res-total-interest').textContent=fmt(ti);
+      const yr=Math.floor(ma/12),mo=ma%12;document.getElementById('res-payoff').textContent=yr>0?`${yr}y ${mo>0?mo+'m':''}`.trim():`${mo}m`;
+      document.getElementById('res-interest-savings').textContent=fmt(iSav);
+      const pp=P/tp*100;document.getElementById('donut-chart').style.background=`conic-gradient(${CP} 0% ${pp.toFixed(1)}%, ${CI} ${pp.toFixed(1)}% 100%)`;
+      document.getElementById('donut-pct-label').textContent=`Principal ${pp.toFixed(0)}% · Interest ${(100-pp).toFixed(0)}%`;
+      const body=document.getElementById('amort-body'),foot=document.getElementById('amort-foot');body.innerHTML='';let cP=0,cI=0,cPmt=0;
+      yd.forEach(r=>{cP+=r.principal;cI+=r.interest;cPmt+=r.payment;const tr=document.createElement('tr');tr.innerHTML=`<td>Year ${r.year}</td><td>${fmt(r.principal)}</td><td style="color:${CI};">${fmt(r.interest)}</td><td>${fmt(r.payment)}</td><td style="color:${CB};">${fmt(r.balance)}</td>`;body.appendChild(tr);});
+      foot.innerHTML=`<tr><td>Totals</td><td>${fmt(cP)}</td><td>${fmt(cI)}</td><td>${fmt(cPmt)}</td><td>$0</td></tr>`;
+      lyd=yd;drawChart(yd);
     }
-
-    // ── Canvas chart ─────────────────────────────────────────
-    function drawChart(data) {
-      const canvas  = document.getElementById('amort-chart');
-      const tooltip = document.getElementById('chart-tooltip');
-      const dpr     = window.devicePixelRatio || 1;
-
-      // Size canvas to container width
-      const containerW = canvas.parentElement.clientWidth;
-      const cssH       = 320;
-      canvas.style.height = cssH + 'px';
-      canvas.width  = containerW * dpr;
-      canvas.height = cssH * dpr;
-
-      const ctx = canvas.getContext('2d');
-      ctx.scale(dpr, dpr);
-      const W = containerW, H = cssH;
-
-      // Margins
-      const ML = 68, MR = 20, MT = 16, MB = 40;
-      const chartW = W - ML - MR;
-      const chartH = H - MT - MB;
-
-      ctx.clearRect(0, 0, W, H);
-
-      // ── Compute scales ───────────────────────────────────
-      let yMax;
-      if (chartMode === 'balance') {
-        yMax = Math.max(...data.map(d => d.balance));
-      } else if (chartMode === 'stacked') {
-        yMax = Math.max(...data.map(d => d.principal + d.interest));
-      } else { // grouped
-        yMax = Math.max(...data.map(d => Math.max(d.principal, d.interest)));
-      }
-      yMax = yMax * 1.08; // 8% headroom
-
-      const xScale = (i) => ML + (i + 0.5) * (chartW / data.length);
-      const yScale = (v) => MT + chartH - (v / yMax) * chartH;
-
-      // ── Grid lines & Y labels ────────────────────────────
-      const gridLines = 5;
-      ctx.textAlign = 'right';
-      ctx.font = `11px 'Inter', sans-serif`;
-      ctx.fillStyle = C_TEXT;
-
-      for (let g = 0; g <= gridLines; g++) {
-        const v = (yMax / gridLines) * g;
-        const y = yScale(v);
-        ctx.beginPath();
-        ctx.strokeStyle = C_GRID;
-        ctx.lineWidth = 1;
-        ctx.moveTo(ML, y);
-        ctx.lineTo(ML + chartW, y);
-        ctx.stroke();
-        ctx.fillStyle = C_TEXT;
-        ctx.fillText(fmtK(v), ML - 6, y + 4);
-      }
-
-      // ── X axis labels (year numbers, thinned if many) ────
-      ctx.textAlign = 'center';
-      ctx.fillStyle = C_TEXT;
-      const step = data.length > 20 ? Math.ceil(data.length / 10) : (data.length > 10 ? 2 : 1);
-
-      data.forEach((d, i) => {
-        if (i % step !== 0 && i !== data.length - 1) return;
-        ctx.fillText('Y' + d.year, xScale(i), H - MB + 16);
-      });
-
-      // ── Axis lines ───────────────────────────────────────
-      ctx.beginPath();
-      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-      ctx.lineWidth = 1;
-      ctx.moveTo(ML, MT);
-      ctx.lineTo(ML, MT + chartH);
-      ctx.lineTo(ML + chartW, MT + chartH);
-      ctx.stroke();
-
-      // ── Draw bars ────────────────────────────────────────
-      const barPad   = 0.18;
-      const barSlot  = chartW / data.length;
-      const barW     = barSlot * (1 - barPad * 2);
-
-      if (chartMode === 'stacked' || chartMode === 'grouped') {
-        data.forEach((d, i) => {
-          const cx = ML + i * barSlot + barSlot * barPad;
-
-          if (chartMode === 'stacked') {
-            // Interest bar (bottom)
-            const iH = (d.interest / yMax) * chartH;
-            const iY = MT + chartH - iH;
-            ctx.fillStyle = C_INTEREST;
-            roundRect(ctx, cx, iY, barW, iH, [0, 0, 3, 3]);
-
-            // Principal bar (on top)
-            const pH = (d.principal / yMax) * chartH;
-            const pY = iY - pH;
-            ctx.fillStyle = C_PRINCIPAL;
-            roundRect(ctx, cx, pY, barW, pH, [3, 3, 0, 0]);
-
-          } else { // grouped
-            const halfW  = barW / 2 - 1;
-            // Principal
-            const pH = (d.principal / yMax) * chartH;
-            ctx.fillStyle = C_PRINCIPAL;
-            roundRect(ctx, cx, MT + chartH - pH, halfW, pH, [3, 3, 2, 2]);
-            // Interest
-            const iH = (d.interest / yMax) * chartH;
-            ctx.fillStyle = C_INTEREST;
-            roundRect(ctx, cx + halfW + 2, MT + chartH - iH, halfW, iH, [3, 3, 2, 2]);
-          }
-        });
-      }
-
-      // ── Balance line (always in stacked/grouped; sole element in balance mode) ──
-      if (chartMode === 'balance' || chartMode === 'stacked' || chartMode === 'grouped') {
-        const lineData = chartMode === 'balance' ? data : data;
-
-        // Area fill under balance line
-        ctx.beginPath();
-        ctx.moveTo(xScale(0), yScale(lineData[0].balance));
-        lineData.forEach((d, i) => ctx.lineTo(xScale(i), yScale(d.balance)));
-        ctx.lineTo(xScale(lineData.length - 1), MT + chartH);
-        ctx.lineTo(xScale(0), MT + chartH);
-        ctx.closePath();
-        const grad = ctx.createLinearGradient(0, MT, 0, MT + chartH);
-        grad.addColorStop(0, 'rgba(16,185,129,0.18)');
-        grad.addColorStop(1, 'rgba(16,185,129,0.01)');
-        ctx.fillStyle = grad;
-        ctx.fill();
-
-        // Line
-        ctx.beginPath();
-        ctx.strokeStyle = C_BALANCE;
-        ctx.lineWidth = 2.5;
-        ctx.lineJoin = 'round';
-        lineData.forEach((d, i) => {
-          const x = xScale(i), y = yScale(d.balance);
-          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-        });
-        ctx.stroke();
-
-        // Dots at each data point
-        lineData.forEach((d, i) => {
-          ctx.beginPath();
-          ctx.arc(xScale(i), yScale(d.balance), 3.5, 0, Math.PI * 2);
-          ctx.fillStyle = C_BALANCE;
-          ctx.fill();
-          ctx.strokeStyle = '#121b2d';
-          ctx.lineWidth = 1.5;
-          ctx.stroke();
-        });
-      }
-
-      // ── Tooltip on hover ─────────────────────────────────
-      // Remove old listener by cloning canvas
-      const newCanvas = canvas.cloneNode(true);
-      canvas.parentNode.replaceChild(newCanvas, newCanvas); // no-op to keep ref
-      // Use mousemove on original canvas reference
-      canvas.onmousemove = (e) => {
-        const rect   = canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-
-        // Find nearest bar
-        let closest = -1, minDist = Infinity;
-        data.forEach((d, i) => {
-          const dist = Math.abs(xScale(i) - mouseX);
-          if (dist < minDist) { minDist = dist; closest = i; }
-        });
-
-        if (closest === -1 || minDist > barSlot) {
-          tooltip.classList.remove('visible');
-          return;
-        }
-
-        const d = data[closest];
-        tooltip.innerHTML = `
-          <strong style="color:${C_WHITE};">Year ${d.year}</strong><br>
-          <span style="color:${C_PRINCIPAL};">■</span> Principal: ${fmt(d.principal)}<br>
-          <span style="color:${C_INTEREST};">■</span> Interest: ${fmt(d.interest)}<br>
-          <span style="color:${C_BALANCE};">●</span> Balance: ${fmt(d.balance)}
-        `;
-
-        // Position tooltip — keep inside container
-        const tipW = 170, tipH = 90;
-        let tipX = e.clientX - rect.left + 14;
-        let tipY = e.clientY - rect.top - tipH / 2;
-        if (tipX + tipW > W) tipX = e.clientX - rect.left - tipW - 14;
-        if (tipY < 0) tipY = 4;
-        tooltip.style.left = tipX + 'px';
-        tooltip.style.top  = tipY + 'px';
-        tooltip.classList.add('visible');
-      };
-
-      canvas.onmouseleave = () => tooltip.classList.remove('visible');
+    function drawChart(data){
+      const cv=document.getElementById('amort-chart'),tt=document.getElementById('chart-tooltip');
+      const dpr=window.devicePixelRatio||1,cW=cv.parentElement.clientWidth,cssH=320;
+      cv.style.height=cssH+'px';cv.width=cW*dpr;cv.height=cssH*dpr;
+      const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+      const W=cW,H=cssH,ML=68,MR=20,MT=16,MB=40,cHW=W-ML-MR,cHH=H-MT-MB;
+      ctx.clearRect(0,0,W,H);
+      let yM;if(cm==='balance')yM=Math.max(...data.map(d=>d.balance));else if(cm==='stacked')yM=Math.max(...data.map(d=>d.principal+d.interest));else yM=Math.max(...data.map(d=>Math.max(d.principal,d.interest)));
+      yM*=1.08;
+      const xS=i=>ML+(i+0.5)*(cHW/data.length),yS=v=>MT+cHH-(v/yM)*cHH;
+      ctx.font="11px 'Inter',sans-serif";
+      for(let g=0;g<=5;g++){const v=(yM/5)*g,y=yS(v);ctx.beginPath();ctx.strokeStyle=CG;ctx.lineWidth=1;ctx.moveTo(ML,y);ctx.lineTo(ML+cHW,y);ctx.stroke();ctx.fillStyle=CT;ctx.textAlign='right';ctx.fillText(fmtK(v),ML-6,y+4);}
+      ctx.textAlign='center';ctx.fillStyle=CT;
+      const st=data.length>20?Math.ceil(data.length/10):(data.length>10?2:1);
+      data.forEach((d,i)=>{if(i%st!==0&&i!==data.length-1)return;ctx.fillText('Y'+d.year,xS(i),H-MB+16);});
+      ctx.beginPath();ctx.strokeStyle='rgba(255,255,255,0.15)';ctx.lineWidth=1;ctx.moveTo(ML,MT);ctx.lineTo(ML,MT+cHH);ctx.lineTo(ML+cHW,MT+cHH);ctx.stroke();
+      const bP=0.18,bSl=cHW/data.length,bW=bSl*(1-bP*2);
+      if(cm==='stacked'||cm==='grouped'){data.forEach((d,i)=>{const cx=ML+i*bSl+bSl*bP;if(cm==='stacked'){const iH=(d.interest/yM)*cHH,iY=MT+cHH-iH;ctx.fillStyle=CI;rc(ctx,cx,iY,bW,iH,[0,0,3,3]);const pH=(d.principal/yM)*cHH;ctx.fillStyle=CP;rc(ctx,cx,iY-pH,bW,pH,[3,3,0,0]);}else{const hW=bW/2-1;const pH=(d.principal/yM)*cHH;ctx.fillStyle=CP;rc(ctx,cx,MT+cHH-pH,hW,pH,[3,3,2,2]);const iH=(d.interest/yM)*cHH;ctx.fillStyle=CI;rc(ctx,cx+hW+2,MT+cHH-iH,hW,iH,[3,3,2,2]);}});}
+      ctx.beginPath();ctx.moveTo(xS(0),yS(data[0].balance));data.forEach((d,i)=>ctx.lineTo(xS(i),yS(d.balance)));ctx.lineTo(xS(data.length-1),MT+cHH);ctx.lineTo(xS(0),MT+cHH);ctx.closePath();
+      const gr=ctx.createLinearGradient(0,MT,0,MT+cHH);gr.addColorStop(0,'rgba(16,185,129,0.18)');gr.addColorStop(1,'rgba(16,185,129,0.01)');ctx.fillStyle=gr;ctx.fill();
+      ctx.beginPath();ctx.strokeStyle=CB;ctx.lineWidth=2.5;ctx.lineJoin='round';data.forEach((d,i)=>{i===0?ctx.moveTo(xS(i),yS(d.balance)):ctx.lineTo(xS(i),yS(d.balance));});ctx.stroke();
+      data.forEach((d,i)=>{ctx.beginPath();ctx.arc(xS(i),yS(d.balance),3.5,0,Math.PI*2);ctx.fillStyle=CB;ctx.fill();ctx.strokeStyle='#121b2d';ctx.lineWidth=1.5;ctx.stroke();});
+      cv.onmousemove=e=>{const rect=cv.getBoundingClientRect(),mx=e.clientX-rect.left;let cl=-1,md=Infinity;data.forEach((d,i)=>{const dist=Math.abs(xS(i)-mx);if(dist<md){md=dist;cl=i;}});if(cl===-1||md>bSl){tt.classList.remove('visible');return;}const d=data[cl];tt.innerHTML=`<strong style="color:${CW};">Year ${d.year}</strong><br><span style="color:${CP};">■</span> Principal: ${fmt(d.principal)}<br><span style="color:${CI};">■</span> Interest: ${fmt(d.interest)}<br><span style="color:${CB};">●</span> Balance: ${fmt(d.balance)}`;const tW=170,tH=90;let tx=e.clientX-rect.left+14,ty=e.clientY-rect.top-tH/2;if(tx+tW>W)tx=e.clientX-rect.left-tW-14;if(ty<0)ty=4;tt.style.left=tx+'px';tt.style.top=ty+'px';tt.classList.add('visible');};
+      cv.onmouseleave=()=>tt.classList.remove('visible');
     }
-
-    // ── Helper: rounded rectangle ────────────────────────────
-    function roundRect(ctx, x, y, w, h, radii) {
-      if (h <= 0) return;
-      const [tl, tr, br, bl] = radii;
-      ctx.beginPath();
-      ctx.moveTo(x + tl, y);
-      ctx.lineTo(x + w - tr, y);
-      ctx.quadraticCurveTo(x + w, y, x + w, y + tr);
-      ctx.lineTo(x + w, y + h - br);
-      ctx.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
-      ctx.lineTo(x + bl, y + h);
-      ctx.quadraticCurveTo(x, y + h, x, y + h - bl);
-      ctx.lineTo(x, y + tl);
-      ctx.quadraticCurveTo(x, y, x + tl, y);
-      ctx.closePath();
-      ctx.fill();
-    }
-
-    // Redraw on resize
-    window.addEventListener('resize', () => {
-      if (lastYearlyData.length) drawChart(lastYearlyData);
-    });
-
-    window.addEventListener('load', calculate);
+    function rc(ctx,x,y,w,h,r){if(h<=0)return;const[tl,tr,br,bl]=r;ctx.beginPath();ctx.moveTo(x+tl,y);ctx.lineTo(x+w-tr,y);ctx.quadraticCurveTo(x+w,y,x+w,y+tr);ctx.lineTo(x+w,y+h-br);ctx.quadraticCurveTo(x+w,y+h,x+w-br,y+h);ctx.lineTo(x+bl,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-bl);ctx.lineTo(x,y+tl);ctx.quadraticCurveTo(x,y,x+tl,y);ctx.closePath();ctx.fill();}
+    window.addEventListener('resize',()=>{if(lyd.length)drawChart(lyd);});
+    window.addEventListener('load',calculate);
   </script>
 </body>
 </html>

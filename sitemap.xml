@@ -1,132 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://utilifyhub.com/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/pages/about.html</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/pages/about.html</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/pages/privacy.html</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/pages/privacy.html</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/pages/terms.html</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/pages/terms.html</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/pages/contact.html</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/pages/contact.html</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-
   <!-- Original 10 Tools -->
   <url>
-    <loc>https://utilifyhub.com/tools/json-formatter/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/json-formatter/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/base64-converter/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/base64-converter/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/word-counter/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/word-counter/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/percentage-calculator/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/percentage-calculator/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/qr-generator/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/qr-generator/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/compound-interest/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/compound-interest/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/case-converter/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/case-converter/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/aspect-ratio/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/aspect-ratio/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/epoch-converter/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/epoch-converter/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/password-generator/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/password-generator/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <!-- New 6 Tools -->
   <url>
-    <loc>https://utilifyhub.com/tools/color-converter/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/color-converter/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/hash-generator/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/hash-generator/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/unit-converter/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/unit-converter/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/uuid-generator/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/uuid-generator/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/lorem-ipsum/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/lorem-ipsum/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://utilifyhub.com/tools/loan-calculator/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <loc>https://utilifygrid.com/tools/loan-calculator/</loc>
+    <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

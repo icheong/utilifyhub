@@ -3,134 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Optimization -->
-  <title>Free Online Word Counter & Character Analyzer | UtilifyHub</title>
+  <title>Free Online Word Counter &amp; Character Analyzer | UtilifyGrid</title>
   <meta name="description" content="Count words, characters, sentences, paragraphs, and check keyword density in real-time. Free online word analyzer for writers, SEO, and copywriting. Secure and client-side.">
-  <meta name="keywords" content="word counter, character counter, syllable counter, word density, reading time calculator, text analyzer, seo writing tool">
-  
+  <meta name="keywords" content="word counter, character counter, word density, reading time calculator, text analyzer, seo writing tool">
   <link rel="stylesheet" href="../../styles.css">
-  <style>
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .kpi-card {
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1rem;
-      text-align: center;
-    }
-    .kpi-value {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--accent-primary);
-      line-height: 1.2;
-    }
-    .kpi-label {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 0.25rem;
-    }
-  </style>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <style>
+      .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+      .kpi-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; text-align: center; }
+      .kpi-value { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--accent-primary); line-height: 1.2; }
+      .kpi-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
+    </style>
 </head>
 <body>
-
   <div class="app-container">
-    
-    <!-- Header -->
     <header class="app-header">
       <div class="brand">
         <a href="../../index.html" class="brand" id="brand-link">
-          <div class="brand-logo">U</div>
-          <span class="brand-name">UtilifyHub</span>
+          <div class="brand-logo">G</div>
+          <span class="brand-name">UtilifyGrid</span>
         </a>
       </div>
-      
       <nav class="header-actions">
-        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
-        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
-        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+        <a href="../../index.html" class="nav-link-btn">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn">Contact</a>
       </nav>
     </header>
-
-    <!-- Main Workspace -->
     <div class="main-wrapper">
-      
-      <!-- Left sidebar navigation -->
       <aside class="app-sidebar">
         <div class="sidebar-card">
           <h2 class="sidebar-title">Popular Tools</h2>
           <ul class="sidebar-menu">
-            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
-            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
-            <li><a href="#" class="sidebar-link active" id="pop-words">📝 Word Counter</a></li>
-            <li><a href="../qr-generator/index.html" class="sidebar-link" id="pop-qr">📱 QR Generator</a></li>
+            <li><a href="../json-formatter/index.html" class="sidebar-link">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link">64 Base64 Converter</a></li>
+            <li><a href="#" class="sidebar-link active">&#128221; Word Counter</a></li>
+            <li><a href="../qr-generator/index.html" class="sidebar-link">&#128241; QR Generator</a></li>
           </ul>
         </div>
-
         <div class="sidebar-card">
           <h2 class="sidebar-title">Sponsor</h2>
-          <div class="ad-card" style="min-height: 180px;">
-            <span class="ad-label">Sponsor</span>
-            <p class="ad-placeholder-text">AdSense Banner</p>
-          </div>
+          <div class="ad-card" style="min-height: 180px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Banner</p></div>
         </div>
       </aside>
-
-      <!-- Center Tool Space -->
       <main class="workspace-content">
-        
         <div class="tool-workspace">
-          
           <div class="tool-header" style="margin-bottom: 1rem;">
             <div class="tool-title-area">
-              <div class="tool-icon">📝</div>
+              <div class="tool-icon">&#128221;</div>
               <div>
-                <h2>Word & Character Counter</h2>
+                <h2>Word &amp; Character Counter</h2>
                 <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.1rem;">Analyze your writing parameters in real-time with comprehensive stats.</p>
               </div>
             </div>
           </div>
-
-          <!-- KPI Metric Displays -->
           <div class="kpi-grid">
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-words">0</div>
-              <div class="kpi-label">Words</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-chars-space">0</div>
-              <div class="kpi-label">Chars (All)</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-chars-nospace">0</div>
-              <div class="kpi-label">Chars (Raw)</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-paragraphs">0</div>
-              <div class="kpi-label">Paragraphs</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-value" id="kpi-sentences">0</div>
-              <div class="kpi-label">Sentences</div>
-            </div>
-            <div class="kpi-card">
-              <!-- FIX: reading time now shows "0m" for empty, "<1m" for fewer than
-                   200 words, and the correct ceiling in minutes otherwise.
-                   Previously, even a single word would show "1m" which was misleading. -->
-              <div class="kpi-value" id="kpi-reading-time">0m</div>
-              <div class="kpi-label">Read Time</div>
-            </div>
+            <div class="kpi-card"><div class="kpi-value" id="kpi-words">0</div><div class="kpi-label">Words</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="kpi-chars-space">0</div><div class="kpi-label">Chars (All)</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="kpi-chars-nospace">0</div><div class="kpi-label">Chars (Raw)</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="kpi-paragraphs">0</div><div class="kpi-label">Paragraphs</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="kpi-sentences">0</div><div class="kpi-label">Sentences</div></div>
+            <div class="kpi-card"><div class="kpi-value" id="kpi-reading-time">0m</div><div class="kpi-label">Read Time</div></div>
           </div>
-
-          <!-- Main Input Area -->
           <div>
             <div class="panel-header">
               <span class="panel-title">Write or Paste Content</span>
@@ -140,171 +75,80 @@
               <textarea id="counter-textarea" class="tool-textarea" style="height: 280px; font-family: var(--font-body);" placeholder="Type or paste your text content here to trigger live metrics analysis..."></textarea>
             </div>
           </div>
-
-          <!-- Density analysis row -->
           <div id="density-section" style="display: none; background-color: var(--bg-secondary); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
             <h3 style="font-family: var(--font-display); font-size: 1rem; color: #fff; margin-bottom: 0.75rem;">Top Keyword Density</h3>
             <div id="density-badge-container" style="display: flex; gap: 0.75rem; flex-wrap: wrap;"></div>
           </div>
-
         </div>
-
-        <!-- AdSense Native Ad slot between Tool and Instructions -->
-        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
-        </div>
-
-        <!-- SEO Content Section -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Native In-Feed Ad</p></div>
         <section class="tool-seo-content">
           <h2>Why Keep Track of Words and Characters?</h2>
-          <p>Whether you are drafting an article, compiling social meta descriptions, preparing university papers, or writing SEO-friendly blogs, strict character and word compliance is essential. Writing limits are highly scrutinized by digital algorithms:</p>
+          <p>Whether you are drafting an article, compiling social meta descriptions, preparing university papers, or writing SEO-friendly blogs, strict character and word compliance is essential.</p>
           <ul>
             <li><strong>Google Search Snippets:</strong> Page title metadata should stay under 60 characters, and descriptions under 155 characters to avoid desktop truncation.</li>
             <li><strong>X (Twitter) Limits:</strong> Standard post limits remain at 280 characters.</li>
             <li><strong>LinkedIn Posts:</strong> The conversational limit generally ranges below 3000 characters for high readability.</li>
           </ul>
-
           <h3>Client-Side Privacy Security</h3>
-          <p>Many authors copy and paste proprietary draft contents, confidential marketing emails, or legal agreements into online formatting programs to check character sizes. Doing so transfers your writing to external servers, which poses privacy issues. UtilifyHub evaluates your typography <strong>100% inside your web browser</strong>. No input parameters are transferred, securing complete data confidentiality.</p>
-
-          <h3>Understanding the Metrics</h3>
-          <p>
-            <strong>Paragraph Counting:</strong> Computed dynamically via double newline breaks. Single bullet points or isolated returns are tracked to provide true structure maps.<br>
-            <strong>Estimated Reading Time:</strong> Calibrated using standard human reading ratios of approximately 200 Words Per Minute (WPM). Texts under 200 words display as &lt;1m rather than a misleading 1m.<br>
-            <strong>Keyword Density:</strong> Scans non-common terms (ignoring common articles like "the", "and", "a", etc.) to highlight the keywords most repetitive in your manuscript. Perfect for maximizing SEO optimization without keyword stuffing!
-          </p>
+          <p>UtilifyGrid evaluates your typography <strong>100% inside your web browser</strong>. No input parameters are transferred, securing complete data confidentiality.</p>
         </section>
-
       </main>
-
-      <!-- Right Column Ads -->
       <aside class="app-adbar">
-        <div class="ad-card" style="min-height: 600px;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
-        </div>
+        <div class="ad-card" style="min-height: 600px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Large Skyscraper</p></div>
       </aside>
-
     </div>
-
-    <!-- Footer -->
     <footer class="app-footer">
       <div class="footer-content">
-        <div class="footer-text">
-          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
-        </div>
+        <div class="footer-text">&copy; 2026 UtilifyGrid. All tools process data locally in your browser.</div>
         <ul class="footer-links">
-          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
-          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
-          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
-          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+          <li><a href="../../pages/about.html" class="footer-link">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link">Contact Support</a></li>
         </ul>
       </div>
     </footer>
-
   </div>
-
   <script src="../../js/app.js"></script>
   <script>
-    const textInput       = document.getElementById('counter-textarea');
-    const wordsKpi        = document.getElementById('kpi-words');
-    const charsSpaceKpi   = document.getElementById('kpi-chars-space');
-    const charsNoSpaceKpi = document.getElementById('kpi-chars-nospace');
-    const paragraphsKpi   = document.getElementById('kpi-paragraphs');
-    const sentencesKpi    = document.getElementById('kpi-sentences');
-    const readingKpi      = document.getElementById('kpi-reading-time');
-    const densitySection  = document.getElementById('density-section');
-    const densityContainer = document.getElementById('density-badge-container');
-
-    const stopWords = new Set([
-      'the', 'and', 'a', 'to', 'of', 'in', 'i', 'is', 'that', 'it', 'on', 'you', 'this', 'for',
-      'but', 'with', 'as', 'are', 'was', 'at', 'by', 'an', 'be', 'or', 'from', 'your', 'my'
-    ]);
-
+    const textInput = document.getElementById('counter-textarea');
+    const stopWords = new Set(['the','and','a','to','of','in','i','is','that','it','on','you','this','for','but','with','as','are','was','at','by','an','be','or','from','your','my']);
     textInput.addEventListener('input', runAnalysis);
-
-    function clearText() {
-      textInput.value = '';
-      runAnalysis();
-    }
-
+    function clearText() { textInput.value = ''; runAnalysis(); }
     function runAnalysis() {
       const text = textInput.value;
-
-      // Characters
-      const totalChars    = text.length;
-      const noSpaceChars  = text.replace(/\s/g, '').length;
-
-      // Words
       const wordsArray = text.trim().split(/\s+/).filter(w => w.length > 0);
-      const wordCount  = wordsArray.length;
-
-      // Paragraphs
-      const paragraphCount = text.split(/\n+/).filter(p => p.trim().length > 0).length;
-
-      // Sentences
-      const sentenceCount = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
-
-      // FIX: Reading time — show "0m" when empty, "<1m" for under 200 words,
-      // and the correct ceiling otherwise. The old Math.ceil always returned at
-      // least 1, making even a single word show "1m".
+      const wordCount = wordsArray.length;
+      document.getElementById('kpi-words').textContent = wordCount;
+      document.getElementById('kpi-chars-space').textContent = text.length;
+      document.getElementById('kpi-chars-nospace').textContent = text.replace(/\s/g, '').length;
+      document.getElementById('kpi-paragraphs').textContent = text.split(/\n+/).filter(p => p.trim().length > 0).length;
+      document.getElementById('kpi-sentences').textContent = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
       let readingTime;
-      if (wordCount === 0) {
-        readingTime = '0m';
-      } else if (wordCount < 200) {
-        readingTime = '<1m';
-      } else {
-        readingTime = Math.ceil(wordCount / 200) + 'm';
-      }
-
-      // Update KPIs
-      wordsKpi.textContent        = wordCount;
-      charsSpaceKpi.textContent   = totalChars;
-      charsNoSpaceKpi.textContent = noSpaceChars;
-      paragraphsKpi.textContent   = paragraphCount;
-      sentencesKpi.textContent    = sentenceCount;
-      readingKpi.textContent      = readingTime;
-
+      if (wordCount === 0) readingTime = '0m';
+      else if (wordCount < 200) readingTime = '<1m';
+      else readingTime = Math.ceil(wordCount / 200) + 'm';
+      document.getElementById('kpi-reading-time').textContent = readingTime;
       updateDensity(wordsArray);
     }
-
     function updateDensity(words) {
-      if (words.length === 0) {
-        densitySection.style.display = 'none';
-        return;
-      }
-
-      const frequencyMap = {};
+      const densitySection = document.getElementById('density-section');
+      const densityContainer = document.getElementById('density-badge-container');
+      if (words.length === 0) { densitySection.style.display = 'none'; return; }
+      const freq = {};
       words.forEach(word => {
-        const cleanWord = word.toLowerCase().replace(/[^a-z0-9]/g, '');
-        if (cleanWord.length > 2 && !stopWords.has(cleanWord)) {
-          frequencyMap[cleanWord] = (frequencyMap[cleanWord] || 0) + 1;
-        }
+        const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (clean.length > 2 && !stopWords.has(clean)) freq[clean] = (freq[clean] || 0) + 1;
       });
-
-      const sortedWords = Object.entries(frequencyMap)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
-
-      if (sortedWords.length === 0) {
-        densitySection.style.display = 'none';
-        return;
-      }
-
+      const sorted = Object.entries(freq).sort((a,b) => b[1]-a[1]).slice(0,5);
+      if (sorted.length === 0) { densitySection.style.display = 'none'; return; }
       densitySection.style.display = 'block';
       densityContainer.innerHTML = '';
-
-      sortedWords.forEach(([word, count]) => {
-        const percentage = ((count / words.length) * 100).toFixed(1);
+      sorted.forEach(([word, count]) => {
+        const pct = ((count / words.length) * 100).toFixed(1);
         const badge = document.createElement('span');
-        badge.style.backgroundColor = 'var(--bg-tertiary)';
-        badge.style.border          = '1px solid var(--border-color)';
-        badge.style.borderRadius    = 'var(--radius-sm)';
-        badge.style.padding         = '0.35rem 0.75rem';
-        badge.style.fontSize        = '0.85rem';
-        badge.style.color           = '#fff';
-        badge.innerHTML = `<strong>${word}</strong>: ${count} (${percentage}%)`;
+        badge.style.cssText = 'background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:0.35rem 0.75rem;font-size:0.85rem;color:#fff;';
+        badge.innerHTML = `<strong>${word}</strong>: ${count} (${pct}%)`;
         densityContainer.appendChild(badge);
       });
     }

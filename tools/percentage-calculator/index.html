@@ -3,109 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Optimization -->
-  <title>Free Online Percentage Calculator | Instant Ratio Solver | UtilifyHub</title>
-  <meta name="description" content="Calculate percentage values, percentage differences, discounts, and percentage changes instantly. Free client-side mathematical tool with multiple options and zero latency.">
-  <meta name="keywords" content="percentage calculator, percent calculator, percentage difference, percentage change, calculate discount, free math tool">
-  
+  <title>Free Online Percentage Calculator | UtilifyGrid</title>
+  <meta name="description" content="Calculate percentage values, percentage differences, discounts, and percentage changes instantly. Free client-side mathematical tool.">
+  <meta name="keywords" content="percentage calculator, percent calculator, percentage difference, percentage change, calculate discount">
   <link rel="stylesheet" href="../../styles.css">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
   <style>
-    .calc-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.75rem;
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .calc-input {
-      width: 100px;
-      padding: 0.5rem 0.75rem;
-      border-radius: var(--radius-sm);
-      background-color: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #fff;
-    }
-    .calc-input:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-    }
-    .calc-result {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--accent-secondary);
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    @media (max-width: 768px) {
-      .calc-result {
-        width: 100%;
-        margin-top: 0.75rem;
-        margin-left: 0;
-        border-top: 1px dashed var(--border-color);
-        padding-top: 0.75rem;
-      }
-    }
+    .calc-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem; }
+    .calc-input { width: 100px; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); background-color: var(--bg-tertiary); border: 1px solid var(--border-color); font-size: 0.95rem; font-weight: 600; color: #fff; }
+    .calc-input:focus { outline: none; border-color: var(--accent-primary); }
+    .calc-result { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--accent-secondary); margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
   </style>
 </head>
 <body>
-
   <div class="app-container">
-    
-    <!-- Header -->
     <header class="app-header">
       <div class="brand">
         <a href="../../index.html" class="brand" id="brand-link">
-          <div class="brand-logo">U</div>
-          <span class="brand-name">UtilifyHub</span>
+          <div class="brand-logo">G</div>
+          <span class="brand-name">UtilifyGrid</span>
         </a>
       </div>
-      
       <nav class="header-actions">
-        <a href="../../index.html" class="nav-link-btn" id="nav-home">Home</a>
-        <a href="../../pages/about.html" class="nav-link-btn" id="nav-about">About</a>
-        <a href="../../pages/contact.html" class="nav-link-btn" id="nav-contact">Contact</a>
+        <a href="../../index.html" class="nav-link-btn">Home</a>
+        <a href="../../pages/about.html" class="nav-link-btn">About</a>
+        <a href="../../pages/contact.html" class="nav-link-btn">Contact</a>
       </nav>
     </header>
-
-    <!-- Main Workspace -->
     <div class="main-wrapper">
-      
-      <!-- Left sidebar navigation -->
       <aside class="app-sidebar">
         <div class="sidebar-card">
           <h2 class="sidebar-title">Popular Tools</h2>
           <ul class="sidebar-menu">
-            <li><a href="../json-formatter/index.html" class="sidebar-link" id="pop-json">{} JSON Formatter</a></li>
-            <li><a href="../base64-converter/index.html" class="sidebar-link" id="pop-base64">64 Base64 Converter</a></li>
-            <li><a href="../word-counter/index.html" class="sidebar-link" id="pop-words">📝 Word Counter</a></li>
-            <li><a href="#" class="sidebar-link active" id="pop-percent">% Percentage Calc</a></li>
+            <li><a href="../json-formatter/index.html" class="sidebar-link">{} JSON Formatter</a></li>
+            <li><a href="../base64-converter/index.html" class="sidebar-link">64 Base64 Converter</a></li>
+            <li><a href="../word-counter/index.html" class="sidebar-link">&#128221; Word Counter</a></li>
+            <li><a href="#" class="sidebar-link active">% Percentage Calc</a></li>
           </ul>
         </div>
-
         <div class="sidebar-card">
           <h2 class="sidebar-title">Sponsor</h2>
-          <div class="ad-card" style="min-height: 180px;">
-            <span class="ad-label">Sponsor</span>
-            <p class="ad-placeholder-text">AdSense Banner</p>
-          </div>
+          <div class="ad-card" style="min-height: 180px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Banner</p></div>
         </div>
       </aside>
-
-      <!-- Center Tool Space -->
       <main class="workspace-content">
-        
         <div class="tool-workspace">
-          
           <div class="tool-header" style="margin-bottom: 1.5rem;">
             <div class="tool-title-area">
               <div class="tool-icon">%</div>
@@ -115,49 +58,29 @@
               </div>
             </div>
           </div>
-
-          <!-- Formula Row 1: What is X% of Y? -->
           <div class="calc-row">
             <span>What is</span>
             <input type="number" id="c1-x" class="calc-input" placeholder="X" oninput="calc1()">
             <span>% of</span>
             <input type="number" id="c1-y" class="calc-input" placeholder="Y" oninput="calc1()">
             <span>?</span>
-            
-            <div class="calc-result">
-              <span>Result:</span>
-              <span id="c1-res" style="color: var(--accent-primary);">--</span>
-            </div>
+            <div class="calc-result"><span>Result:</span><span id="c1-res" style="color: var(--accent-primary);">--</span></div>
           </div>
-
-          <!-- Formula Row 2: X is what percent of Y? -->
           <div class="calc-row">
             <input type="number" id="c2-x" class="calc-input" placeholder="X" oninput="calc2()">
             <span>is what percent of</span>
             <input type="number" id="c2-y" class="calc-input" placeholder="Y" oninput="calc2()">
             <span>?</span>
-            
-            <div class="calc-result">
-              <span>Result:</span>
-              <span id="c2-res">--</span>
-            </div>
+            <div class="calc-result"><span>Result:</span><span id="c2-res">--</span></div>
           </div>
-
-          <!-- Formula Row 3: Percentage change from X to Y? -->
           <div class="calc-row">
             <span>What is the percentage change from</span>
             <input type="number" id="c3-x" class="calc-input" placeholder="From" oninput="calc3()">
             <span>to</span>
             <input type="number" id="c3-y" class="calc-input" placeholder="To" oninput="calc3()">
             <span>?</span>
-            
-            <div class="calc-result">
-              <span>Result:</span>
-              <span id="c3-res">--</span>
-            </div>
+            <div class="calc-result"><span>Result:</span><span id="c3-res">--</span></div>
           </div>
-
-          <!-- Formula Row 4: Increase/Decrease Y by X% -->
           <div class="calc-row">
             <span>What is</span>
             <input type="number" id="c4-y" class="calc-input" placeholder="Y" oninput="calc4()">
@@ -167,148 +90,49 @@
             </select>
             <input type="number" id="c4-x" class="calc-input" placeholder="X" oninput="calc4()">
             <span>% ?</span>
-            
-            <div class="calc-result">
-              <span>Result:</span>
-              <span id="c4-res">--</span>
-            </div>
+            <div class="calc-result"><span>Result:</span><span id="c4-res">--</span></div>
           </div>
-
           <div class="button-row">
             <button class="btn btn-secondary" onclick="resetAll()" style="padding: 0.5rem 1.25rem;">Reset All Fields</button>
           </div>
-
         </div>
-
-        <!-- AdSense Native Ad slot between Tool and Instructions -->
-        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Native In-Feed Ad</p>
-        </div>
-
-        <!-- SEO Content Section -->
+        <div class="ad-card" style="min-height: 120px; width: 100%; border-style: dashed;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Native In-Feed Ad</p></div>
         <section class="tool-seo-content">
           <h2>Understanding Percentage Calculations</h2>
-          <p>Percentages play an essential role in everyday calculations, whether you are analyzing investment margins, calculating shopping discounts, balancing household budgets, or working out tax indices like GST/VAT. Utilizing digital solvers ensures absolute mathematical precision instantly.</p>
-
-          <h3>The Mathematics Behind the Operations</h3>
-          <p>Our percentage calculator splits common mathematical ratio problems into 4 simple equations:</p>
-          
+          <p>Percentages play an essential role in everyday calculations, whether you are analyzing investment margins, calculating shopping discounts, balancing household budgets, or working out tax indices like GST/VAT.</p>
           <h3>1. How to calculate X% of Y</h3>
-          <p>This is standard ratio calculation. The equation is:<br>
-          <code>Result = (X / 100) * Y</code><br>
-          <em>Example: Calculating a 15% tipping fee on a $80 dinner bill: (15 / 100) * 80 = $12.00.</em></p>
-
-          <h3>2. How to calculate what percent X is of Y</h3>
-          <p>Useful for comparing progress or scores. The equation is:<br>
-          <code>Result = (X / Y) * 100</code><br>
-          <em>Example: If you answered 18 questions correctly out of a 24-question test: (18 / 24) * 100 = 75%.</em></p>
-
-          <h3>3. How to calculate Percentage Change (Increase or Decrease)</h3>
-          <p>Excellent for tracking business metrics, product price increases, or currency inflation indexes. The equation is:<br>
-          <code>Result = ((To - From) / From) * 100</code><br>
-          <em>Example: If stock prices rise from $40 to $50: ((50 - 40) / 40) * 100 = +25% increase. If they slip to $30: ((30 - 40) / 40) * 100 = -25% decrease.</em></p>
-
-          <h3>4. How to increase or decrease Y by X%</h3>
-          <p>Commonly incorporated to determine retail markups or discount margins. The equation is:<br>
-          <code>Increase Result = Y * (1 + X/100)</code><br>
-          <code>Decrease Result = Y * (1 - X/100)</code><br>
-          <em>Example: Reducing a $120 item price by a 30% promotional discount: 120 * (1 - 0.30) = $84.00.</em></p>
+          <p><code>Result = (X / 100) * Y</code><br><em>Example: 15% of $80 = $12.00</em></p>
+          <h3>2. What percent X is of Y</h3>
+          <p><code>Result = (X / Y) * 100</code><br><em>Example: 18 out of 24 = 75%</em></p>
+          <h3>3. Percentage Change</h3>
+          <p><code>Result = ((To - From) / From) * 100</code><br><em>Example: $40 to $50 = +25%</em></p>
+          <h3>4. Increase or decrease by X%</h3>
+          <p><code>Increase: Y * (1 + X/100)</code> &nbsp; <code>Decrease: Y * (1 - X/100)</code></p>
         </section>
-
       </main>
-
-      <!-- Right Column Ads -->
       <aside class="app-adbar">
-        <div class="ad-card" style="min-height: 600px;">
-          <span class="ad-label">Sponsor</span>
-          <p class="ad-placeholder-text">AdSense Large Skyscraper</p>
-        </div>
+        <div class="ad-card" style="min-height: 600px;"><span class="ad-label">Sponsor</span><p class="ad-placeholder-text">AdSense Large Skyscraper</p></div>
       </aside>
-
     </div>
-
-    <!-- Footer -->
     <footer class="app-footer">
       <div class="footer-content">
-        <div class="footer-text">
-          &copy; 2026 UtilifyHub. All tools process data locally in your browser.
-        </div>
+        <div class="footer-text">&copy; 2026 UtilifyGrid. All tools process data locally in your browser.</div>
         <ul class="footer-links">
-          <li><a href="../../pages/about.html" class="footer-link" id="foot-about">About Us</a></li>
-          <li><a href="../../pages/privacy.html" class="footer-link" id="foot-privacy">Privacy Policy</a></li>
-          <li><a href="../../pages/terms.html" class="footer-link" id="foot-terms">Terms of Service</a></li>
-          <li><a href="../../pages/contact.html" class="footer-link" id="foot-contact">Contact Support</a></li>
+          <li><a href="../../pages/about.html" class="footer-link">About Us</a></li>
+          <li><a href="../../pages/privacy.html" class="footer-link">Privacy Policy</a></li>
+          <li><a href="../../pages/terms.html" class="footer-link">Terms of Service</a></li>
+          <li><a href="../../pages/contact.html" class="footer-link">Contact Support</a></li>
         </ul>
       </div>
     </footer>
-
   </div>
-
   <script src="../../js/app.js"></script>
   <script>
-    function resetAll() {
-      document.querySelectorAll('.calc-input').forEach(input => input.value = '');
-      document.getElementById('c1-res').textContent = '--';
-      document.getElementById('c2-res').textContent = '--';
-      document.getElementById('c3-res').textContent = '--';
-      document.getElementById('c4-res').textContent = '--';
-    }
-
-    function calc1() {
-      const x = parseFloat(document.getElementById('c1-x').value);
-      const y = parseFloat(document.getElementById('c1-y').value);
-      const res = document.getElementById('c1-res');
-      
-      if (isNaN(x) || isNaN(y)) {
-        res.textContent = '--';
-        return;
-      }
-      res.textContent = ((x / 100) * y).toLocaleString(undefined, {maximumFractionDigits: 4});
-    }
-
-    function calc2() {
-      const x = parseFloat(document.getElementById('c2-x').value);
-      const y = parseFloat(document.getElementById('c2-y').value);
-      const res = document.getElementById('c2-res');
-      
-      if (isNaN(x) || isNaN(y) || y === 0) {
-        res.textContent = '--';
-        return;
-      }
-      res.textContent = ((x / y) * 100).toLocaleString(undefined, {maximumFractionDigits: 4}) + '%';
-    }
-
-    function calc3() {
-      const x = parseFloat(document.getElementById('c3-x').value);
-      const y = parseFloat(document.getElementById('c3-y').value);
-      const res = document.getElementById('c3-res');
-      
-      if (isNaN(x) || isNaN(y) || x === 0) {
-        res.textContent = '--';
-        return;
-      }
-      
-      const change = ((y - x) / x) * 100;
-      const sign = change > 0 ? '+' : '';
-      res.textContent = sign + change.toLocaleString(undefined, {maximumFractionDigits: 4}) + '%';
-      res.style.color = change > 0 ? 'var(--accent-secondary)' : change < 0 ? 'var(--accent-danger)' : 'var(--text-primary)';
-    }
-
-    function calc4() {
-      const y = parseFloat(document.getElementById('c4-y').value);
-      const type = document.getElementById('c4-type').value;
-      const x = parseFloat(document.getElementById('c4-x').value);
-      const res = document.getElementById('c4-res');
-      
-      if (isNaN(x) || isNaN(y)) {
-        res.textContent = '--';
-        return;
-      }
-      
-      const calculated = type === 'inc' ? y * (1 + x/100) : y * (1 - x/100);
-      res.textContent = calculated.toLocaleString(undefined, {maximumFractionDigits: 4});
-    }
+    function resetAll() { document.querySelectorAll('.calc-input').forEach(i => i.value = ''); ['c1-res','c2-res','c3-res','c4-res'].forEach(id => document.getElementById(id).textContent = '--'); }
+    function calc1() { const x=parseFloat(document.getElementById('c1-x').value),y=parseFloat(document.getElementById('c1-y').value),r=document.getElementById('c1-res'); if(isNaN(x)||isNaN(y)){r.textContent='--';return;} r.textContent=((x/100)*y).toLocaleString(undefined,{maximumFractionDigits:4}); }
+    function calc2() { const x=parseFloat(document.getElementById('c2-x').value),y=parseFloat(document.getElementById('c2-y').value),r=document.getElementById('c2-res'); if(isNaN(x)||isNaN(y)||y===0){r.textContent='--';return;} r.textContent=((x/y)*100).toLocaleString(undefined,{maximumFractionDigits:4})+'%'; }
+    function calc3() { const x=parseFloat(document.getElementById('c3-x').value),y=parseFloat(document.getElementById('c3-y').value),r=document.getElementById('c3-res'); if(isNaN(x)||isNaN(y)||x===0){r.textContent='--';return;} const ch=((y-x)/x)*100,sign=ch>0?'+':''; r.textContent=sign+ch.toLocaleString(undefined,{maximumFractionDigits:4})+'%'; r.style.color=ch>0?'var(--accent-secondary)':ch<0?'var(--accent-danger)':'var(--text-primary)'; }
+    function calc4() { const y=parseFloat(document.getElementById('c4-y').value),t=document.getElementById('c4-type').value,x=parseFloat(document.getElementById('c4-x').value),r=document.getElementById('c4-res'); if(isNaN(x)||isNaN(y)){r.textContent='--';return;} r.textContent=(t==='inc'?y*(1+x/100):y*(1-x/100)).toLocaleString(undefined,{maximumFractionDigits:4}); }
   </script>
 </body>
 </html>
