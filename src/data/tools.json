@@ -44,6 +44,17 @@
     "featured": false
   },
   {
+    "slug": "jwt-debugger",
+    "name": "JWT Debugger",
+    "category": "web-tools",
+    "tags": ["jwt", "json web token", "decode", "token", "authentication", "auth", "bearer", "header", "payload", "signature", "developer"],
+    "description": "Decode and inspect JSON Web Tokens instantly in your browser. View the header, payload, and signature of any JWT — fully client-side, your tokens never leave your device.",
+    "shortDescription": "Decode and inspect JWT headers, payloads and signatures.",
+    "icon": "🔑",
+    "dateAdded": "2025-05-29",
+    "featured": true
+  },
+  {
     "slug": "json-to-typescript",
     "name": "JSON to TypeScript Generator",
     "category": "web-tools",
