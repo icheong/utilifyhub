@@ -15,9 +15,8 @@ interface Props {
 }
 
 const { tool } = Astro.props;
-const adsenseId = 'ca-pub-XXXXXXXXXXXXXXXX'; // ← Same as BaseLayout
+const adsenseId = 'ca-pub-XXXXXXXXXXXXXXXX';
 
-// Related tools: same category first, then by tag overlap
 const relatedTools = tools
   .filter(t => t.slug !== tool.slug)
   .map(t => ({
@@ -29,26 +28,21 @@ const relatedTools = tools
   .sort((a, b) => b.score - a.score)
   .slice(0, 6);
 
-// Structured data for this tool
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": tool.name,
   "description": tool.description,
-  "url": `https://yoursite.com/tools/${tool.slug}`,
+  "url": `https://utilifygrid.com/tools/${tool.slug}`,
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "datePublished": tool.dateAdded,
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yoursite.com" },
-      { "@type": "ListItem", "position": 2, "name": tool.category, "item": `https://yoursite.com/category/${tool.category}` },
+      { "@type": "ListItem", "position": 1, "name": "Home",            "item": "https://utilifygrid.com" },
+      { "@type": "ListItem", "position": 2, "name": tool.category,     "item": `https://utilifygrid.com/category/${tool.category}` },
       { "@type": "ListItem", "position": 3, "name": tool.name }
     ]
   }
@@ -56,39 +50,40 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title={`${tool.name} – Free Online Tool | ToolBox`}
+  title={`${tool.name} – Free Online Tool | UtilifyGrid`}
   description={tool.description}
   canonicalUrl={`/tools/${tool.slug}`}
   ogType="website"
   structuredData={structuredData}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div style="max-width:80rem; margin:0 auto; padding:2rem 1rem 3rem;">
 
-    <!-- Breadcrumb (SEO + UX) -->
-    <nav class="text-sm text-gray-500 mb-6" aria-label="Breadcrumb">
-      <ol class="flex items-center gap-2 flex-wrap">
-        <li><a href="/" class="hover:text-indigo-600 transition-colors">Home</a></li>
-        <li class="text-gray-300">›</li>
-        <li><a href={`/category/${tool.category}`} class="hover:text-indigo-600 transition-colors capitalize">{tool.category.replace('-', ' ')}</a></li>
-        <li class="text-gray-300">›</li>
-        <li class="text-gray-800 font-medium">{tool.name}</li>
+    <!-- Breadcrumb -->
+    <nav style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;" aria-label="Breadcrumb">
+      <ol style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; list-style:none; padding:0; margin:0;">
+        <li><a href="/" style="color:var(--text-secondary); text-decoration:none; transition:color 0.15s;" onmouseover="this.style.color='#1D4ED8';" onmouseout="this.style.color='var(--text-secondary)';">Home</a></li>
+        <li style="color:var(--text-muted);">›</li>
+        <li><a href={`/category/${tool.category}`} style="color:var(--text-secondary); text-decoration:none; text-transform:capitalize; transition:color 0.15s;" onmouseover="this.style.color='#1D4ED8';" onmouseout="this.style.color='var(--text-secondary)';">{tool.category.replace('-', ' ')}</a></li>
+        <li style="color:var(--text-muted);">›</li>
+        <li style="color:var(--text-primary); font-weight:500;">{tool.name}</li>
       </ol>
     </nav>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div style="display:grid; grid-template-columns:1fr; gap:2rem;" class="tl-grid">
 
-      <!-- LEFT SIDEBAR (desktop): Category nav + ad -->
-      <aside class="hidden lg:block lg:col-span-2">
-        <div class="sticky top-24 space-y-6">
+      <!-- LEFT SIDEBAR -->
+      <aside class="tl-sidebar-left">
+        <div style="position:sticky; top:5.5rem; display:flex; flex-direction:column; gap:1.5rem;">
 
-          <!-- Category quick nav -->
-          <div class="bg-white rounded-xl border border-gray-200 p-4">
-            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Categories</h3>
-            <nav class="space-y-1">
+          <!-- Category nav -->
+          <div style="background:var(--bg-surface); border:1.5px solid var(--border); border-radius:0.875rem; padding:1rem;">
+            <h3 style="font-size:0.72rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.75rem;">Categories</h3>
+            <nav style="display:flex; flex-direction:column; gap:0.25rem;">
               {(['calculators','converters','health','web-tools','estimators']).map(cat => (
                 <a
                   href={`/category/${cat}`}
-                  class={`block px-3 py-1.5 rounded-lg text-sm transition-colors capitalize ${tool.category === cat ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}`}
+                  style={`display:block; padding:0.4rem 0.75rem; border-radius:0.5rem; font-size:0.85rem; text-decoration:none; text-transform:capitalize; transition:all 0.15s; ${tool.category === cat ? 'background:#EFF6FF; color:#1D4ED8; font-weight:600;' : 'color:var(--text-secondary);'}`}
+                  class={tool.category === cat ? 'sidebar-cat-active' : 'sidebar-cat-link'}
                 >
                   {cat.replace('-', ' ')}
                 </a>
@@ -96,72 +91,59 @@ const structuredData = {
             </nav>
           </div>
 
-          <!-- Left sidebar ad (160x600 skyscraper) -->
-          <div class="flex justify-center">
-            <ins
-              class="adsbygoogle"
-              style="display:inline-block;width:160px;height:600px"
-              data-ad-client={adsenseId}
-              data-ad-slot="2345678901"
-              aria-label="Advertisement"
-            ></ins>
+          <!-- Skyscraper ad -->
+          <div style="display:flex; justify-content:center;">
+            <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px;"
+              data-ad-client={adsenseId} data-ad-slot="2345678901" aria-label="Advertisement"></ins>
           </div>
-
         </div>
       </aside>
 
       <!-- MAIN CONTENT -->
-      <article class="lg:col-span-7">
+      <article class="tl-main">
 
-        <!-- Tool header -->
-        <div class="mb-6">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-4xl">{tool.icon}</span>
+        <!-- Tool title -->
+        <div style="margin-bottom:1.5rem;">
+          <div style="display:flex; align-items:center; gap:0.875rem;">
+            <span style="font-size:2.5rem; line-height:1;">{tool.icon}</span>
             <div>
-              <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{tool.name}</h1>
-              <p class="text-gray-500 text-sm mt-0.5">{tool.description}</p>
+              <h1 style="font-family:'Sora',sans-serif; font-size:clamp(1.4rem,3vw,1.9rem); font-weight:700; color:var(--text-primary); margin:0 0 0.25rem;">{tool.name}</h1>
+              <p style="font-size:0.9rem; color:var(--text-secondary); margin:0;">{tool.description}</p>
             </div>
           </div>
         </div>
 
-        <!-- THE TOOL (injected by each tool's page) -->
-        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-8">
+        <!-- Tool workspace card -->
+        <div class="tool-card-surface" style="border-radius:1rem; padding:1.5rem; margin-bottom:2rem;">
           <slot name="tool" />
         </div>
 
-        <!-- ✦ AD SLOT: Below tool output — HIGHEST CTR position -->
-        <!-- Only shows AFTER user interacts; naturally follows result delivery -->
-        <div class="flex justify-center my-6">
-          <ins
-            class="adsbygoogle"
-            style="display:block"
-            data-ad-client={adsenseId}
-            data-ad-slot="3456789012"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-            aria-label="Advertisement"
-          ></ins>
+        <!-- Post-result ad -->
+        <div style="display:flex; justify-content:center; margin-bottom:2rem;">
+          <ins class="adsbygoogle" style="display:block;"
+            data-ad-client={adsenseId} data-ad-slot="3456789012"
+            data-ad-format="auto" data-full-width-responsive="true" aria-label="Advertisement"></ins>
         </div>
 
-        <!-- How to use — SEO content zone -->
-        <div class="prose prose-gray max-w-none mb-8">
+        <!-- How to use -->
+        <div class="seo-section" style="margin-bottom:1.5rem;">
           <slot name="how-to-use" />
         </div>
 
-        <!-- How it works — SEO content zone -->
-        <div class="bg-gray-50 rounded-xl border border-gray-100 p-6 mb-8">
+        <!-- How it works -->
+        <div class="seo-section-alt" style="margin-bottom:1.5rem;">
           <slot name="how-it-works" />
         </div>
 
-        <!-- FAQ — great for featured snippets -->
-        <div class="mb-8">
+        <!-- FAQ -->
+        <div style="margin-bottom:2rem;">
           <slot name="faq" />
         </div>
 
         <!-- Tags -->
-        <div class="flex flex-wrap gap-2 mb-8">
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:2rem;">
           {tool.tags.map(tag => (
-            <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-medium">
+            <span style="padding:0.2rem 0.75rem; background:var(--bg-surface-2); color:var(--text-secondary); border:1px solid var(--border); border-radius:999px; font-size:0.75rem; font-weight:500;">
               {tag}
             </span>
           ))}
@@ -169,48 +151,37 @@ const structuredData = {
 
       </article>
 
-      <!-- RIGHT SIDEBAR: Ads + related tools -->
-      <aside class="lg:col-span-3">
-        <div class="sticky top-24 space-y-6">
+      <!-- RIGHT SIDEBAR -->
+      <aside class="tl-sidebar-right">
+        <div style="position:sticky; top:5.5rem; display:flex; flex-direction:column; gap:1.5rem;">
 
-          <!-- Right sidebar ad (300x250 rectangle — highest RPM for tool sites) -->
-          <div class="flex justify-center">
-            <ins
-              class="adsbygoogle"
-              style="display:inline-block;width:300px;height:250px"
-              data-ad-client={adsenseId}
-              data-ad-slot="4567890123"
-              aria-label="Advertisement"
-            ></ins>
+          <!-- 300×250 ad -->
+          <div style="display:flex; justify-content:center;">
+            <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px;"
+              data-ad-client={adsenseId} data-ad-slot="4567890123" aria-label="Advertisement"></ins>
           </div>
 
           <!-- Related tools -->
-          <div class="bg-white rounded-xl border border-gray-200 p-4">
-            <h2 class="text-sm font-semibold text-gray-700 mb-3">Related Tools</h2>
-            <div class="space-y-2">
+          <div style="background:var(--bg-surface); border:1.5px solid var(--border); border-radius:0.875rem; padding:1rem;">
+            <h2 style="font-size:0.82rem; font-weight:700; color:var(--text-secondary); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">Related Tools</h2>
+            <div style="display:flex; flex-direction:column; gap:0.25rem;">
               {relatedTools.map(related => (
                 <a
                   href={`/tools/${related.slug}`}
-                  class="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 transition-colors group"
+                  class="related-tool-link"
+                  style="display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0.5rem; border-radius:0.5rem; text-decoration:none; transition:background 0.15s;"
                 >
-                  <span class="text-xl shrink-0">{related.icon}</span>
-                  <span class="text-sm text-gray-700 group-hover:text-indigo-700 font-medium leading-tight">
-                    {related.name}
-                  </span>
+                  <span style="font-size:1.25rem; flex-shrink:0;">{related.icon}</span>
+                  <span style="font-size:0.85rem; font-weight:500; color:var(--text-primary); line-height:1.3;">{related.name}</span>
                 </a>
               ))}
             </div>
           </div>
 
-          <!-- Second sidebar ad (300x250) -->
-          <div class="flex justify-center">
-            <ins
-              class="adsbygoogle"
-              style="display:inline-block;width:300px;height:250px"
-              data-ad-client={adsenseId}
-              data-ad-slot="5678901234"
-              aria-label="Advertisement"
-            ></ins>
+          <!-- Second 300×250 ad -->
+          <div style="display:flex; justify-content:center;">
+            <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px;"
+              data-ad-client={adsenseId} data-ad-slot="5678901234" aria-label="Advertisement"></ins>
           </div>
 
         </div>
@@ -218,19 +189,18 @@ const structuredData = {
 
     </div>
 
-    <!-- Related tools grid (below fold — mobile-friendly) -->
-    <div class="mt-12 pt-8 border-t border-gray-200">
-      <h2 class="text-xl font-bold text-gray-900 mb-6">More Tools You Might Like</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <!-- More tools grid -->
+    <div style="margin-top:3rem; padding-top:2.5rem; border-top:1px solid var(--border);">
+      <h2 style="font-family:'Sora',sans-serif; font-size:1.1rem; font-weight:700; color:var(--text-primary); margin-bottom:1.25rem;">More Tools You Might Like</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); gap:0.875rem;">
         {relatedTools.map(related => (
           <a
             href={`/tools/${related.slug}`}
-            class="flex flex-col items-center text-center p-4 bg-white rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-md transition-all group"
+            class="tool-card-themed"
+            style="display:flex; flex-direction:column; align-items:center; text-align:center; padding:1rem 0.75rem; text-decoration:none;"
           >
-            <span class="text-3xl mb-2">{related.icon}</span>
-            <span class="text-xs font-medium text-gray-700 group-hover:text-indigo-700 leading-tight">
-              {related.name}
-            </span>
+            <span style="font-size:1.75rem; margin-bottom:0.4rem;">{related.icon}</span>
+            <span style="font-size:0.78rem; font-weight:600; color:var(--text-primary); line-height:1.3;">{related.name}</span>
           </a>
         ))}
       </div>
@@ -239,8 +209,193 @@ const structuredData = {
   </div>
 </BaseLayout>
 
+<style>
+  /* Three-column grid layout */
+  @media (min-width: 1024px) {
+    .tl-grid {
+      grid-template-columns: 160px 1fr 280px !important;
+      grid-template-rows: auto;
+    }
+    .tl-sidebar-left  { display: block !important; }
+    .tl-sidebar-right { display: block !important; }
+  }
+
+  .tl-sidebar-left,
+  .tl-sidebar-right {
+    display: none;
+  }
+
+  /* Tool workspace card — theme-aware */
+  .tool-card-surface {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* SEO content sections */
+  .seo-section {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    border-radius: 0.875rem;
+    padding: 1.5rem;
+  }
+  .seo-section-alt {
+    background: var(--bg-surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 0.875rem;
+    padding: 1.5rem;
+  }
+
+  /* Sidebar category links hover */
+  .sidebar-cat-link:hover {
+    background: var(--bg-surface-2) !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Dark mode: active category pill */
+  :root.dark .sidebar-cat-active {
+    background: rgba(29, 78, 216, 0.2) !important;
+    color: #93C5FD !important;
+  }
+
+  /* Related tool links hover */
+  .related-tool-link:hover {
+    background: var(--bg-surface-2);
+  }
+  .related-tool-link:hover span:last-child {
+    color: #1D4ED8;
+  }
+  :root.dark .related-tool-link:hover span:last-child {
+    color: #60A5FA;
+  }
+
+  /* ── Dark mode overrides for tool page inline styles ─────────
+     Tool pages use inline style= attributes with hardcoded light
+     colours. These selectors override the most common ones.     */
+
+  /* Generic white backgrounds inside tool workspace */
+  :root.dark .tool-card-surface [style*="background:#fff"],
+  :root.dark .tool-card-surface [style*="background: #fff"],
+  :root.dark .tool-card-surface [style*="background:#FFFFFF"],
+  :root.dark .tool-card-surface [style*="background: #FFFFFF"],
+  :root.dark .tool-card-surface [style*="background: white"],
+  :root.dark .seo-section      [style*="background:#fff"],
+  :root.dark .seo-section      [style*="background:#FFFFFF"],
+  :root.dark .seo-section-alt  [style*="background:#fff"],
+  :root.dark .seo-section-alt  [style*="background:#FFFFFF"] {
+    background: var(--bg-surface-3) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Light surface backgrounds used for info rows / formula rows */
+  :root.dark .tool-card-surface [style*="background:#F8FAFC"],
+  :root.dark .tool-card-surface [style*="background: #F8FAFC"],
+  :root.dark .tool-card-surface [style*="background:#F1F5F9"],
+  :root.dark .seo-section       [style*="background:#F8FAFC"],
+  :root.dark .seo-section-alt   [style*="background:#F8FAFC"] {
+    background: var(--bg-surface-2) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Dark text on light backgrounds — flip to theme variable */
+  :root.dark .tool-card-surface [style*="color:#0F172A"],
+  :root.dark .tool-card-surface [style*="color: #0F172A"],
+  :root.dark .tool-card-surface [style*="color:#1E293B"],
+  :root.dark .tool-card-surface [style*="color:#0f172a"],
+  :root.dark .seo-section       [style*="color:#0F172A"],
+  :root.dark .seo-section-alt   [style*="color:#0F172A"] {
+    color: var(--text-primary) !important;
+  }
+
+  /* Mid-grey text — flip to theme secondary */
+  :root.dark .tool-card-surface [style*="color:#475569"],
+  :root.dark .tool-card-surface [style*="color:#64748B"],
+  :root.dark .seo-section       [style*="color:#475569"],
+  :root.dark .seo-section       [style*="color:#64748B"],
+  :root.dark .seo-section-alt   [style*="color:#475569"],
+  :root.dark .seo-section-alt   [style*="color:#64748B"] {
+    color: var(--text-secondary) !important;
+  }
+
+  /* Light border colours */
+  :root.dark .tool-card-surface [style*="border:1px solid #E2E8F0"],
+  :root.dark .tool-card-surface [style*="border: 1px solid #E2E8F0"],
+  :root.dark .tool-card-surface [style*="border:1.5px solid #E2E8F0"],
+  :root.dark .seo-section       [style*="border:1px solid #E2E8F0"],
+  :root.dark .seo-section-alt   [style*="border:1px solid #E2E8F0"] {
+    border-color: var(--border) !important;
+  }
+
+  /* Input fields inside dark mode */
+  :root.dark .tool-card-surface input,
+  :root.dark .tool-card-surface textarea,
+  :root.dark .tool-card-surface select {
+    background: var(--bg-surface-2) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+  }
+  :root.dark .tool-card-surface input::placeholder,
+  :root.dark .tool-card-surface textarea::placeholder {
+    color: var(--text-muted) !important;
+  }
+  :root.dark .tool-card-surface input:focus,
+  :root.dark .tool-card-surface textarea:focus,
+  :root.dark .tool-card-surface select:focus {
+    border-color: #3B82F6 !important;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15) !important;
+  }
+
+  /* FAQ cards */
+  :root.dark .seo-section [style*="border:1.5px solid #E2E8F0"],
+  :root.dark .seo-section [style*="border: 1.5px solid #E2E8F0"] {
+    background: var(--bg-surface-2) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Output/result readonly textareas (e.g. JSON→TS) */
+  :root.dark .tool-card-surface textarea[readonly] {
+    background: var(--bg-surface-3) !important;
+  }
+
+  /* Mode/toggle buttons in tool pages */
+  :root.dark .tool-card-surface button[style*="background:#fff"],
+  :root.dark .tool-card-surface button[style*="background: #fff"],
+  :root.dark .tool-card-surface button[style*="background:#FFFFFF"] {
+    background: var(--bg-surface-2) !important;
+    border-color: var(--border) !important;
+    color: var(--text-secondary) !important;
+  }
+
+  /* Options/settings rows */
+  :root.dark .tool-card-surface [style*="background:#F8FAFC"][style*="border:1px"] {
+    background: var(--bg-surface-2) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Headings inside tool cards */
+  :root.dark .tool-card-surface h2,
+  :root.dark .tool-card-surface h3,
+  :root.dark .seo-section h2,
+  :root.dark .seo-section h3,
+  :root.dark .seo-section-alt h2,
+  :root.dark .seo-section-alt h3 {
+    color: var(--text-primary) !important;
+  }
+
+  /* ── FAQ schema markup items ─── */
+  :root.dark [itemtype*="Question"] {
+    background: var(--bg-surface-2) !important;
+    border-color: var(--border) !important;
+  }
+  :root.dark [itemtype*="Question"] h3 {
+    color: var(--text-primary) !important;
+  }
+  :root.dark [itemtype*="Question"] p {
+    color: var(--text-secondary) !important;
+  }
+</style>
+
 <script>
-  // Push all ads on this page
   document.querySelectorAll('.adsbygoogle').forEach(() => {
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   });
