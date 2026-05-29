@@ -18,9 +18,9 @@ const {
   structuredData,
 } = Astro.props;
 
-const siteUrl = 'https://utilifygrid.com';
+const siteUrl  = 'https://utilifygrid.com';
 const siteName = 'UtilifyGrid';
-const adsenseId = 'ca-pub-XXXXXXXXXXXXXXXX'; // ← Replace with your AdSense ID
+const adsenseId = 'ca-pub-XXXXXXXXXXXXXXXX';
 const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
 ---
 
@@ -50,24 +50,18 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Google Fonts: Sora (display) + Inter (body) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
 
   <!-- Google AdSense -->
-  <script
-    async
-    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
-    crossorigin="anonymous"
-  ></script>
+  <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`} crossorigin="anonymous"></script>
 
   <!-- Structured Data -->
   {structuredData && (
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   )}
-
-  <!-- Site-level structured data -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -80,72 +74,85 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
     }
   })} />
 
-  <style>
-    :root {
-      --brand-blue:       #1D4ED8;
-      --brand-blue-dark:  #1E3A8A;
-      --brand-blue-light: #DBEAFE;
-      --brand-amber:      #F59E0B;
-      --brand-amber-dark: #D97706;
-      --brand-orange:     #EA580C;
-      --brand-orange-light: #FFF7ED;
-      --text-primary:     #0F172A;
-      --text-secondary:   #475569;
-      --surface:          #FFFFFF;
-      --surface-muted:    #F8FAFC;
-      --border:           #E2E8F0;
-    }
-    body { font-family: 'Inter', system-ui, sans-serif; }
-    h1, h2, h3, .font-display { font-family: 'Sora', system-ui, sans-serif; }
-  </style>
+  <!--
+    Anti-flash: apply saved theme BEFORE first paint.
+    Runs synchronously in <head> — no requestAnimationFrame delay.
+  -->
+  <script is:inline>
+    (function () {
+      try {
+        const saved = localStorage.getItem('ug-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (_) {}
+    })();
+  </script>
 </head>
 
-<body class="min-h-screen flex flex-col" style="background:#F8FAFC; color:#0F172A;">
+<body class="min-h-screen flex flex-col">
 
-  <!-- Header -->
-  <header style="background:#1E3A8A; border-bottom: 3px solid #F59E0B;" class="sticky top-0 z-50 shadow-md">
+  <!-- ── Header ───────────────────────────────────────────── -->
+  <header class="sticky top-0 z-50 shadow-md" style="background:#1E3A8A; border-bottom:3px solid #F59E0B;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center justify-between h-16 gap-4">
 
         <!-- Logo -->
-        <a href="/" class="flex items-center gap-2.5 group" aria-label="UtilifyGrid home">
-          <!-- Grid icon mark -->
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="UtilifyGrid home">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
             <rect width="14" height="14" rx="3" fill="#F59E0B"/>
             <rect x="18" width="14" height="14" rx="3" fill="#EA580C" opacity="0.85"/>
             <rect y="18" width="14" height="14" rx="3" fill="#3B82F6" opacity="0.9"/>
             <rect x="18" y="18" width="14" height="14" rx="3" fill="#F59E0B" opacity="0.7"/>
           </svg>
-          <span style="font-family:'Sora',sans-serif; font-weight:700; font-size:1.2rem; color:#FFFFFF; letter-spacing:-0.02em;">
+          <span style="font-family:'Sora',sans-serif; font-weight:700; font-size:1.2rem; color:#FFF; letter-spacing:-0.02em;">
             Utilify<span style="color:#F59E0B;">Grid</span>
           </span>
         </a>
 
-        <!-- Nav -->
-        <nav class="hidden md:flex items-center gap-1 text-sm font-medium">
+        <!-- Nav (desktop) -->
+        <nav class="hidden md:flex items-center gap-1 text-sm font-medium flex-1 justify-center">
           {categories.slice(0, 5).map(cat => (
             <a
               href={`/category/${cat.slug}`}
               style="color:#BFDBFE; padding:0.4rem 0.75rem; border-radius:0.5rem; transition:all 0.15s;"
-              onmouseover="this.style.background='rgba(255,255,255,0.12)'; this.style.color='#FFF';"
-              onmouseout="this.style.background='transparent'; this.style.color='#BFDBFE';"
+              onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='#FFF';"
+              onmouseout="this.style.background='transparent';this.style.color='#BFDBFE';"
             >
               {cat.name}
             </a>
           ))}
         </nav>
 
-        <!-- Mobile menu button -->
-        <button
-          id="mobile-menu-btn"
-          style="color:#BFDBFE; padding:0.5rem; border-radius:0.375rem;"
-          class="md:hidden"
-          aria-label="Open menu"
-        >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+        <!-- Right controls -->
+        <div class="flex items-center gap-2">
+
+          <!-- Theme toggle -->
+          <button id="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+            <!-- Sun icon (shown in dark mode) -->
+            <svg id="icon-sun" class="w-5 h-5" style="display:none;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5"/>
+              <path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <!-- Moon icon (shown in light mode) -->
+            <svg id="icon-moon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+            </svg>
+          </button>
+
+          <!-- Mobile menu button -->
+          <button
+            id="mobile-menu-btn"
+            style="color:#BFDBFE; padding:0.5rem; border-radius:0.375rem;"
+            class="md:hidden"
+            aria-label="Open menu"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Mobile nav -->
@@ -156,8 +163,7 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
               href={`/category/${cat.slug}`}
               style="display:flex; align-items:center; gap:0.5rem; padding:0.6rem 0.75rem; border-radius:0.5rem; font-size:0.875rem; color:#BFDBFE;"
             >
-              <span>{cat.icon}</span>
-              {cat.name}
+              <span>{cat.icon}</span>{cat.name}
             </a>
           ))}
         </div>
@@ -166,7 +172,7 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
   </header>
 
   <!-- Top Leaderboard Ad -->
-  <div style="background:#fff; border-bottom:1px solid #E2E8F0;">
+  <div style="background:var(--ad-bg); border-bottom:1px solid var(--border);">
     <div class="max-w-7xl mx-auto px-4 py-2 flex justify-center">
       <ins
         class="adsbygoogle"
@@ -186,7 +192,7 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
   </main>
 
   <!-- Footer -->
-  <footer style="background:#0F172A; color:#94A3B8; margin-top:5rem;">
+  <footer style="background:#0B1120; color:#94A3B8; margin-top:5rem; border-top:1px solid rgba(255,255,255,0.06);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-10">
 
@@ -209,13 +215,11 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
 
         <div>
           <h3 style="color:#F1F5F9; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.75rem;">Categories</h3>
-          <ul style="space-y:0.5rem; font-size:0.875rem;">
+          <ul style="font-size:0.875rem;">
             {categories.map(cat => (
               <li style="margin-bottom:0.5rem;">
                 <a href={`/category/${cat.slug}`} style="color:#94A3B8; transition:color 0.15s;"
-                  onmouseover="this.style.color='#F59E0B';" onmouseout="this.style.color='#94A3B8';">
-                  {cat.name}
-                </a>
+                  onmouseover="this.style.color='#F59E0B';" onmouseout="this.style.color='#94A3B8';">{cat.name}</a>
               </li>
             ))}
           </ul>
@@ -227,9 +231,7 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
             {[['About','about'],['Contact','contact'],['Privacy Policy','privacy-policy'],['Sitemap','sitemap.xml']].map(([label, href]) => (
               <li style="margin-bottom:0.5rem;">
                 <a href={`/${href}`} style="color:#94A3B8; transition:color 0.15s;"
-                  onmouseover="this.style.color='#F59E0B';" onmouseout="this.style.color='#94A3B8';">
-                  {label}
-                </a>
+                  onmouseover="this.style.color='#F59E0B';" onmouseout="this.style.color='#94A3B8';">{label}</a>
               </li>
             ))}
           </ul>
@@ -238,12 +240,10 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
         <div>
           <h3 style="color:#F1F5F9; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.75rem;">Popular Tools</h3>
           <ul style="font-size:0.875rem;">
-            {[['BMI Calculator','bmi-calculator'],['HEX to RGB','hex-to-rgb'],['Percentage Calculator','percentage-calculator'],['Word Counter','word-counter']].map(([label, slug]) => (
+            {[['BMI Calculator','bmi-calculator'],['HEX to RGB','hex-to-rgb'],['Percentage Calc','percentage-calculator'],['Word Counter','word-counter'],['JWT Debugger','jwt-debugger']].map(([label, slug]) => (
               <li style="margin-bottom:0.5rem;">
                 <a href={`/tools/${slug}`} style="color:#94A3B8; transition:color 0.15s;"
-                  onmouseover="this.style.color='#F59E0B';" onmouseout="this.style.color='#94A3B8';">
-                  {label}
-                </a>
+                  onmouseover="this.style.color='#F59E0B';" onmouseout="this.style.color='#94A3B8';">{label}</a>
               </li>
             ))}
           </ul>
@@ -258,9 +258,41 @@ const fullCanonical = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
   </footer>
 
   <script>
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+    // ── Mobile menu ───────────────────────────────────────────
+    document.getElementById('mobile-menu-btn')
+      ?.addEventListener('click', () =>
+        document.getElementById('mobile-menu')?.classList.toggle('hidden')
+      );
+
+    // ── Theme toggle ──────────────────────────────────────────
+    const html      = document.documentElement;
+    const toggleBtn = document.getElementById('theme-toggle')!;
+    const iconSun   = document.getElementById('icon-sun')   as HTMLElement;
+    const iconMoon  = document.getElementById('icon-moon')  as HTMLElement;
+
+    function isDark() {
+      return html.classList.contains('dark');
+    }
+
+    function applyTheme(dark: boolean) {
+      html.classList.toggle('dark', dark);
+      // Show sun in dark mode (click → go light), moon in light mode (click → go dark)
+      iconSun.style.display  = dark ? 'block' : 'none';
+      iconMoon.style.display = dark ? 'none'  : 'block';
+    }
+
+    // Apply correct icon on load (class already set by anti-flash script)
+    applyTheme(isDark());
+
+    toggleBtn.addEventListener('click', () => {
+      const goingDark = !isDark();
+      applyTheme(goingDark);
+      try {
+        localStorage.setItem('ug-theme', goingDark ? 'dark' : 'light');
+      } catch (_) {}
+    });
+
+    // ── AdSense ───────────────────────────────────────────────
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 
